@@ -13,7 +13,7 @@ namespace XPW
         protected void Page_Load(object sender, EventArgs e)
         {
             DashboardBC bc = new DashboardBC();
-            lblCOO2.Text = bc.GetMonthCO2Total().ToString();
+            lblCOO2.Text = bc.GetUtilitiesPrev(1).ToString();
         }
     }
 }

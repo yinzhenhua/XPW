@@ -206,6 +206,7 @@ namespace XPW.DA
             {
                 return;
             }
+            int index = 0;
             for (int i = 0; i < command.Parameters.Count; i++)
             {
                 var parameter = command.Parameters[i];
@@ -213,7 +214,7 @@ namespace XPW.DA
                 {
                     case ParameterDirection.Input:
                         {
-                            parameter.Value = parameters[i++];
+                            parameter.Value = parameters[index++];
                             break;
                         }
                     case ParameterDirection.ReturnValue:
