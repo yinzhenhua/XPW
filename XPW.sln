@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPW", "XPW\XPW.csproj", "{CD470235-C169-43F5-9489-AC4D2E94DE17}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPW.DA", "XPW.DA\XPW.DA.csproj", "{B217B18A-FCBE-49F2-9348-386A2E3031FB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPW.BC", "XPW.BC\XPW.BC.csproj", "{1E2523BA-4026-4443-9CC5-3C73DF1D16C0}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "XPW.DB", "XPW.DB\XPW.DB.sqlproj", "{B51E9B54-7FEC-47AA-B4CE-624D1CB5B6AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,12 @@ Global
 		{1E2523BA-4026-4443-9CC5-3C73DF1D16C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E2523BA-4026-4443-9CC5-3C73DF1D16C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E2523BA-4026-4443-9CC5-3C73DF1D16C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B51E9B54-7FEC-47AA-B4CE-624D1CB5B6AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B51E9B54-7FEC-47AA-B4CE-624D1CB5B6AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B51E9B54-7FEC-47AA-B4CE-624D1CB5B6AA}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{B51E9B54-7FEC-47AA-B4CE-624D1CB5B6AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B51E9B54-7FEC-47AA-B4CE-624D1CB5B6AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B51E9B54-7FEC-47AA-B4CE-624D1CB5B6AA}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
