@@ -58,12 +58,12 @@ namespace XPW.BC
         /// <summary>
         /// 获得截止今天的全年的电水气 @TYPE 1.电，2.水，3.气.
         /// </summary>
-        public decimal GetUtilities(int type)
+        public decimal GetUtilities(int deviceID)
         {
             try
             {
                 DataTable dt = new DataTable();
-                SqlDBAccess.Instance.Fill(dt, "GetUtilities", new object[] { type });
+                SqlDBAccess.Instance.Fill(dt, "GetUtilities", new object[] { deviceID });
                 if (dt.Rows.Count > 0)
                 {
                     return Convert.ToDecimal(dt.Rows[0][0]);
@@ -78,17 +78,52 @@ namespace XPW.BC
         /// <summary>
         /// 获得截止去年的电水气 @TYPE 1.电，2.水，3.气.
         /// </summary>
-        public decimal GetUtilitiesPrev(int type)
+        public decimal GetUtilitiesPrev(int deviceID)
         {
             try
             {
                 DataTable dt = new DataTable();
-                SqlDBAccess.Instance.Fill(dt, "GetUtilitiesPrev", new object[] { type });
+                SqlDBAccess.Instance.Fill(dt, "GetUtilitiesPrev", new object[] { deviceID });
                 if (dt.Rows.Count > 0)
                 {
                     return Convert.ToDecimal(dt.Rows[0][0]);
                 }
                 return decimal.Zero;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        /// <summary>
+        /// 获得能源明细
+        /// </summary>
+        /// <param name="deviceID"></param>
+        /// <returns></returns>
+        public DataTable GetUtilitiesEnergy(int deviceID)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                SqlDBAccess.Instance.Fill(dt, "GetUtilitiesEnergy", new object[] { deviceID });
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        /// <summary>
+        /// 获得去年每个月的能源明细 DataTable返回12列 1-12代表每月数据
+        /// </summary>
+        /// <returns></returns>
+        public DataTable GetUtilitiesPrevMonths(int deviceID)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                SqlDBAccess.Instance.Fill(dt, "GetUtilitiesPrevMonths", new object[] { deviceID });
+                return dt;
             }
             catch (Exception ex)
             {
