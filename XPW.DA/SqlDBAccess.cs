@@ -16,14 +16,17 @@ namespace XPW.DA
         {
             get
             {
-                lock (_lock)
+                if (_instance == null)
                 {
-                    if (_instance == null)
+                    lock (_lock)
                     {
-                        _instance = new DbUtility("XPW");
+                        if (_instance == null)
+                        {
+                            _instance = new DbUtility("XPW");
+                        }
                     }
-                    return _instance;
                 }
+                return _instance;
             }
         }
     }
