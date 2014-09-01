@@ -279,6 +279,8 @@ namespace XPW.BE {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class ElectricityConsumptionDataTable : global::System.Data.TypedTableBase<ElectricityConsumptionRow> {
             
+            private global::System.Data.DataColumn columnDeviceID;
+            
             private global::System.Data.DataColumn columnName;
             
             private global::System.Data.DataColumn columnPreviousYear;
@@ -344,6 +346,14 @@ namespace XPW.BE {
             protected ElectricityConsumptionDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn DeviceIDColumn {
+                get {
+                    return this.columnDeviceID;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -520,6 +530,7 @@ namespace XPW.BE {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ElectricityConsumptionRow AddElectricityConsumptionRow(
+                        int DeviceID, 
                         string Name, 
                         double PreviousYear, 
                         double YearlyTarget, 
@@ -539,6 +550,7 @@ namespace XPW.BE {
                         double TotalYTD) {
                 ElectricityConsumptionRow rowElectricityConsumptionRow = ((ElectricityConsumptionRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
+                        DeviceID,
                         Name,
                         PreviousYear,
                         YearlyTarget,
@@ -563,6 +575,13 @@ namespace XPW.BE {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ElectricityConsumptionRow FindByDeviceID(int DeviceID) {
+                return ((ElectricityConsumptionRow)(this.Rows.Find(new object[] {
+                            DeviceID})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public override global::System.Data.DataTable Clone() {
                 ElectricityConsumptionDataTable cln = ((ElectricityConsumptionDataTable)(base.Clone()));
                 cln.InitVars();
@@ -578,6 +597,7 @@ namespace XPW.BE {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
+                this.columnDeviceID = base.Columns["DeviceID"];
                 this.columnName = base.Columns["Name"];
                 this.columnPreviousYear = base.Columns["PreviousYear"];
                 this.columnYearlyTarget = base.Columns["YearlyTarget"];
@@ -600,6 +620,8 @@ namespace XPW.BE {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             private void InitClass() {
+                this.columnDeviceID = new global::System.Data.DataColumn("DeviceID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDeviceID);
                 this.columnName = new global::System.Data.DataColumn("Name", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnName);
                 this.columnPreviousYear = new global::System.Data.DataColumn("PreviousYear", typeof(double), null, global::System.Data.MappingType.Element);
@@ -634,6 +656,10 @@ namespace XPW.BE {
                 base.Columns.Add(this.columnWeek4);
                 this.columnTotalYTD = new global::System.Data.DataColumn("TotalYTD", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTotalYTD);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnDeviceID}, true));
+                this.columnDeviceID.AllowDBNull = false;
+                this.columnDeviceID.Unique = true;
                 this.columnName.MaxLength = 510;
                 this.columnPreviousYear.DefaultValue = ((double)(0D));
                 this.columnYearlyTarget.DefaultValue = ((double)(0D));
@@ -803,6 +829,17 @@ namespace XPW.BE {
             internal ElectricityConsumptionRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
                 this.tableElectricityConsumption = ((ElectricityConsumptionDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int DeviceID {
+                get {
+                    return ((int)(this[this.tableElectricityConsumption.DeviceIDColumn]));
+                }
+                set {
+                    this[this.tableElectricityConsumption.DeviceIDColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

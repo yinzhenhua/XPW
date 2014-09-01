@@ -12,9 +12,10 @@
   <xs:element name="ElectricityConsumptionDS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="ElectricityConsumptionDS" msprop:Generator_UserDSName="ElectricityConsumptionDS">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="ElectricityConsumption" msprop:Generator_TableClassName="ElectricityConsumptionDataTable" msprop:Generator_TableVarName="tableElectricityConsumption" msprop:Generator_TablePropName="ElectricityConsumption" msprop:Generator_RowDeletingName="ElectricityConsumptionRowDeleting" msprop:Generator_RowChangingName="ElectricityConsumptionRowChanging" msprop:Generator_RowEvHandlerName="ElectricityConsumptionRowChangeEventHandler" msprop:Generator_RowDeletedName="ElectricityConsumptionRowDeleted" msprop:Generator_UserTableName="ElectricityConsumption" msprop:Generator_RowChangedName="ElectricityConsumptionRowChanged" msprop:Generator_RowEvArgName="ElectricityConsumptionRowChangeEvent" msprop:Generator_RowClassName="ElectricityConsumptionRow">
+        <xs:element name="ElectricityConsumption" msprop:Generator_TableClassName="ElectricityConsumptionDataTable" msprop:Generator_TableVarName="tableElectricityConsumption" msprop:Generator_RowChangedName="ElectricityConsumptionRowChanged" msprop:Generator_TablePropName="ElectricityConsumption" msprop:Generator_RowDeletingName="ElectricityConsumptionRowDeleting" msprop:Generator_RowChangingName="ElectricityConsumptionRowChanging" msprop:Generator_RowEvHandlerName="ElectricityConsumptionRowChangeEventHandler" msprop:Generator_RowDeletedName="ElectricityConsumptionRowDeleted" msprop:Generator_RowClassName="ElectricityConsumptionRow" msprop:Generator_UserTableName="ElectricityConsumption" msprop:Generator_RowEvArgName="ElectricityConsumptionRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
+              <xs:element name="DeviceID" msprop:Generator_ColumnVarNameInTable="columnDeviceID" msprop:Generator_ColumnPropNameInRow="DeviceID" msprop:Generator_ColumnPropNameInTable="DeviceIDColumn" msprop:Generator_UserColumnName="DeviceID" type="xs:int" />
               <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -37,11 +38,15 @@
               <xs:element name="Week2" msdata:Caption="YearlyTarget" msprop:nullValue="0" msprop:Generator_ColumnPropNameInRow="Week2" msprop:Generator_ColumnVarNameInTable="columnWeek2" msprop:Generator_ColumnPropNameInTable="Week2Column" msprop:Generator_UserColumnName="Week2" type="xs:double" default="0" minOccurs="0" />
               <xs:element name="Week3" msdata:Caption="YearlyTarget" msprop:nullValue="0" msprop:Generator_ColumnPropNameInRow="Week3" msprop:Generator_ColumnVarNameInTable="columnWeek3" msprop:Generator_ColumnPropNameInTable="Week3Column" msprop:Generator_UserColumnName="Week3" type="xs:double" default="0" minOccurs="0" />
               <xs:element name="Week4" msdata:Caption="YearlyTarget" msprop:nullValue="0" msprop:Generator_ColumnPropNameInRow="Week4" msprop:Generator_ColumnVarNameInTable="columnWeek4" msprop:Generator_ColumnPropNameInTable="Week4Column" msprop:Generator_UserColumnName="Week4" type="xs:double" default="0" minOccurs="0" />
-              <xs:element name="TotalYTD" msdata:Caption="YearlyTarget" msprop:Generator_ColumnVarNameInTable="columnTotalYTD" msprop:Generator_ColumnPropNameInRow="TotalYTD" msprop:nullValue="0" msprop:Generator_ColumnPropNameInTable="TotalYTDColumn" msprop:Generator_UserColumnName="TotalYTD" type="xs:double" default="0" minOccurs="0" />
+              <xs:element name="TotalYTD" msdata:Caption="YearlyTarget" msprop:nullValue="0" msprop:Generator_ColumnPropNameInRow="TotalYTD" msprop:Generator_ColumnVarNameInTable="columnTotalYTD" msprop:Generator_ColumnPropNameInTable="TotalYTDColumn" msprop:Generator_UserColumnName="TotalYTD" type="xs:double" default="0" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
       </xs:choice>
     </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ElectricityConsumption" />
+      <xs:field xpath="mstns:DeviceID" />
+    </xs:unique>
   </xs:element>
 </xs:schema>
