@@ -17,7 +17,7 @@ namespace XPW.BC
         /// 获得截止今天的当月的碳排量
         /// </summary>
         /// <returns></returns>
-        public decimal GetCO2Mouth()
+        public double GetCO2Mouth()
         {
             try
             {
@@ -25,9 +25,9 @@ namespace XPW.BC
                 SqlDBAccess.Instance.Fill(dt, "GetCO2Mouth", null);
                 if (dt.Rows.Count > 0)
                 {
-                    return Convert.ToDecimal(dt.Rows[0][0]);
+                    return Convert.ToDouble(dt.Rows[0][0]);
                 }
-                return decimal.Zero;
+                return 0;
             }
             catch (Exception ex)
             {
@@ -38,7 +38,7 @@ namespace XPW.BC
         /// 获得截止当天的一年的碳排量
         /// </summary>
         /// <returns></returns>
-        public decimal GetCO2Year()
+        public double GetCO2Year()
         {
             try
             {
@@ -46,9 +46,9 @@ namespace XPW.BC
                 SqlDBAccess.Instance.Fill(dt, "GetCO2Year", null);
                 if (dt.Rows.Count > 0)
                 {
-                    return Convert.ToDecimal(dt.Rows[0][0]);
+                    return Convert.ToDouble(dt.Rows[0][0]);
                 }
-                return decimal.Zero;
+                return 0;
             }
             catch (Exception ex)
             {
@@ -58,7 +58,7 @@ namespace XPW.BC
         /// <summary>
         /// 获得截止今天的全年的电水气 @TYPE 1.电，2.水，3.气.
         /// </summary>
-        public decimal GetUtilities(int deviceID)
+        public double GetUtilities(int deviceID)
         {
             try
             {
@@ -66,9 +66,9 @@ namespace XPW.BC
                 SqlDBAccess.Instance.Fill(dt, "GetUtilities", new object[] { deviceID });
                 if (dt.Rows.Count > 0)
                 {
-                    return Convert.ToDecimal(dt.Rows[0][0]);
+                    return Convert.ToDouble(dt.Rows[0][0]);
                 }
-                return decimal.Zero;
+                return 0;
             }
             catch (Exception ex)
             {
@@ -78,7 +78,7 @@ namespace XPW.BC
         /// <summary>
         /// 获得截止去年的电水气 @TYPE 1.电，2.水，3.气.
         /// </summary>
-        public decimal GetUtilitiesPrev(int deviceID)
+        public double GetUtilitiesPrev(int deviceID)
         {
             try
             {
@@ -86,9 +86,9 @@ namespace XPW.BC
                 SqlDBAccess.Instance.Fill(dt, "GetUtilitiesPrev", new object[] { deviceID });
                 if (dt.Rows.Count > 0)
                 {
-                    return Convert.ToDecimal(dt.Rows[0][0]);
+                    return Convert.ToDouble(dt.Rows[0][0]);
                 }
-                return decimal.Zero;
+                return 0;
             }
             catch (Exception ex)
             {
