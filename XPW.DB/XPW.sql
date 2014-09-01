@@ -967,5 +967,157 @@ BEGIN
  0)  
    
  SELECT * FROM @TEMP_ENERGY  
-   
+END
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+--Dept. Equipment Energy Efficiency模块
+ALTER PROCEDURE [dbo].[GetEquipmentEnergyEfficiency]
+	@DeviceID INT,
+	@Benchmark INT,
+	@PreviousYear FLOAT,
+	@YTD FLOAT,
+	@Q1 FLOAT,
+	@Q2 FLOAT,
+	@Q3 FLOAT,
+	@Q4 FLOAT,
+	@Month1 FLOAT,
+	@Month2 FLOAT,
+	@Month3 FLOAT,
+	@Week1 FLOAT,
+	@Week2 FLOAT,
+	@Week3 FLOAT,
+	@Week4 FLOAT
+AS
+BEGIN
+	DECLARE @DAY_YEAR DATETIME
+	SET @DAY_YEAR = DATEADD(yy, DATEDIFF(yy,0,GETDATE()),0)
+	--去年的天数
+	DECLARE @DAY_YEAR_NUM INT
+	SET @DAY_YEAR_NUM = 365 
+	--YTD天数
+	DECLARE @DAY_YTD_NUM INT
+	SET @DAY_YTD_NUM = DATEDIFF(dd,@DAY_YEAR,GETDATE())
+	--Q1天数
+	DECLARE @DAY_Q1_NUM INT
+	SET @DAY_Q1_NUM = DATEDIFF(dd,@DAY_YEAR,DATEADD(qq,1,@DAY_YEAR))
+	--Q2天数
+	DECLARE @DAY_Q2_NUM INT
+	SET @DAY_Q2_NUM = DATEDIFF(dd,DATEADD(qq,1,@DAY_YEAR),DATEADD(qq,2,@DAY_YEAR))
+	--Q3天数
+	DECLARE @DAY_Q3_NUM INT
+	SET @DAY_Q3_NUM = DATEDIFF(dd,DATEADD(qq,2,@DAY_YEAR),DATEADD(qq,3,@DAY_YEAR))
+	--Q3天数
+	DECLARE @DAY_Q4_NUM INT
+	SET @DAY_Q4_NUM = DATEDIFF(dd,DATEADD(qq,3,@DAY_YEAR),DATEADD(qq,4,@DAY_YEAR))
+	--Month1
+	DECLARE @DAY_MONTH_1_NUM INT
+	DECLARE @DAY_MONTH_1 DATETIME
+    SET @DAY_MONTH_1 = DATEADD(mm,3*(DATEPART(qq,GETDATE())-1),@DAY_YEAR)
+    SET @DAY_MONTH_1_NUM = DATEDIFF(dd,@DAY_MONTH_1,DATEADD(mm,1,@DAY_MONTH_1))
+	--Month2
+	DECLARE @DAY_MONTH_2_NUM INT
+	SET @DAY_MONTH_2_NUM = DATEDIFF(dd,DATEADD(mm,1,@DAY_MONTH_1),DATEADD(mm,2,@DAY_MONTH_1))
+	--Month3
+	DECLARE @DAY_MONTH_3_NUM INT
+	SET @DAY_MONTH_3_NUM = DATEDIFF(dd,DATEADD(mm,2,@DAY_MONTH_1),DATEADD(mm,3,@DAY_MONTH_1))
+	--Week
+	DECLARE @DAY_WEEK_NUM INT
+	SET @DAY_WEEK_NUM = 7 	
+	--获取数据
+	DECLARE @TEMP_ENERGY TABLE(
+		Name VARCHAR(510),
+		PreviousYear FLOAT,
+		YTD FLOAT,
+		Q1 FLOAT,
+		Q2 FLOAT,
+		Q3 FLOAT,
+		Q4 FLOAT,
+		Month1 FLOAT,
+		Month2 FLOAT,
+		Month3 FLOAT,
+		Week1 FLOAT,
+		Week2 FLOAT,
+		Week3 FLOAT,
+		Week4 FLOAT
+	)
+	--Equipment Quantity定值后续会提供
+	INSERT INTO @TEMP_ENERGY VALUES('Equipment Quantity',
+		220,
+		220,
+		220,
+		220,
+		220,
+		220,
+		220,
+		220,
+		220,
+		220,
+		220,
+		220,
+		220)
+	--Capacity Factor定值后续会提供
+	INSERT INTO @TEMP_ENERGY VALUES('Capacity Factor',
+		0.97,
+		0.97,
+		0.97,
+		0.97,
+		0.97,
+		0.97,
+		0.97,
+		0.97,
+		0.97,
+		0.97,
+		0.97,
+		0.97,
+		0.97)
+	--Consumption – Goal
+	INSERT INTO @TEMP_ENERGY VALUES('Consumption – Goal’',
+		@Benchmark*0.97*220*@DAY_YEAR_NUM,
+		@Benchmark*0.97*220*@DAY_YTD_NUM,
+		@Benchmark*0.97*220*@DAY_Q1_NUM,
+		@Benchmark*0.97*220*@DAY_Q2_NUM,
+		@Benchmark*0.97*220*@DAY_Q3_NUM,
+		@Benchmark*0.97*220*@DAY_Q4_NUM,
+		@Benchmark*0.97*220*@DAY_MONTH_1_NUM,
+		@Benchmark*0.97*220*@DAY_MONTH_2_NUM,
+		@Benchmark*0.97*220*@DAY_MONTH_3_NUM,
+		@Benchmark*0.97*220*@DAY_WEEK_NUM,
+		@Benchmark*0.97*220*@DAY_WEEK_NUM,
+		@Benchmark*0.97*220*@DAY_WEEK_NUM,
+		@Benchmark*0.97*220*@DAY_WEEK_NUM)
+	--Consumption – Actual
+	INSERT INTO @TEMP_ENERGY VALUES('Consumption – Goal’',
+		@PreviousYear,
+		@YTD,
+		@Q1,
+		@Q2,
+		@Q3,
+		@Q4,
+		@Month1,
+		@Month2,
+		@Month3,
+		@Week1,
+		@Week2,
+		@Week3,
+		@Week4)
+	--Efficiency
+	INSERT INTO @TEMP_ENERGY VALUES('Efficiency’',
+		@PreviousYear/(@Benchmark*0.97*220*@DAY_YEAR_NUM),
+		@YTD/(@Benchmark*0.97*220*@DAY_YTD_NUM),
+		@Q1/(@Benchmark*0.97*220*@DAY_Q1_NUM),
+		@Q2/(@Benchmark*0.97*220*@DAY_Q2_NUM),
+		@Q3/(@Benchmark*0.97*220*@DAY_Q3_NUM),
+		@Q4/(@Benchmark*0.97*220*@DAY_Q4_NUM),
+		@Month1/(@Benchmark*0.97*220*@DAY_MONTH_1_NUM),
+		@Month2/(@Benchmark*0.97*220*@DAY_MONTH_2_NUM),
+		@Month3/(@Benchmark*0.97*220*@DAY_MONTH_3_NUM),
+		@Week1/(@Benchmark*0.97*220*@DAY_WEEK_NUM),
+		@Week2/(@Benchmark*0.97*220*@DAY_WEEK_NUM),
+		@Week3/(@Benchmark*0.97*220*@DAY_WEEK_NUM),
+		@Week4/(@Benchmark*0.97*220*@DAY_WEEK_NUM))
+		
+	SELECT * FROM @TEMP_ENERGY
+
 END
