@@ -192,7 +192,7 @@ BEGIN
 		SET @MONTH_F = DATEADD(mm,@INDEX,@DAY_YEAR)
 		SET @MONTH_L = DATEADD(ms,-3,DATEADD(mm,1,@MONTH_F))
 		SELECT @TOTAL = SUM(C.Value)
-		FROM ConsumptionData C
+	FROM ConsumptionData C
 		WHERE DeviceID=@DeviceID AND ReadingDate BETWEEN @MONTH_F AND @MONTH_L
 		IF @TOTAL IS NULL
 			SET @TOTAL = 0.0
@@ -235,7 +235,7 @@ BEGIN
 		SET @DAY_F = DATEADD(dd,@INDEX,@MONTH_DAY)
 		SET @DAY_L = DATEADD(ms,-3,DATEADD(dd,1,@DAY_F))
 		SELECT @TOTAL = SUM(C.Value)
-		FROM ConsumptionData C
+	FROM ConsumptionData C
 		WHERE DeviceID=@DeviceID AND ReadingDate BETWEEN @DAY_F AND @DAY_L
 		IF @TOTAL IS NULL
 			SET @TOTAL = 0.0
@@ -276,7 +276,7 @@ BEGIN
 		SET @HOUR_F = DATEADD(hh,@INDEX,@HOUR)
 		SET @HOUR_L = DATEADD(ms,-3,DATEADD(hh,1,@HOUR_F))
 		SELECT @TOTAL = SUM(C.Value)
-		FROM ConsumptionData C
+	FROM ConsumptionData C
 		WHERE DeviceID=@DeviceID AND (ReadingDate BETWEEN @HOUR_F AND @HOUR_L)
 		IF @TOTAL IS NULL
 			SET @TOTAL = 0.0
@@ -359,7 +359,7 @@ BEGIN
 	FROM ConsumptionData C
 	WHERE DeviceID IN (390,391,392,393,394,395,396,397,398,399,400)
 	AND (ReadingDate BETWEEN @DAY_YEAR AND GETDATE())
-	
+			
 	--Previous Year
 	DECLARE @TOTAL1 FLOAT 
 	SELECT @TOTAL1 = SUM(C.Value)
@@ -455,8 +455,8 @@ END
 GO
 --获得去年的水电气  
 ALTER PROCEDURE [dbo].[GetAllEquipmentEnergy]  
-AS  
-BEGIN  
+AS
+BEGIN
  --去年第一天和最后一天  
  DECLARE @DAY_YEAR_F DATETIME  
  DECLARE @DAY_YEAR_L DATETIME  
@@ -546,7 +546,7 @@ BEGIN
  INSERT INTO @TABLE(T) VALUES(398)  
  INSERT INTO @TABLE(T) VALUES(399)  
  INSERT INTO @TABLE(T) VALUES(400)  
-   
+	
  --今年的总数  
  DECLARE @TOTAL FLOAT   
  SELECT @TOTAL = SUM(C.Value)  
@@ -686,7 +686,7 @@ BEGIN
   --Week1  
   DECLARE @TOTAL12 FLOAT   
   SELECT @TOTAL12 = SUM(C.Value)  
-  FROM ConsumptionData C  
+	FROM ConsumptionData C
   WHERE DeviceID = @ID  
   AND (ReadingDate BETWEEN @WEEK_1_F AND @WEEK_1_L)  
   IF @TOTAL12 IS NULL   
@@ -695,7 +695,7 @@ BEGIN
   --Week2  
   DECLARE @TOTAL13 FLOAT   
   SELECT @TOTAL13 = SUM(C.Value)  
-  FROM ConsumptionData C  
+	FROM ConsumptionData C
   WHERE DeviceID = @ID  
   AND (ReadingDate BETWEEN @WEEK_2_F AND @WEEK_2_L)  
   IF @TOTAL13 IS NULL   
@@ -704,7 +704,7 @@ BEGIN
   --Week3  
   DECLARE @TOTAL14 FLOAT   
   SELECT @TOTAL14 = SUM(C.Value)  
-  FROM ConsumptionData C  
+	FROM ConsumptionData C
   WHERE DeviceID = @ID  
   AND (ReadingDate BETWEEN @WEEK_3_F AND @WEEK_3_L)  
   IF @TOTAL14 IS NULL   
@@ -713,13 +713,13 @@ BEGIN
   --Week4  
   DECLARE @TOTAL15 FLOAT   
   SELECT @TOTAL15 = SUM(C.Value)  
-  FROM ConsumptionData C  
+	FROM ConsumptionData C
   WHERE DeviceID = @ID  
   AND (ReadingDate BETWEEN @WEEK_4_F AND @WEEK_4_L)  
   IF @TOTAL15 IS NULL   
    SET @TOTAL15 = 0  
   SET @SUM_TOTAL_15 = @SUM_TOTAL_15+@TOTAL15  
-    
+			
   INSERT INTO @TEMP_ENERGY VALUES(
   @ID,
   @NAME,  
@@ -739,13 +739,13 @@ BEGIN
   @TOTAL14,  
   @TOTAL15,  
   0)  
-    
+			
  FETCH NEXT FROM CURSOR1 INTO @ID  
  END  
  CLOSE CURSOR1  
  DEALLOCATE CURSOR1  
  DELETE @TABLE  
-    
+	
  INSERT INTO @TEMP_ENERGY VALUES(
  -1,
  'Total',  
@@ -765,7 +765,7 @@ BEGIN
  @SUM_TOTAL_14,  
  @SUM_TOTAL_15,  
  0)  
-   
+			
  SELECT * FROM @TEMP_ENERGY  
 END
 SET ANSI_NULLS ON
@@ -917,9 +917,9 @@ BEGIN
 		@Week2/(@Benchmark*0.97*220*@DAY_WEEK_NUM),
 		@Week3/(@Benchmark*0.97*220*@DAY_WEEK_NUM),
 		@Week4/(@Benchmark*0.97*220*@DAY_WEEK_NUM))
-		
+	
 	SELECT * FROM @TEMP_ENERGY
-
+			
 END
 /****** Object:  StoredProcedure [dbo].[GetUtilitiesMonths]    Script Date: 09/02/2014 14:37:29 ******/
 SET ANSI_NULLS ON
@@ -949,7 +949,7 @@ BEGIN
 		SET @MONTH_F = DATEADD(mm,@INDEX,@DAY_YEAR)
 		SET @MONTH_L = DATEADD(ms,-3,DATEADD(mm,1,@MONTH_F))
 		SELECT @TOTAL = SUM(C.Value)
-		FROM ConsumptionData C
+	FROM ConsumptionData C
 		WHERE DeviceID=@DeviceID AND ReadingDate BETWEEN @MONTH_F AND @MONTH_L
 		IF @TOTAL IS NULL
 			SET @TOTAL = 0.0
@@ -992,7 +992,7 @@ BEGIN
   SET @DAY_F = DATEADD(dd,@INDEX,@MONTH_DAY)  
   SET @DAY_L = DATEADD(ms,-3,DATEADD(dd,1,@DAY_F))  
   SELECT @TOTAL = SUM(C.Value)  
-  FROM ConsumptionData C  
+	FROM ConsumptionData C
   WHERE DeviceID=@DeviceID AND ReadingDate BETWEEN @DAY_F AND @DAY_L  
   IF @TOTAL IS NULL  
    SET @TOTAL = 0.0  
@@ -1033,7 +1033,7 @@ BEGIN
 		SET @HOUR_F = DATEADD(hh,@INDEX,@HOUR)
 		SET @HOUR_L = DATEADD(ms,-3,DATEADD(hh,1,@HOUR_F))
 		SELECT @TOTAL = SUM(C.Value)
-		FROM ConsumptionData C
+	FROM ConsumptionData C
 		WHERE DeviceID=@DeviceID AND (ReadingDate BETWEEN @HOUR_F AND @HOUR_L)
 		IF @TOTAL IS NULL
 			SET @TOTAL = 0.0
