@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ChillerEnergyEfficiencyDS" targetNamespace="http://tempuri.org/ChillerEnergyEfficiencyDS.xsd" xmlns:mstns="http://tempuri.org/ChillerEnergyEfficiencyDS.xsd" xmlns="http://tempuri.org/ChillerEnergyEfficiencyDS.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="ChillerEnergyEfficiencyDS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="ChillerEnergyEfficiencyDS" msprop:Generator_UserDSName="ChillerEnergyEfficiencyDS">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ChillerEnergyEfficiency" msprop:Generator_TableClassName="ChillerEnergyEfficiencyDataTable" msprop:Generator_TableVarName="tableChillerEnergyEfficiency" msprop:Generator_TablePropName="ChillerEnergyEfficiency" msprop:Generator_RowDeletingName="ChillerEnergyEfficiencyRowDeleting" msprop:Generator_RowChangingName="ChillerEnergyEfficiencyRowChanging" msprop:Generator_RowEvHandlerName="ChillerEnergyEfficiencyRowChangeEventHandler" msprop:Generator_RowDeletedName="ChillerEnergyEfficiencyRowDeleted" msprop:Generator_UserTableName="ChillerEnergyEfficiency" msprop:Generator_RowChangedName="ChillerEnergyEfficiencyRowChanged" msprop:Generator_RowEvArgName="ChillerEnergyEfficiencyRowChangeEvent" msprop:Generator_RowClassName="ChillerEnergyEfficiencyRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" type="xs:string" minOccurs="0" />
+              <xs:element name="Chiller1" msdata:Caption="Power " msprop:Generator_ColumnVarNameInTable="columnChiller1" msprop:Generator_ColumnPropNameInRow="Chiller1" msprop:Generator_ColumnPropNameInTable="Chiller1Column" msprop:Generator_UserColumnName="Chiller1" type="xs:double" minOccurs="0" />
+              <xs:element name="Chiller2" msdata:Caption="Power " msprop:Generator_ColumnVarNameInTable="columnChiller2" msprop:Generator_ColumnPropNameInRow="Chiller2" msprop:Generator_ColumnPropNameInTable="Chiller2Column" msprop:Generator_UserColumnName="Chiller2" type="xs:double" minOccurs="0" />
+              <xs:element name="Chiller3" msdata:Caption="ElectricityConsumption" msprop:Generator_ColumnVarNameInTable="columnChiller3" msprop:Generator_ColumnPropNameInRow="Chiller3" msprop:Generator_ColumnPropNameInTable="Chiller3Column" msprop:Generator_UserColumnName="Chiller3" type="xs:string" minOccurs="0" />
+              <xs:element name="Chiller4" msdata:Caption="Power " msprop:Generator_ColumnVarNameInTable="columnChiller4" msprop:Generator_ColumnPropNameInRow="Chiller4" msprop:Generator_ColumnPropNameInTable="Chiller4Column" msprop:Generator_UserColumnName="Chiller4" type="xs:double" minOccurs="0" />
+              <xs:element name="Chiller5" msprop:Generator_ColumnVarNameInTable="columnChiller5" msprop:Generator_ColumnPropNameInRow="Chiller5" msprop:Generator_ColumnPropNameInTable="Chiller5Column" msprop:Generator_UserColumnName="Chiller5" type="xs:double" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

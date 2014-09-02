@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="DashboardBC.cs" />
     <Compile Include="ElectricityConsumptionBC.cs" />
+    <Compile Include="EquipmentEnergyBC.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

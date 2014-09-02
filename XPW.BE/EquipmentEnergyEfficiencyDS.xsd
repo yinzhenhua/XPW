@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="EquipmentEnergyEfficiencyDS" targetNamespace="http://tempuri.org/EquipmentEnergyEfficiencyDS.xsd" xmlns:mstns="http://tempuri.org/EquipmentEnergyEfficiencyDS.xsd" xmlns="http://tempuri.org/EquipmentEnergyEfficiencyDS.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="EquipmentEnergyEfficiencyDS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="EquipmentEnergyEfficiencyDS" msprop:Generator_UserDSName="EquipmentEnergyEfficiencyDS">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="EquipmentEnergyEfficiency" msprop:Generator_TableClassName="EquipmentEnergyEfficiencyDataTable" msprop:Generator_TableVarName="tableEquipmentEnergyEfficiency" msprop:Generator_TablePropName="EquipmentEnergyEfficiency" msprop:Generator_RowDeletingName="EquipmentEnergyEfficiencyRowDeleting" msprop:Generator_RowChangingName="EquipmentEnergyEfficiencyRowChanging" msprop:Generator_RowEvHandlerName="EquipmentEnergyEfficiencyRowChangeEventHandler" msprop:Generator_RowDeletedName="EquipmentEnergyEfficiencyRowDeleted" msprop:Generator_UserTableName="EquipmentEnergyEfficiency" msprop:Generator_RowChangedName="EquipmentEnergyEfficiencyRowChanged" msprop:Generator_RowEvArgName="EquipmentEnergyEfficiencyRowChangeEvent" msprop:Generator_RowClassName="EquipmentEnergyEfficiencyRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="DeviceID" msprop:Generator_ColumnVarNameInTable="columnDeviceID" msprop:Generator_ColumnPropNameInRow="DeviceID" msprop:Generator_ColumnPropNameInTable="DeviceIDColumn" msprop:Generator_UserColumnName="DeviceID" type="xs:int" />
+              <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="510" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PreviousYear" msprop:nullValue="0" msprop:Generator_ColumnPropNameInRow="PreviousYear" msprop:Generator_ColumnVarNameInTable="columnPreviousYear" msprop:Generator_ColumnPropNameInTable="PreviousYearColumn" msprop:Generator_UserColumnName="PreviousYear" type="xs:double" default="0" minOccurs="0" />
+              <xs:element name="YTD" msdata:Caption="YearlyTarget" msprop:nullValue="0" msprop:Generator_ColumnPropNameInRow="YTD" msprop:Generator_ColumnVarNameInTable="columnYTD" msprop:Generator_ColumnPropNameInTable="YTDColumn" msprop:Generator_UserColumnName="YTD" type="xs:double" default="0" minOccurs="0" />
+              <xs:element name="Q1" msdata:Caption="YearlyTarget" msprop:nullValue="0" msprop:Generator_ColumnPropNameInRow="Q1" msprop:Generator_ColumnVarNameInTable="columnQ1" msprop:Generator_ColumnPropNameInTable="Q1Column" msprop:Generator_UserColumnName="Q1" type="xs:double" default="0" minOccurs="0" />
+              <xs:element name="Q2" msdata:Caption="YearlyTarget" msprop:nullValue="0" msprop:Generator_ColumnPropNameInRow="Q2" msprop:Generator_ColumnVarNameInTable="columnQ2" msprop:Generator_ColumnPropNameInTable="Q2Column" msprop:Generator_UserColumnName="Q2" type="xs:double" default="0" minOccurs="0" />
+              <xs:element name="Q3" msdata:Caption="YearlyTarget" msprop:nullValue="0" msprop:Generator_ColumnPropNameInRow="Q3" msprop:Generator_ColumnVarNameInTable="columnQ3" msprop:Generator_ColumnPropNameInTable="Q3Column" msprop:Generator_UserColumnName="Q3" type="xs:double" default="0" minOccurs="0" />
+              <xs:element name="Q4" msdata:Caption="YearlyTarget" msprop:nullValue="0" msprop:Generator_ColumnPropNameInRow="Q4" msprop:Generator_ColumnVarNameInTable="columnQ4" msprop:Generator_ColumnPropNameInTable="Q4Column" msprop:Generator_UserColumnName="Q4" type="xs:double" default="0" minOccurs="0" />
+              <xs:element name="Month1" msdata:Caption="YearlyTarget" msprop:nullValue="0" msprop:Generator_ColumnPropNameInRow="Month1" msprop:Generator_ColumnVarNameInTable="columnMonth1" msprop:Generator_ColumnPropNameInTable="Month1Column" msprop:Generator_UserColumnName="Month1" type="xs:double" default="0" minOccurs="0" />
+              <xs:element name="Month2" msdata:Caption="YearlyTarget" msprop:nullValue="0" msprop:Generator_ColumnPropNameInRow="Month2" msprop:Generator_ColumnVarNameInTable="columnMonth2" msprop:Generator_ColumnPropNameInTable="Month2Column" msprop:Generator_UserColumnName="Month2" type="xs:double" default="0" minOccurs="0" />
+              <xs:element name="Month3" msdata:Caption="YearlyTarget" msprop:nullValue="0" msprop:Generator_ColumnPropNameInRow="Month3" msprop:Generator_ColumnVarNameInTable="columnMonth3" msprop:Generator_ColumnPropNameInTable="Month3Column" msprop:Generator_UserColumnName="Month3" type="xs:double" default="0" minOccurs="0" />
+              <xs:element name="Week1" msdata:Caption="YearlyTarget" msprop:nullValue="0" msprop:Generator_ColumnPropNameInRow="Week1" msprop:Generator_ColumnVarNameInTable="columnWeek1" msprop:Generator_ColumnPropNameInTable="Week1Column" msprop:Generator_UserColumnName="Week1" type="xs:double" default="0" minOccurs="0" />
+              <xs:element name="Week2" msdata:Caption="YearlyTarget" msprop:nullValue="0" msprop:Generator_ColumnPropNameInRow="Week2" msprop:Generator_ColumnVarNameInTable="columnWeek2" msprop:Generator_ColumnPropNameInTable="Week2Column" msprop:Generator_UserColumnName="Week2" type="xs:double" default="0" minOccurs="0" />
+              <xs:element name="Week3" msdata:Caption="YearlyTarget" msprop:nullValue="0" msprop:Generator_ColumnPropNameInRow="Week3" msprop:Generator_ColumnVarNameInTable="columnWeek3" msprop:Generator_ColumnPropNameInTable="Week3Column" msprop:Generator_UserColumnName="Week3" type="xs:double" default="0" minOccurs="0" />
+              <xs:element name="Week4" msdata:Caption="YearlyTarget" msprop:nullValue="0" msprop:Generator_ColumnPropNameInRow="Week4" msprop:Generator_ColumnVarNameInTable="columnWeek4" msprop:Generator_ColumnPropNameInTable="Week4Column" msprop:Generator_UserColumnName="Week4" type="xs:double" default="0" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:EquipmentEnergyEfficiency" />
+      <xs:field xpath="mstns:DeviceID" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

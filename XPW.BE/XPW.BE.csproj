@@ -39,7 +39,57 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChillerEnergyEfficiencyDS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChillerEnergyEfficiencyDS.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ElectricityConsumptionDS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ElectricityConsumptionDS.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="EquipmentEnergyEfficiencyDS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EquipmentEnergyEfficiencyDS.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ChillerEnergyEfficiencyDS.xsc">
+      <DependentUpon>ChillerEnergyEfficiencyDS.xsd</DependentUpon>
+    </None>
+    <None Include="ChillerEnergyEfficiencyDS.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ChillerEnergyEfficiencyDS.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ChillerEnergyEfficiencyDS.xss">
+      <DependentUpon>ChillerEnergyEfficiencyDS.xsd</DependentUpon>
+    </None>
+    <None Include="ElectricityConsumptionDS.xsc">
+      <DependentUpon>ElectricityConsumptionDS.xsd</DependentUpon>
+    </None>
+    <None Include="ElectricityConsumptionDS.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ElectricityConsumptionDS.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ElectricityConsumptionDS.xss">
+      <DependentUpon>ElectricityConsumptionDS.xsd</DependentUpon>
+    </None>
+    <None Include="EquipmentEnergyEfficiencyDS.xsc">
+      <DependentUpon>EquipmentEnergyEfficiencyDS.xsd</DependentUpon>
+    </None>
+    <None Include="EquipmentEnergyEfficiencyDS.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>EquipmentEnergyEfficiencyDS.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="EquipmentEnergyEfficiencyDS.xss">
+      <DependentUpon>EquipmentEnergyEfficiencyDS.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
