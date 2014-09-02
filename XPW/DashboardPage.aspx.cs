@@ -10,10 +10,18 @@ namespace XPW
 {
     public partial class DashboardPage : XPWPageBase
     {
+        DashboardBC _bc = new DashboardBC();
         protected void Page_Load(object sender, EventArgs e)
         {
-            DashboardBC bc = new DashboardBC();
-            lblCOO2.Text = bc.GetUtilitiesPrev(1).ToString();
+            
+        }
+
+       public int CO2
+        {
+           get
+            {
+                return (int)(_bc.GetCO2Year()*0.001);
+            }
         }
     }
 }
