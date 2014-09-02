@@ -39,6 +39,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChillerEnergyEfficiencyDS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChillerEnergyEfficiencyDS.xsd</DependentUpon>
+    </Compile>
     <Compile Include="ElectricityConsumptionDS.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -52,6 +57,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ChillerEnergyEfficiencyDS.xsc">
+      <DependentUpon>ChillerEnergyEfficiencyDS.xsd</DependentUpon>
+    </None>
+    <None Include="ChillerEnergyEfficiencyDS.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ChillerEnergyEfficiencyDS.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ChillerEnergyEfficiencyDS.xss">
+      <DependentUpon>ChillerEnergyEfficiencyDS.xsd</DependentUpon>
+    </None>
     <None Include="ElectricityConsumptionDS.xsc">
       <DependentUpon>ElectricityConsumptionDS.xsd</DependentUpon>
     </None>

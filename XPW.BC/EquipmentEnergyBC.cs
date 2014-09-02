@@ -57,5 +57,22 @@ namespace XPW.BC
                 throw ex;
             }
         }
+        /// <summary>
+        /// 获得ChillerEnergyEfficiency
+        /// </summary>
+        /// <returns></returns>
+        public ChillerEnergyEfficiencyDS GetChillerEnergyEfficiency()
+        {
+            try
+            {
+                ChillerEnergyEfficiencyDS ds = new ChillerEnergyEfficiencyDS();
+                SqlDBAccess.Instance.Fill(ds.ChillerEnergyEfficiency, "GetChillerEnergyEfficiency", null);
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

@@ -114,7 +114,7 @@ namespace XPW.BC
             }
         }
         /// <summary>
-        /// 获得去年每个月的能源明细 DataTable返回12列 1-12代表每月数据
+        /// 获得去年每个月的能源明细 DataTable返回12行分别对应每个月数据
         /// </summary>
         /// <returns></returns>
         public DataTable GetUtilitiesPrevMonths(int deviceID)
@@ -123,6 +123,95 @@ namespace XPW.BC
             {
                 DataTable dt = new DataTable();
                 SqlDBAccess.Instance.Fill(dt, "GetUtilitiesPrevMonths", new object[] { deviceID });
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        /// <summary>
+        /// 获得去年指定月份的30或31天的能源明细
+        /// </summary>
+        /// <param name="deviceID"></param>
+        /// <param name="month"></param>
+        /// <returns></returns>
+        public DataTable GetUtilitiesPrevDays(int deviceID, int month)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                SqlDBAccess.Instance.Fill(dt, "GetUtilitiesPrevDays", new object[] { deviceID, month });
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        /// <summary>
+        /// 获得去年指定月份指定某一天的的24小时能源明细
+        /// </summary>
+        /// <returns></returns>
+        public DataTable GetUtilitiesPrevHours(int deviceID, int month, int day)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                SqlDBAccess.Instance.Fill(dt, "GetUtilitiesPrevHours", new object[] { deviceID, month, day });
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        /// <summary>
+        /// 获得今年每个月的能源明细 DataTable返回12行分别对应每个月数据
+        /// </summary>
+        /// <returns></returns>
+        public DataTable GetUtilitiesMonths(int deviceID)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                SqlDBAccess.Instance.Fill(dt, "GetUtilitiesMonths", new object[] { deviceID });
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        /// <summary>
+        /// 获得今年指定月份的30或31天的能源明细
+        /// </summary>
+        /// <param name="deviceID"></param>
+        /// <param name="month"></param>
+        /// <returns></returns>
+        public DataTable GetUtilitiesDays(int deviceID, int month)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                SqlDBAccess.Instance.Fill(dt, "GetUtilitiesDays", new object[] { deviceID, month });
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        /// <summary>
+        /// 获得今年指定月份指定某一天的的24小时能源明细
+        /// </summary>
+        /// <returns></returns>
+        public DataTable GetUtilitiesHours(int deviceID, int month, int day)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                SqlDBAccess.Instance.Fill(dt, "GetUtilitiesHours", new object[] { deviceID, month, day });
                 return dt;
             }
             catch (Exception ex)
