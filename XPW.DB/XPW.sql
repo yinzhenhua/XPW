@@ -772,154 +772,154 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
---Dept. Equipment Energy Efficiency模块
-ALTER PROCEDURE [dbo].[GetEquipmentEnergyEfficiency]
-	@DeviceID INT,
-	@Benchmark INT,
-	@PreviousYear FLOAT,
-	@YTD FLOAT,
-	@Q1 FLOAT,
-	@Q2 FLOAT,
-	@Q3 FLOAT,
-	@Q4 FLOAT,
-	@Month1 FLOAT,
-	@Month2 FLOAT,
-	@Month3 FLOAT,
-	@Week1 FLOAT,
-	@Week2 FLOAT,
-	@Week3 FLOAT,
-	@Week4 FLOAT
-AS
-BEGIN
-	DECLARE @DAY_YEAR DATETIME
-	SET @DAY_YEAR = DATEADD(yy, DATEDIFF(yy,0,GETDATE()),0)
-	--去年的天数
-	DECLARE @DAY_YEAR_NUM INT
-	SET @DAY_YEAR_NUM = 365 
-	--YTD天数
-	DECLARE @DAY_YTD_NUM INT
-	SET @DAY_YTD_NUM = DATEDIFF(dd,@DAY_YEAR,GETDATE())
-	--Q1天数
-	DECLARE @DAY_Q1_NUM INT
-	SET @DAY_Q1_NUM = DATEDIFF(dd,@DAY_YEAR,DATEADD(qq,1,@DAY_YEAR))
-	--Q2天数
-	DECLARE @DAY_Q2_NUM INT
-	SET @DAY_Q2_NUM = DATEDIFF(dd,DATEADD(qq,1,@DAY_YEAR),DATEADD(qq,2,@DAY_YEAR))
-	--Q3天数
-	DECLARE @DAY_Q3_NUM INT
-	SET @DAY_Q3_NUM = DATEDIFF(dd,DATEADD(qq,2,@DAY_YEAR),DATEADD(qq,3,@DAY_YEAR))
-	--Q3天数
-	DECLARE @DAY_Q4_NUM INT
-	SET @DAY_Q4_NUM = DATEDIFF(dd,DATEADD(qq,3,@DAY_YEAR),DATEADD(qq,4,@DAY_YEAR))
-	--Month1
-	DECLARE @DAY_MONTH_1_NUM INT
-	DECLARE @DAY_MONTH_1 DATETIME
-    SET @DAY_MONTH_1 = DATEADD(mm,3*(DATEPART(qq,GETDATE())-1),@DAY_YEAR)
-    SET @DAY_MONTH_1_NUM = DATEDIFF(dd,@DAY_MONTH_1,DATEADD(mm,1,@DAY_MONTH_1))
-	--Month2
-	DECLARE @DAY_MONTH_2_NUM INT
-	SET @DAY_MONTH_2_NUM = DATEDIFF(dd,DATEADD(mm,1,@DAY_MONTH_1),DATEADD(mm,2,@DAY_MONTH_1))
-	--Month3
-	DECLARE @DAY_MONTH_3_NUM INT
-	SET @DAY_MONTH_3_NUM = DATEDIFF(dd,DATEADD(mm,2,@DAY_MONTH_1),DATEADD(mm,3,@DAY_MONTH_1))
-	--Week
-	DECLARE @DAY_WEEK_NUM INT
-	SET @DAY_WEEK_NUM = 7 	
-	--获取数据
-	DECLARE @TEMP_ENERGY TABLE(
-		Name VARCHAR(510),
-		PreviousYear FLOAT,
-		YTD FLOAT,
-		Q1 FLOAT,
-		Q2 FLOAT,
-		Q3 FLOAT,
-		Q4 FLOAT,
-		Month1 FLOAT,
-		Month2 FLOAT,
-		Month3 FLOAT,
-		Week1 FLOAT,
-		Week2 FLOAT,
-		Week3 FLOAT,
-		Week4 FLOAT
+--Dept. Equipment Energy Efficiency模块  
+ALTER PROCEDURE [dbo].[GetEquipmentEnergyEfficiency]  
+ @DeviceID INT,  
+ @Benchmark INT,  
+ @PreviousYear FLOAT,  
+ @YTD FLOAT,  
+ @Q1 FLOAT,  
+ @Q2 FLOAT,  
+ @Q3 FLOAT,  
+ @Q4 FLOAT,  
+ @Month1 FLOAT,  
+ @Month2 FLOAT,  
+ @Month3 FLOAT,  
+ @Week1 FLOAT,  
+ @Week2 FLOAT,  
+ @Week3 FLOAT,  
+ @Week4 FLOAT  
+AS  
+BEGIN  
+ DECLARE @DAY_YEAR DATETIME  
+ SET @DAY_YEAR = DATEADD(yy, DATEDIFF(yy,0,GETDATE()),0)  
+ --去年的天数  
+ DECLARE @DAY_YEAR_NUM INT  
+ SET @DAY_YEAR_NUM = 365   
+ --YTD天数  
+ DECLARE @DAY_YTD_NUM INT  
+ SET @DAY_YTD_NUM = DATEDIFF(dd,@DAY_YEAR,GETDATE())  
+ --Q1天数  
+ DECLARE @DAY_Q1_NUM INT  
+ SET @DAY_Q1_NUM = DATEDIFF(dd,@DAY_YEAR,DATEADD(qq,1,@DAY_YEAR))  
+ --Q2天数  
+ DECLARE @DAY_Q2_NUM INT  
+ SET @DAY_Q2_NUM = DATEDIFF(dd,DATEADD(qq,1,@DAY_YEAR),DATEADD(qq,2,@DAY_YEAR))  
+ --Q3天数  
+ DECLARE @DAY_Q3_NUM INT  
+ SET @DAY_Q3_NUM = DATEDIFF(dd,DATEADD(qq,2,@DAY_YEAR),DATEADD(qq,3,@DAY_YEAR))  
+ --Q3天数  
+ DECLARE @DAY_Q4_NUM INT  
+ SET @DAY_Q4_NUM = DATEDIFF(dd,DATEADD(qq,3,@DAY_YEAR),DATEADD(qq,4,@DAY_YEAR))  
+ --Month1  
+ DECLARE @DAY_MONTH_1_NUM INT  
+ DECLARE @DAY_MONTH_1 DATETIME  
+    SET @DAY_MONTH_1 = DATEADD(mm,3*(DATEPART(qq,GETDATE())-1),@DAY_YEAR)  
+    SET @DAY_MONTH_1_NUM = DATEDIFF(dd,@DAY_MONTH_1,DATEADD(mm,1,@DAY_MONTH_1))  
+ --Month2  
+ DECLARE @DAY_MONTH_2_NUM INT  
+ SET @DAY_MONTH_2_NUM = DATEDIFF(dd,DATEADD(mm,1,@DAY_MONTH_1),DATEADD(mm,2,@DAY_MONTH_1))  
+ --Month3  
+ DECLARE @DAY_MONTH_3_NUM INT  
+ SET @DAY_MONTH_3_NUM = DATEDIFF(dd,DATEADD(mm,2,@DAY_MONTH_1),DATEADD(mm,3,@DAY_MONTH_1))  
+ --Week  
+ DECLARE @DAY_WEEK_NUM INT  
+ SET @DAY_WEEK_NUM = 7    
+ --获取数据  
+ DECLARE @TEMP_ENERGY TABLE(  
+  Name VARCHAR(510),  
+  PreviousYear FLOAT,  
+  YTD FLOAT,  
+  Q1 FLOAT,  
+  Q2 FLOAT,  
+  Q3 FLOAT,  
+  Q4 FLOAT,  
+  Month1 FLOAT,  
+  Month2 FLOAT,  
+  Month3 FLOAT,  
+  Week1 FLOAT,  
+  Week2 FLOAT,  
+  Week3 FLOAT,  
+  Week4 FLOAT  
+ )  
+ --Equipment Quantity定值后续会提供  
+ INSERT INTO @TEMP_ENERGY VALUES('Equipment Quantity',  
+  220,  
+  220,  
+  220,  
+  220,  
+  220,  
+  220,  
+  220,  
+  220,  
+  220,  
+  220,  
+  220,  
+  220,  
+  220)  
+ --Capacity Factor定值后续会提供  
+ INSERT INTO @TEMP_ENERGY VALUES('Capacity Factor',  
+  0.91,  
+  0.91,  
+  0.91,  
+  0.91,  
+  0.91,  
+  0.91,  
+  0.91,  
+  0.91,  
+  0.91,  
+  0.91,  
+  0.91,  
+  0.91,  
+  0.91)  
+ --Consumption – Goal  
+ INSERT INTO @TEMP_ENERGY VALUES('Consumption – Goal',  
+  @Benchmark*0.91*220*@DAY_YEAR_NUM,  
+  @Benchmark*0.91*220*@DAY_YTD_NUM,  
+  @Benchmark*0.91*220*@DAY_Q1_NUM,  
+  @Benchmark*0.91*220*@DAY_Q2_NUM,  
+  @Benchmark*0.91*220*@DAY_Q3_NUM,  
+  @Benchmark*0.91*220*@DAY_Q4_NUM,  
+  @Benchmark*0.91*220*@DAY_MONTH_1_NUM,  
+  @Benchmark*0.91*220*@DAY_MONTH_2_NUM,  
+  @Benchmark*0.91*220*@DAY_MONTH_3_NUM,  
+  @Benchmark*0.91*220*@DAY_WEEK_NUM,  
+  @Benchmark*0.91*220*@DAY_WEEK_NUM,  
+  @Benchmark*0.91*220*@DAY_WEEK_NUM,  
+  @Benchmark*0.91*220*@DAY_WEEK_NUM)  
+ --Consumption – Actual  
+ INSERT INTO @TEMP_ENERGY VALUES('Consumption – Actual',  
+  @PreviousYear,  
+  @YTD,  
+  @Q1,  
+  @Q2,  
+  @Q3,  
+  @Q4,  
+  @Month1,  
+  @Month2,  
+  @Month3,  
+  @Week1,  
+  @Week2,  
+  @Week3,  
+  @Week4)  
+ --Efficiency  
+ INSERT INTO @TEMP_ENERGY VALUES('Efficiency',
+	CONVERT(decimal(18,2),@PreviousYear/(@Benchmark*0.91*220*@DAY_YEAR_NUM)),
+	CONVERT(decimal(18,2),@YTD/(@Benchmark*0.91*220*@DAY_YTD_NUM)),
+	CONVERT(decimal(18,2),@Q1/(@Benchmark*0.91*220*@DAY_Q1_NUM)),
+	CONVERT(decimal(18,2),@Q2/(@Benchmark*0.91*220*@DAY_Q2_NUM)),
+	CONVERT(decimal(18,2),@Q3/(@Benchmark*0.91*220*@DAY_Q3_NUM)),
+	CONVERT(decimal(18,2),@Q4/(@Benchmark*0.91*220*@DAY_Q4_NUM)),
+	CONVERT(decimal(18,2),@Month1/(@Benchmark*0.91*220*@DAY_MONTH_1_NUM)),
+	CONVERT(decimal(18,2),@Month2/(@Benchmark*0.91*220*@DAY_MONTH_2_NUM)),
+	CONVERT(decimal(18,2),@Month3/(@Benchmark*0.91*220*@DAY_MONTH_3_NUM)),
+	CONVERT(decimal(18,2),@Week1/(@Benchmark*0.91*220*@DAY_WEEK_NUM)),
+	CONVERT(decimal(18,2),@Week2/(@Benchmark*0.91*220*@DAY_WEEK_NUM)),
+	CONVERT(decimal(18,2),@Week3/(@Benchmark*0.91*220*@DAY_WEEK_NUM)),
+	CONVERT(decimal(18,2),@Week4/(@Benchmark*0.91*220*@DAY_WEEK_NUM))
 	)
-	--Equipment Quantity定值后续会提供
-	INSERT INTO @TEMP_ENERGY VALUES('Equipment Quantity',
-		220,
-		220,
-		220,
-		220,
-		220,
-		220,
-		220,
-		220,
-		220,
-		220,
-		220,
-		220,
-		220)
-	--Capacity Factor定值后续会提供
-	INSERT INTO @TEMP_ENERGY VALUES('Capacity Factor',
-		0.97,
-		0.97,
-		0.97,
-		0.97,
-		0.97,
-		0.97,
-		0.97,
-		0.97,
-		0.97,
-		0.97,
-		0.97,
-		0.97,
-		0.97)
-	--Consumption – Goal
-	INSERT INTO @TEMP_ENERGY VALUES('Consumption – Goal’',
-		@Benchmark*0.97*220*@DAY_YEAR_NUM,
-		@Benchmark*0.97*220*@DAY_YTD_NUM,
-		@Benchmark*0.97*220*@DAY_Q1_NUM,
-		@Benchmark*0.97*220*@DAY_Q2_NUM,
-		@Benchmark*0.97*220*@DAY_Q3_NUM,
-		@Benchmark*0.97*220*@DAY_Q4_NUM,
-		@Benchmark*0.97*220*@DAY_MONTH_1_NUM,
-		@Benchmark*0.97*220*@DAY_MONTH_2_NUM,
-		@Benchmark*0.97*220*@DAY_MONTH_3_NUM,
-		@Benchmark*0.97*220*@DAY_WEEK_NUM,
-		@Benchmark*0.97*220*@DAY_WEEK_NUM,
-		@Benchmark*0.97*220*@DAY_WEEK_NUM,
-		@Benchmark*0.97*220*@DAY_WEEK_NUM)
-	--Consumption – Actual
-	INSERT INTO @TEMP_ENERGY VALUES('Consumption – Goal’',
-		@PreviousYear,
-		@YTD,
-		@Q1,
-		@Q2,
-		@Q3,
-		@Q4,
-		@Month1,
-		@Month2,
-		@Month3,
-		@Week1,
-		@Week2,
-		@Week3,
-		@Week4)
-	--Efficiency
-	INSERT INTO @TEMP_ENERGY VALUES('Efficiency’',
-		@PreviousYear/(@Benchmark*0.97*220*@DAY_YEAR_NUM),
-		@YTD/(@Benchmark*0.97*220*@DAY_YTD_NUM),
-		@Q1/(@Benchmark*0.97*220*@DAY_Q1_NUM),
-		@Q2/(@Benchmark*0.97*220*@DAY_Q2_NUM),
-		@Q3/(@Benchmark*0.97*220*@DAY_Q3_NUM),
-		@Q4/(@Benchmark*0.97*220*@DAY_Q4_NUM),
-		@Month1/(@Benchmark*0.97*220*@DAY_MONTH_1_NUM),
-		@Month2/(@Benchmark*0.97*220*@DAY_MONTH_2_NUM),
-		@Month3/(@Benchmark*0.97*220*@DAY_MONTH_3_NUM),
-		@Week1/(@Benchmark*0.97*220*@DAY_WEEK_NUM),
-		@Week2/(@Benchmark*0.97*220*@DAY_WEEK_NUM),
-		@Week3/(@Benchmark*0.97*220*@DAY_WEEK_NUM),
-		@Week4/(@Benchmark*0.97*220*@DAY_WEEK_NUM))
-	
-	SELECT * FROM @TEMP_ENERGY
-			
+    
+ SELECT * FROM @TEMP_ENERGY  
 END
 /****** Object:  StoredProcedure [dbo].[GetUtilitiesMonths]    Script Date: 09/02/2014 14:37:29 ******/
 SET ANSI_NULLS ON
@@ -1041,4 +1041,199 @@ BEGIN
 		SET @INDEX = @INDEX+1
 	END
 	SELECT * FROM @TEMP_ENGERY
+END
+GO
+--Equipment Energy Efficiency模块  
+ALTER PROCEDURE [dbo].[GetChillerEnergyEfficiency]  
+AS  
+BEGIN  
+   
+ DECLARE @TEMP_ENERGY TABLE(  
+  Name VARCHAR(510),  
+  Chiller1 FLOAT,  
+  Chiller2 FLOAT,  
+  Chiller3 FLOAT,  
+  Chiller4  FLOAT,  
+  Chiller5 FLOAT  
+ )  
+ --Nominal Power   
+ INSERT INTO @TEMP_ENERGY VALUES(  
+  'Nominal Power',  
+  0,  
+  505,  
+  505,  
+  608,  
+  785  
+ )  
+ --Nominal CC  
+ INSERT INTO @TEMP_ENERGY VALUES(  
+  'Nominal CC',  
+  0,  
+  2700,  
+  2700,  
+  3516,  
+  4570  
+ )  
+ --Normal COP  
+ INSERT INTO @TEMP_ENERGY VALUES(  
+  'Nominal COP',  
+  0,  
+  5.34,  
+  5.34,  
+  5.78,  
+  5.82  
+ )  
+ DECLARE @HOUR_F DATETIME  
+ DECLARE @HOUR_L DATETIME  
+ SET @HOUR_F = DATEADD(hh, DATEDIFF(hh,0,GETDATE())-1,0)  
+ SET @HOUR_L = DATEADD(ms, -3,DATEADD(hh,1,@HOUR_F))  
+ DECLARE @Chiller1_1 FLOAT  
+ DECLARE @Chiller2_1 FLOAT  
+ DECLARE @Chiller3_1 FLOAT  
+ DECLARE @Chiller4_1 FLOAT  
+ --Actual Electricity Consumption  
+ SELECT @Chiller1_1 = SUM(C.Value)  
+ FROM ConsumptionData C    
+ WHERE DeviceID=127   AND ReadingDate BETWEEN @HOUR_F AND @HOUR_L  
+ IF @Chiller1_1 IS NULL  
+  SET @Chiller1_1 = 0  
+ SELECT @Chiller2_1 = SUM(C.Value)  
+ FROM ConsumptionData C    
+ WHERE DeviceID=125   AND ReadingDate BETWEEN @HOUR_F AND @HOUR_L  
+ IF @Chiller2_1 IS NULL  
+  SET @Chiller2_1 = 0  
+ SELECT @Chiller3_1 = SUM(C.Value)  
+ FROM ConsumptionData C    
+ WHERE DeviceID=128   AND ReadingDate BETWEEN @HOUR_F AND @HOUR_L  
+ IF @Chiller3_1 IS NULL  
+  SET @Chiller3_1 = 0  
+ SELECT @Chiller4_1 = SUM(C.Value)  
+ FROM ConsumptionData C    
+ WHERE DeviceID=167   AND ReadingDate BETWEEN @HOUR_F AND @HOUR_L  
+ IF @Chiller4_1 IS NULL  
+  SET @Chiller4_1 = 0  
+ INSERT INTO @TEMP_ENERGY VALUES(  
+  'Actual Electricity Consumption',  
+  @Chiller1_1,  
+  @Chiller2_1,  
+  @Chiller3_1,  
+  @Chiller4_1,  
+  0  
+ )  
+ --Actual Accumulation Cooling   
+ DECLARE @Chiller1_2 FLOAT  
+ DECLARE @Chiller2_2 FLOAT  
+ DECLARE @Chiller3_2 FLOAT  
+ DECLARE @Chiller4_2 FLOAT  
+ SELECT @Chiller1_2 = (SUM(C.Value)*284.43)
+ FROM ConsumptionData C    
+ WHERE DeviceID=401 AND (ReadingDate BETWEEN @HOUR_F AND @HOUR_L)  
+ IF @Chiller1_2 IS NULL  
+  SET @Chiller1_2 = 0  
+ SELECT @Chiller2_2 = (SUM(C.Value)*284.43)  
+ FROM ConsumptionData C    
+ WHERE DeviceID=403   AND (ReadingDate BETWEEN @HOUR_F AND @HOUR_L)  
+ IF @Chiller2_2 IS NULL  
+  SET @Chiller2_2 = 0  
+ SELECT @Chiller3_2 = (SUM(C.Value)*284.43)  
+ FROM ConsumptionData C    
+ WHERE DeviceID=404   AND (ReadingDate BETWEEN @HOUR_F AND @HOUR_L)  
+ IF @Chiller3_2 IS NULL  
+  SET @Chiller3_2 = 0  
+ SELECT @Chiller4_2 = (SUM(C.Value)*284.43)
+ FROM ConsumptionData C    
+ WHERE DeviceID=402   AND (ReadingDate BETWEEN @HOUR_F AND @HOUR_L)  
+ IF @Chiller4_2 IS NULL  
+  SET @Chiller4_2 = 0  
+ INSERT INTO @TEMP_ENERGY VALUES(  
+  'Actual Accumulation Cooling',  
+  @Chiller1_2,  
+  @Chiller2_2,  
+  @Chiller3_2,  
+  @Chiller4_2,  
+  0  
+ )  
+ --Actual COP  
+ DECLARE @COP_1 FLOAT
+ DECLARE @COP_2 FLOAT
+ DECLARE @COP_3 FLOAT
+ DECLARE @COP_4 FLOAT
+ IF @Chiller1_1 = 0
+	SET @COP_2 = 0
+ ELSE
+	SET @COP_2 = (@Chiller1_2*1000)/(@Chiller1_1*3.6)
+ IF @Chiller2_1 = 0
+	SET @COP_2 = 0
+ ELSE
+	SET @COP_2 = (@Chiller2_2*1000)/(@Chiller2_1*3.6)
+ IF @Chiller3_1 = 0
+	SET @COP_3 = 0
+ ELSE
+	SET @COP_3 = (@Chiller3_2*1000)/(@Chiller3_1*3.6)
+ IF @Chiller4_1 = 0
+	SET @COP_4 = 0
+ ELSE
+	SET @COP_4 = (@Chiller4_2*1000)/(@Chiller4_1*3.6) 
+ 
+ INSERT INTO @TEMP_ENERGY VALUES(  
+  'Actual COP',  
+  @COP_1,  
+  @COP_2,  
+  @COP_3,  
+  @COP_4,  
+  0  
+ )  
+ --Actual COP  
+ DECLARE @Chiller1_COP FLOAT  
+ DECLARE @Chiller2_COP FLOAT  
+ DECLARE @Chiller3_COP FLOAT  
+ DECLARE @Chiller4_COP FLOAT  
+ IF @Chiller1_1 = 0  
+  SET @Chiller1_COP = 0  
+ ELSE  
+  SET @Chiller1_COP = (@Chiller1_2*1000)/(@Chiller1_1*3.6)  
+    
+ IF @Chiller2_1 = 0  
+  SET @Chiller2_COP = 0  
+ ELSE  
+  SET @Chiller2_COP = (@Chiller2_2*1000)/(@Chiller2_1*3.6)  
+    
+ IF @Chiller3_1 = 0  
+  SET @Chiller3_COP = 0  
+ ELSE  
+  SET @Chiller3_COP = (@Chiller3_2*1000)/(@Chiller3_1*3.6)  
+    
+ IF @Chiller4_1 = 0  
+  SET @Chiller4_COP = 0  
+ ELSE  
+  SET @Chiller4_COP = (@Chiller4_2*1000)/(@Chiller4_1*3.6)  
+  
+ INSERT INTO @TEMP_ENERGY VALUES(  
+  'Actual COP',  
+  @Chiller1_COP,  
+  @Chiller2_COP,  
+  @Chiller3_COP,  
+  @Chiller4_COP,  
+  0  
+ )  
+ --Actual VS Nominal COP  
+ INSERT INTO @TEMP_ENERGY VALUES(  
+  'Actual VS Nominal COP',  
+  @Chiller1_COP/100,  
+  @Chiller2_COP/100,  
+  @Chiller3_COP/100,  
+  @Chiller4_COP/100,  
+  0  
+ )  
+ --BaseLine  
+ INSERT INTO @TEMP_ENERGY VALUES(  
+  'BaseLine',  
+  1,  
+  1,  
+  1,  
+  1,  
+  1  
+ )  
+ 
+ SELECT * FROM @TEMP_ENERGY
 END

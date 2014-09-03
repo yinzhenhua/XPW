@@ -75,7 +75,49 @@ namespace XPW.BC
                 throw ex;
             }
         }
+        public DataTable CreateChillerEnergyEfficiencyTable(ChillerEnergyEfficiencyDS ds)
+        {
+            try
+            {
+                //倒数第二个
+                ChillerEnergyEfficiencyDS.ChillerEnergyEfficiencyRow row = ds.ChillerEnergyEfficiency[ds.ChillerEnergyEfficiency.Rows.Count - 2];
+                DataTable table = new DataTable();
+                table.Columns.Add("Total", typeof(double));
+                table.Columns.Add("Name", typeof(string));
 
+                //Chiller 1#
+                DataRow newRow1 = table.NewRow();
+                newRow1[0] = row.Chiller1;
+                newRow1[1] = "Chiller 1#";
+                table.Rows.Add(newRow1);
+                //Chiller 2#
+                DataRow newRow2 = table.NewRow();
+                newRow2[0] = row.Chiller2;
+                newRow2[1] = "Chiller 2#";
+                table.Rows.Add(newRow2);
+                //Chiller 3#
+                DataRow newRow3 = table.NewRow();
+                newRow3[0] = row.Chiller3;
+                newRow3[1] = "Chiller 3#";
+                table.Rows.Add(newRow3);
+                //Chiller 4#
+                DataRow newRow4 = table.NewRow();
+                newRow4[0] = row.Chiller4;
+                newRow4[1] = "Chiller 4#";
+                table.Rows.Add(newRow4);
+                //Chiller 5#
+                DataRow newRow5 = table.NewRow();
+                newRow5[0] = row.Chiller5;
+                newRow5[1] = "Chiller 5#";
+                table.Rows.Add(newRow5);
+
+                return table;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         public DataTable CreateEquipmentEnergyEfficiencyTable(EquipmentEnergyEfficiencyDS ds)
         {
             //最后一行

@@ -25,8 +25,8 @@ namespace XPW
 
         private void Initialize()
         {
-            int deviceID = 395;//Convert.ToInt32(Request.QueryString["DeviceID"]);
-            string name = "KDG";//Request.QueryString["Name"];
+            int deviceID = Convert.ToInt32(Request.QueryString["DeviceID"]);
+            string name = Request.QueryString["Name"];
             lblTitle.Text = string.Format("{0} - Dept. Equipment Efficiency", name);
             //Chart图
             ElectricityConsumptionDS ds = _consumptionBC.GetEquipmentEnergy(deviceID);
@@ -34,7 +34,7 @@ namespace XPW
             {
                 //绑定数据
                 EquipmentEnergyEfficiencyDS energyDS = _bc.GetEquipmentEnergyEfficiency(deviceID,
-                    10,
+                    108,//Todo
                     ds.ElectricityConsumption[0].PreviousYear,
                     ds.ElectricityConsumption[0].YTD,
                     ds.ElectricityConsumption[0].Q1,

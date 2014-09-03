@@ -20,6 +20,7 @@
     <asp:Chart ID="Chart1" runat="server">
         <Series>
             <asp:Series Name="Series1" ChartType="Column"></asp:Series>
+            <asp:Series Name="Series2" ChartType="Column"></asp:Series>
         </Series>
         <ChartAreas>
             <asp:ChartArea Name="ChartArea1"></asp:ChartArea>

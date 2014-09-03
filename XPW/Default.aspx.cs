@@ -13,21 +13,32 @@ namespace XPW
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            DataTable dt = CreatData();
+            Chart1.Series["Series1"].Points.AddY(0);
+            Chart1.Series["Series1"].Points.AddY(1000);
+            Chart1.Series["Series1"].Points.AddY(2000);
+            Chart1.Series["Series1"].Points.AddY(3000);
+            Chart1.Series["Series1"].Points.AddY(4000);
 
-            #region 折线图
-            Chart1.DataSource = dt;//绑定数据
-            Chart1.Series["Series1"].ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.Column;//设置图表类型
-            Chart1.Series[0].XValueMember = "Language";//X轴数据成员列
-            Chart1.Series[0].YValueMembers = "Count";//Y轴数据成员列
-            Chart1.ChartAreas["ChartArea1"].AxisX.Title = "语言";//X轴标题
-            Chart1.ChartAreas["ChartArea1"].AxisX.TitleAlignment = StringAlignment.Far;//设置Y轴标题的名称所在位置位远
-            Chart1.ChartAreas["ChartArea1"].AxisY.Title = "统计";//X轴标题
-            Chart1.ChartAreas["ChartArea1"].AxisY.TitleAlignment = StringAlignment.Far;//设置Y轴标题的名称所在位置位远
-            Chart1.ChartAreas["ChartArea1"].AxisX.Interval = 1;//X轴数据的间距
-            Chart1.ChartAreas["ChartArea1"].AxisX.MajorGrid.Enabled = false;//不显示竖着的分割线
-            Chart1.Series[0].IsValueShownAsLabel = true;//显示坐标值
-            #endregion
+            Chart1.Series["Series2"].Points.AddY(0);
+            Chart1.Series["Series2"].Points.AddY(100);
+            Chart1.Series["Series2"].Points.AddY(200);
+            Chart1.Series["Series2"].Points.AddY(300);
+            Chart1.Series["Series2"].Points.AddY(400);
+
+            //DataTable dt = CreatData();
+            //#region 折线图
+            //Chart1.DataSource = dt;//绑定数据
+            //Chart1.Series["Series1"].ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.Column;//设置图表类型
+            //Chart1.Series[0].XValueMember = "Language";//X轴数据成员列
+            //Chart1.Series[0].YValueMembers = "Count";//Y轴数据成员列
+            //Chart1.ChartAreas["ChartArea1"].AxisX.Title = "语言";//X轴标题
+            //Chart1.ChartAreas["ChartArea1"].AxisX.TitleAlignment = StringAlignment.Far;//设置Y轴标题的名称所在位置位远
+            //Chart1.ChartAreas["ChartArea1"].AxisY.Title = "统计";//X轴标题
+            //Chart1.ChartAreas["ChartArea1"].AxisY.TitleAlignment = StringAlignment.Far;//设置Y轴标题的名称所在位置位远
+            //Chart1.ChartAreas["ChartArea1"].AxisX.Interval = 1;//X轴数据的间距
+            //Chart1.ChartAreas["ChartArea1"].AxisX.MajorGrid.Enabled = false;//不显示竖着的分割线
+            //Chart1.Series[0].IsValueShownAsLabel = true;//显示坐标值
+            //#endregion
         }
 
         /// <summary>
