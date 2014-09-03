@@ -60,9 +60,12 @@ namespace XPW
                     gvDept.DataBind();
                     //MsChart
                     ecpChart.Visible = true;
-                    ecpChart.Titles.Add(dlSite.SelectedItem.Text);
-                    ecpChart.Series["ecpSeries"].ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.Column;
                     ecpChart.DataSource = _bc.CreateEquipmentEnergyTable(ds);
+                    ecpChart.Titles["ecpTitle"].Text = dlSite.SelectedItem.Text;
+                    ecpChart.Series["ecpSeries"].ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.Column;
+                    ecpChart.Series["ecpSeries"]["PointWidth"] = "0.8";
+                    ecpChart.Series["ecpSeries"]["BarLabelStyle"] = "Center";
+                    ecpChart.Series["ecpSeries"]["DrawingStyle"] = "Cylinder";
                     ecpChart.Series["ecpSeries"].IsValueShownAsLabel = true;//显示坐标值
                     ecpChart.Series["ecpSeries"].XValueMember = "Name";//X轴数据成员列
                     ecpChart.Series["ecpSeries"].YValueMembers = "Total";//Y轴数据成员列
@@ -73,6 +76,35 @@ namespace XPW
             }
             catch (Exception ex)
             {
+                throw ex;
+            }
+        }
+
+        protected void gvDept_RowCreated(object sender, GridViewRowEventArgs e)
+        {
+            try
+            {
+                if (e.Row.RowType != DataControlRowType.Header) return;
+                string[] strs = Common.GetQuarters();
+                e.Row.Cells[10].Text = strs[0];
+                e.Row.Cells[11].Text = strs[1];
+                e.Row.Cells[12].Text = strs[2];
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        protected void gvDept_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            try
+            {
+                e.Row.Attributes.Add("style", "height:30px");
+            }
+            catch (Exception ex)
+            {
+
                 throw ex;
             }
         }

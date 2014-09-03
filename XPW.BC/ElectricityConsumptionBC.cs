@@ -94,20 +94,21 @@ namespace XPW.BC
             newRow7[0] = ds.ElectricityConsumption[0].Q4;
             newRow7[1] = "Q4";
             table.Rows.Add(newRow7);
+            string[] strs = Common.GetQuarters();
             //Month1
             DataRow newRow8 = table.NewRow();
             newRow8[0] = ds.ElectricityConsumption[0].Month1;
-            newRow8[1] = "Month1";
+            newRow8[1] = strs[0];
             table.Rows.Add(newRow8);
             //Month2
             DataRow newRow9 = table.NewRow();
             newRow9[0] = ds.ElectricityConsumption[0].Month2;
-            newRow9[1] = "Month2";
+            newRow9[1] = strs[1];
             table.Rows.Add(newRow9);
             //Month3
             DataRow newRow10 = table.NewRow();
             newRow10[0] = ds.ElectricityConsumption[0].Month3;
-            newRow10[1] = "Month3";
+            newRow10[1] = strs[2];
             table.Rows.Add(newRow10);
             //Week1
             DataRow newRow11 = table.NewRow();

@@ -279,8 +279,6 @@ namespace XPW.BE {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class EquipmentEnergyEfficiencyDataTable : global::System.Data.TypedTableBase<EquipmentEnergyEfficiencyRow> {
             
-            private global::System.Data.DataColumn columnDeviceID;
-            
             private global::System.Data.DataColumn columnName;
             
             private global::System.Data.DataColumn columnPreviousYear;
@@ -340,14 +338,6 @@ namespace XPW.BE {
             protected EquipmentEnergyEfficiencyDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn DeviceIDColumn {
-                get {
-                    return this.columnDeviceID;
-                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -499,10 +489,9 @@ namespace XPW.BE {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public EquipmentEnergyEfficiencyRow AddEquipmentEnergyEfficiencyRow(int DeviceID, string Name, double PreviousYear, double YTD, double Q1, double Q2, double Q3, double Q4, double Month1, double Month2, double Month3, double Week1, double Week2, double Week3, double Week4) {
+            public EquipmentEnergyEfficiencyRow AddEquipmentEnergyEfficiencyRow(string Name, double PreviousYear, double YTD, double Q1, double Q2, double Q3, double Q4, double Month1, double Month2, double Month3, double Week1, double Week2, double Week3, double Week4) {
                 EquipmentEnergyEfficiencyRow rowEquipmentEnergyEfficiencyRow = ((EquipmentEnergyEfficiencyRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        DeviceID,
                         Name,
                         PreviousYear,
                         YTD,
@@ -524,13 +513,6 @@ namespace XPW.BE {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public EquipmentEnergyEfficiencyRow FindByDeviceID(int DeviceID) {
-                return ((EquipmentEnergyEfficiencyRow)(this.Rows.Find(new object[] {
-                            DeviceID})));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public override global::System.Data.DataTable Clone() {
                 EquipmentEnergyEfficiencyDataTable cln = ((EquipmentEnergyEfficiencyDataTable)(base.Clone()));
                 cln.InitVars();
@@ -546,7 +528,6 @@ namespace XPW.BE {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
-                this.columnDeviceID = base.Columns["DeviceID"];
                 this.columnName = base.Columns["Name"];
                 this.columnPreviousYear = base.Columns["PreviousYear"];
                 this.columnYTD = base.Columns["YTD"];
@@ -566,8 +547,6 @@ namespace XPW.BE {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             private void InitClass() {
-                this.columnDeviceID = new global::System.Data.DataColumn("DeviceID", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDeviceID);
                 this.columnName = new global::System.Data.DataColumn("Name", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnName);
                 this.columnPreviousYear = new global::System.Data.DataColumn("PreviousYear", typeof(double), null, global::System.Data.MappingType.Element);
@@ -596,10 +575,6 @@ namespace XPW.BE {
                 base.Columns.Add(this.columnWeek3);
                 this.columnWeek4 = new global::System.Data.DataColumn("Week4", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnWeek4);
-                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this.columnDeviceID}, true));
-                this.columnDeviceID.AllowDBNull = false;
-                this.columnDeviceID.Unique = true;
                 this.columnName.MaxLength = 510;
                 this.columnPreviousYear.DefaultValue = ((double)(0D));
                 this.columnYTD.Caption = "YearlyTarget";
@@ -764,17 +739,6 @@ namespace XPW.BE {
             internal EquipmentEnergyEfficiencyRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
                 this.tableEquipmentEnergyEfficiency = ((EquipmentEnergyEfficiencyDataTable)(this.Table));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int DeviceID {
-                get {
-                    return ((int)(this[this.tableEquipmentEnergyEfficiency.DeviceIDColumn]));
-                }
-                set {
-                    this[this.tableEquipmentEnergyEfficiency.DeviceIDColumn] = value;
-                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

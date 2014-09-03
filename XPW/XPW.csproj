@@ -183,9 +183,11 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="DashboardPage.aspx" />
     <Content Include="ElectricityConsumptionPage.aspx" />
+    <Content Include="EquipmentEnergyEfficiencyPage.aspx" />
     <Content Include="Images\accent.png" />
     <Content Include="Images\bullet.png" />
     <Content Include="Images\co2.png" />
+    <Content Include="Images\graph.png" />
     <Content Include="Images\heroAccent.png" />
     <Content Include="Images\orderedList0.png" />
     <Content Include="Images\orderedList1.png" />
@@ -292,6 +294,13 @@
     </Compile>
     <Compile Include="ElectricityConsumptionPage.aspx.designer.cs">
       <DependentUpon>ElectricityConsumptionPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EquipmentEnergyEfficiencyPage.aspx.cs">
+      <DependentUpon>EquipmentEnergyEfficiencyPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EquipmentEnergyEfficiencyPage.aspx.designer.cs">
+      <DependentUpon>EquipmentEnergyEfficiencyPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

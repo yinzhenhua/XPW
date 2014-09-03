@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common.cs" />
     <Compile Include="DashboardBC.cs" />
     <Compile Include="ElectricityConsumptionBC.cs" />
     <Compile Include="EquipmentEnergyBC.cs" />

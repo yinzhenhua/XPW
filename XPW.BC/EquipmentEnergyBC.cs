@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using XPW.BE;
@@ -73,6 +74,83 @@ namespace XPW.BC
             {
                 throw ex;
             }
+        }
+
+        public DataTable CreateEquipmentEnergyEfficiencyTable(EquipmentEnergyEfficiencyDS ds)
+        {
+            //最后一行
+            EquipmentEnergyEfficiencyDS.EquipmentEnergyEfficiencyRow efficiencyRow = ds.EquipmentEnergyEfficiency[ds.EquipmentEnergyEfficiency.Rows.Count - 1];
+            DataTable table = new DataTable();
+            table.Columns.Add("Total", typeof(double));
+            table.Columns.Add("Name", typeof(string));
+            //PreviousYear
+            DataRow newRow1 = table.NewRow();
+            newRow1[0] = efficiencyRow.PreviousYear;
+            newRow1[1] = "Previous Year";
+            table.Rows.Add(newRow1);
+            //YTD
+            DataRow newRow2 = table.NewRow();
+            newRow2[0] = efficiencyRow.YTD;
+            newRow2[1] = "YTD";
+            table.Rows.Add(newRow2);
+            //Q1
+            DataRow newRow3 = table.NewRow();
+            newRow3[0] = efficiencyRow.Q1;
+            newRow3[1] = "Q1";
+            table.Rows.Add(newRow3);
+            //Q2
+            DataRow newRow4 = table.NewRow();
+            newRow4[0] = efficiencyRow.Q2;
+            newRow4[1] = "Q2";
+            table.Rows.Add(newRow4);
+            //Q3
+            DataRow newRow5 = table.NewRow();
+            newRow5[0] = efficiencyRow.Q3;
+            newRow5[1] = "Q3";
+            table.Rows.Add(newRow5);
+            //Q4
+            DataRow newRow6 = table.NewRow();
+            newRow6[0] = efficiencyRow.Q4;
+            newRow6[1] = "Q4";
+            table.Rows.Add(newRow6);
+            string[] strs = Common.GetQuarters();
+            //Month1
+            DataRow newRow7 = table.NewRow();
+            newRow7[0] = efficiencyRow.Month1;
+            newRow7[1] = strs[0];
+            table.Rows.Add(newRow7);
+            //Month2
+            DataRow newRow8 = table.NewRow();
+            newRow8[0] = efficiencyRow.Month2;
+            newRow8[1] = strs[1];
+            table.Rows.Add(newRow8);
+            //Month3
+            DataRow newRow9 = table.NewRow();
+            newRow9[0] = efficiencyRow.Month3;
+            newRow9[1] = strs[2];
+            table.Rows.Add(newRow9);
+            //Week1
+            DataRow newRow10 = table.NewRow();
+            newRow10[0] = efficiencyRow.Week1;
+            newRow10[1] = "Week-1";
+            table.Rows.Add(newRow10);
+            //Week2
+            DataRow newRow11 = table.NewRow();
+            newRow11[0] = efficiencyRow.Week2;
+            newRow11[1] = "Week-2";
+            table.Rows.Add(newRow11);
+            //Week3
+            DataRow newRow12 = table.NewRow();
+            newRow12[0] = efficiencyRow.Week3;
+            newRow12[1] = "Week-3";
+            table.Rows.Add(newRow12);
+            //Week4
+            DataRow newRow13 = table.NewRow();
+            newRow13[0] = efficiencyRow.Week3;
+            newRow13[1] = "Week-4";
+            table.Rows.Add(newRow13);
+
+            return table;
         }
     }
 }

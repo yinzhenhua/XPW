@@ -12,10 +12,9 @@
   <xs:element name="EquipmentEnergyEfficiencyDS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="EquipmentEnergyEfficiencyDS" msprop:Generator_UserDSName="EquipmentEnergyEfficiencyDS">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="EquipmentEnergyEfficiency" msprop:Generator_TableClassName="EquipmentEnergyEfficiencyDataTable" msprop:Generator_TableVarName="tableEquipmentEnergyEfficiency" msprop:Generator_TablePropName="EquipmentEnergyEfficiency" msprop:Generator_RowDeletingName="EquipmentEnergyEfficiencyRowDeleting" msprop:Generator_RowChangingName="EquipmentEnergyEfficiencyRowChanging" msprop:Generator_RowEvHandlerName="EquipmentEnergyEfficiencyRowChangeEventHandler" msprop:Generator_RowDeletedName="EquipmentEnergyEfficiencyRowDeleted" msprop:Generator_UserTableName="EquipmentEnergyEfficiency" msprop:Generator_RowChangedName="EquipmentEnergyEfficiencyRowChanged" msprop:Generator_RowEvArgName="EquipmentEnergyEfficiencyRowChangeEvent" msprop:Generator_RowClassName="EquipmentEnergyEfficiencyRow">
+        <xs:element name="EquipmentEnergyEfficiency" msprop:Generator_TableClassName="EquipmentEnergyEfficiencyDataTable" msprop:Generator_TableVarName="tableEquipmentEnergyEfficiency" msprop:Generator_RowChangedName="EquipmentEnergyEfficiencyRowChanged" msprop:Generator_TablePropName="EquipmentEnergyEfficiency" msprop:Generator_RowDeletingName="EquipmentEnergyEfficiencyRowDeleting" msprop:Generator_RowChangingName="EquipmentEnergyEfficiencyRowChanging" msprop:Generator_RowEvHandlerName="EquipmentEnergyEfficiencyRowChangeEventHandler" msprop:Generator_RowDeletedName="EquipmentEnergyEfficiencyRowDeleted" msprop:Generator_RowClassName="EquipmentEnergyEfficiencyRow" msprop:Generator_UserTableName="EquipmentEnergyEfficiency" msprop:Generator_RowEvArgName="EquipmentEnergyEfficiencyRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="DeviceID" msprop:Generator_ColumnVarNameInTable="columnDeviceID" msprop:Generator_ColumnPropNameInRow="DeviceID" msprop:Generator_ColumnPropNameInTable="DeviceIDColumn" msprop:Generator_UserColumnName="DeviceID" type="xs:int" />
               <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -41,9 +40,5 @@
         </xs:element>
       </xs:choice>
     </xs:complexType>
-    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:EquipmentEnergyEfficiency" />
-      <xs:field xpath="mstns:DeviceID" />
-    </xs:unique>
   </xs:element>
 </xs:schema>
