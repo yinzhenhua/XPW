@@ -13,14 +13,22 @@ namespace XPW
         DashboardBC _bc = new DashboardBC();
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
         }
 
-       public int CO2
+        public int CO2
         {
-           get
+            get
             {
-                return (int)(_bc.GetCO2Year()*0.001);
+                return (int)(_bc.GetCO2Year() * 0.001);
+            }
+        }
+
+        public int Trees
+        {
+            get
+            {
+                return (int)(_bc.GetCO2Year() / 111);
             }
         }
     }

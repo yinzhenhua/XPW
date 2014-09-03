@@ -10,7 +10,7 @@
             <img src="Images/sd.png" />
         </div>
         <div class="floatDiv">
-            <asp:Chart ID="chartEnerge" runat="server">
+            <asp:Chart ID="chartEnerge" runat="server" Width="553px">
                 <Series>
                     <asp:Series Name="Series1"></asp:Series>
                 </Series>
@@ -22,8 +22,8 @@
     </div>
     <div style="clear: both;">
         <div class="floatDiv leftWidth co2">
-            <div style="position: relative; top: 210px; width:156px;text-align:center; font-weight: 700; font-size: 100%"><%=CO2 %>T</div>
-            <div style="position: relative; top: 190px;left:170px; width:156px;text-align:center; font-weight: 700; font-size: 100%"><%=CO2/111 %></div>
+            <div style="position: relative; top: 210px; width: 156px; text-align: center; font-weight: 700; font-size: 100%"><%:CO2 %>T</div>
+            <div style="position: relative; top: 190px; left: 170px; width: 156px; text-align: center; font-weight: 700; font-size: 100%"><%:Trees %></div>
         </div>
         <div class="floatDiv">
             <table class="energy">
