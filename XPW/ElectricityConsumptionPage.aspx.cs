@@ -84,11 +84,25 @@ namespace XPW
         {
             try
             {
-                if (e.Row.RowType != DataControlRowType.Header) return;
-                string[] strs = Common.GetQuarters();
-                e.Row.Cells[10].Text = strs[0];
-                e.Row.Cells[11].Text = strs[1];
-                e.Row.Cells[12].Text = strs[2];
+                if (e.Row.RowType == DataControlRowType.DataRow)
+                {
+                    //移除最后一行ImageButton
+                    if (e.Row.RowIndex == 11)
+                    {
+                        ImageButton imageBtn = e.Row.Cells[17].FindControl("btnGraph") as ImageButton;
+                        if (imageBtn != null)
+                        {
+                            e.Row.Cells[17].Controls.Remove(imageBtn);
+                        }
+                    }
+                }
+                if (e.Row.RowType == DataControlRowType.Header)
+                {
+                    string[] strs = Common.GetQuarters();
+                    e.Row.Cells[10].Text = strs[0];
+                    e.Row.Cells[11].Text = strs[1];
+                    e.Row.Cells[12].Text = strs[2];
+                }
             }
             catch (Exception ex)
             {
