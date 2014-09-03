@@ -11,12 +11,6 @@
         </div>
         <div class="floatDiv">
             <asp:Chart ID="chartEnerge" runat="server" Width="553px">
-                <Series>
-                    <asp:Series Name="Series1"></asp:Series>
-                </Series>
-                <ChartAreas>
-                    <asp:ChartArea Name="ChartArea1"></asp:ChartArea>
-                </ChartAreas>
             </asp:Chart>
         </div>
     </div>
