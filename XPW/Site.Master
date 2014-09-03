@@ -35,7 +35,7 @@
                 <div class="mainMenu">
                     <ul>
                         <li>
-                            <a href="#">Dashboard</a>
+                            <a href="DashboardPage.aspx">Dashboard</a>
                         </li>
                         <li>
                             <a href="#">Readings</a>
