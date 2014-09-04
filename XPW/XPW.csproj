@@ -125,6 +125,10 @@
     <Content Include="Account\RegisterExternalLogin.aspx" />
     <Content Include="ChillerEnergyEfficiencyPage.aspx" />
     <Content Include="Contact.aspx" />
+    <Content Include="Content\GridView.css" />
+    <Content Include="Content\images\grd_alt.png" />
+    <Content Include="Content\images\grd_head.png" />
+    <Content Include="Content\images\grd_pgr.png" />
     <Content Include="Content\images\head_bg.jpg" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\Site.css" />

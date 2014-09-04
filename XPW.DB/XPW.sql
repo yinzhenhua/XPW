@@ -9,7 +9,7 @@ BEGIN
 	--当年第一天
 	DECLARE @DAY_YEAR DATETIME
 	SET @DAY_YEAR = DATEADD(yy, DATEDIFF(yy,0,GETDATE()), 0)
-	--获取当年的碳排量
+	--获取当年的碳排量 
 	DECLARE @TOTAL FLOAT
 	SELECT @TOTAL = SUM(C.Value)*0.785
 	FROM ConsumptionData C
