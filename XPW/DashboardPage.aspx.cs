@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Data;
+using System.Drawing;
 using System.Globalization;
 using System.Web.UI.DataVisualization.Charting;
 using System.Web.UI.WebControls;
@@ -40,6 +40,15 @@ namespace XPW
             }
         }
 
+        public int MonthCo2
+        {
+            get { return Convert.ToInt32(_bc.GetCO2Mouth() * 001); }
+        }
+
+        public int MonthTrees
+        {
+            get { return (int) (_bc.GetCO2Mouth()/111); }
+        }
         /// <summary>
         /// 点击水、电、煤链接，加载相应的数据
         /// </summary>
@@ -126,7 +135,7 @@ namespace XPW
         {
             chartEnerge.Series.Clear();
             var series = CreateSeries();
-            series.ChartType    = SeriesChartType.Stock;
+            series.ChartType = SeriesChartType.Stock;
             series.IsValueShownAsLabel = false;
             var dt = _bc.GetUtilitiesDays(deviceId, month);
             var rowCount = dt.Rows.Count;
@@ -142,7 +151,7 @@ namespace XPW
             {
                 series.Points[i].Color = ColorSupplyer.GenColor();
                 series.Points[i].PostBackValue = string.Format("{0}_{1}_{2}_{3}",
-                    deviceId.ToString(CultureInfo.InvariantCulture), (int)ChartDataType.Day,month, xvalues[i]);
+                    deviceId.ToString(CultureInfo.InvariantCulture), (int)ChartDataType.Day, month, xvalues[i]);
             }
 
             chartEnerge.Series.Add(series);
@@ -157,7 +166,7 @@ namespace XPW
         {
             chartEnerge.Series.Clear();
             var series = CreateSeries();
-            series.ChartType= SeriesChartType.Stock;
+            series.ChartType = SeriesChartType.Stock;
             series.IsValueShownAsLabel = false;
             var dt = _bc.GetUtilitiesHours(deviceId, month, day);
             var rowCount = dt.Rows.Count;
@@ -192,6 +201,9 @@ namespace XPW
             series.BorderWidth = 3;
             series.ShadowOffset = 2;
             series.IsValueShownAsLabel = true;
+            series.Font = new Font("宋体",8.0f);
+
+         
             return series;
         }
 
@@ -204,22 +216,20 @@ namespace XPW
             var deviceId = Convert.ToInt32(argument.Split('_')[0]);
             var dType = (ChartDataType)Convert.ToInt32(argument.Split('_')[1]);
 
-            DataTable dt;
-            if (dType == ChartDataType.Year)
+            switch (dType)
             {
-                DrawMonthChart(deviceId, ChartDataType.Month);
-            }
-            else if (dType == ChartDataType.Month)
-            {
-                DrawDayChart(deviceId, Convert.ToInt32(argument.Split('_')[2]));
-            }
-            else if (dType == ChartDataType.Day)
-            {
-                DrawHourChart(deviceId, Convert.ToInt32(argument.Split('_')[2]),Convert.ToInt32(argument.Split('_')[3]));
-            }
-            else
-            {
-                ShowEnergyWaste(deviceId);
+                case ChartDataType.Year:
+                    DrawMonthChart(deviceId, ChartDataType.Month);
+                    break;
+                case ChartDataType.Month:
+                    DrawDayChart(deviceId, Convert.ToInt32(argument.Split('_')[2]));
+                    break;
+                case ChartDataType.Day:
+                    DrawHourChart(deviceId, Convert.ToInt32(argument.Split('_')[2]), Convert.ToInt32(argument.Split('_')[3]));
+                    break;
+                default:
+                    ShowEnergyWaste(deviceId);
+                    break;
             }
         }
     }

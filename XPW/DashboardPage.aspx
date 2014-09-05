@@ -9,7 +9,7 @@
                 $('#max').show(200);
                 $(this).hide(200);
             });
-            $('#max').click(function() {
+            $('#max').click(function () {
                 $('#div_chart').show(500);
                 $(this).hide(200);
                 $('#min').show(200);
@@ -25,29 +25,34 @@
             <img src="Images/sd.png" />
         </div>
         <div class="floatDiv">
-            <div>
-                <asp:LinkButton ID="lnk_Water" runat="server" CommandArgument="373" OnClick="OnLinkClick">水</asp:LinkButton>
-                <asp:LinkButton ID="lnk_elctr" runat="server" CommandArgument="388" OnClick="OnLinkClick">电</asp:LinkButton>
-                <asp:LinkButton ID="lnk_Lng" runat="server" CommandArgument="358" OnClick="OnLinkClick">煤</asp:LinkButton>
-                <a href='#' id="min">最小化</a>
-                <a href='#' id="max" style="display: none">最大化</a>
+            <div style="text-align: right;">
+                <asp:LinkButton ID="lnk_Water" runat="server" CommandArgument="373" OnClick="OnLinkClick"><img src="Images/shui.jpg" alt="水" height="28"/></asp:LinkButton>
+                <asp:LinkButton ID="lnk_elctr" runat="server" CommandArgument="388" OnClick="OnLinkClick"><img src="Images/dian.jpg" alt="电" height="28"/></asp:LinkButton>
+                <asp:LinkButton ID="lnk_Lng" runat="server" CommandArgument="358" OnClick="OnLinkClick"><img src="Images/mei.png" alt="煤" height="28"/></asp:LinkButton>
+                <a href='#' id="min"><img src="Images/min.png" alt="最小化"/></a>
+                <a href='#' id="max" style="display: none"><img src="Images/max.png" alt="最大化"/></a>
             </div>
             <div id="div_chart">
-                <asp:Chart ID="chartEnerge" runat="server" Width="560px" Palette="BrightPastel" ImageType="Png" BorderlineDashStyle="Solid" BackSecondaryColor="White" BackGradientStyle="TopBottom" BorderWidth="2" BackColor="#D3DFF0" BorderColor="26, 59, 105" OnClick="OnChartClick">
+                <asp:Chart ID="chartEnerge" runat="server" Width="560px" Height="260px" 
+                    Palette="BrightPastel" ImageType="Png" BorderlineDashStyle="Solid" 
+                    BackSecondaryColor="White" BackGradientStyle="TopBottom" BorderWidth="2" BackColor="#D3DFF0" 
+                    BorderColor="26, 59, 105" OnClick="OnChartClick">
                     <%--<Legends>
                     <asp:Legend Name="Default" Docking="Bottom">
                     </asp:Legend>
                 </Legends>--%>
                     <BorderSkin SkinStyle="Emboss" />
                     <ChartAreas>
-                        <asp:ChartArea Name="ChartArea1" BorderColor="64, 64, 64, 64" BorderDashStyle="Solid" BackSecondaryColor="White" BackColor="64, 165, 191, 228" ShadowColor="Transparent" BackGradientStyle="TopBottom">
+                        <asp:ChartArea Name="ChartArea1" BorderColor="64, 64, 64, 64" BorderDashStyle="Solid" 
+                            BackSecondaryColor="White" BackColor="64, 165, 191, 228" ShadowColor="Transparent" 
+                            BackGradientStyle="TopBottom">
                             <Area3DStyle Rotation="10" Perspective="10" Inclination="15" IsRightAngleAxes="False" WallWidth="0" IsClustered="False"></Area3DStyle>
-                            <AxisY LineColor="64, 64, 64, 64">
-                                <LabelStyle Font="Trebuchet MS, 8.25pt, style=Bold" />
+                            <AxisY LineColor="64, 64, 64, 64" IsLabelAutoFit="False">
+                                <LabelStyle Font="微软雅黑, 6.5pt, style=Bold" />
                                 <MajorGrid LineColor="64, 64, 64, 64" />
                             </AxisY>
-                            <AxisX LineColor="64, 64, 64, 64">
-                                <LabelStyle Font="Trebuchet MS, 8.25pt, style=Bold" />
+                            <AxisX LineColor="Transparent" IsLabelAutoFit="False" LineWidth="0" TitleFont="宋体, 6pt">
+                                <LabelStyle Font="微软雅黑, 6.5pt, style=Bold" />
                                 <MajorGrid LineColor="64, 64, 64, 64" />
                             </AxisX>
                         </asp:ChartArea>
@@ -59,8 +64,10 @@
     </div>
     <div style="clear: both;">
         <div class="floatDiv leftWidth co2">
-            <div style="position: relative; top: 210px; width: 156px; text-align: center; font-weight: 700; font-size: 100%"><%:Co2 %>T</div>
-            <div style="position: relative; top: 190px; left: 170px; width: 156px; text-align: center; font-weight: 700; font-size: 100%"><%:Trees %></div>
+            <div style="position: relative; top: 35px; width: 156px; text-align: center; font-weight: 700; font-size: 100%; color: rgb(70,146,81);"><%:MonthCo2.ToString("N") %>T</div>
+            <div style="position: relative; top: 18px; left: 170px; width: 156px; text-align: center; font-weight: 700; font-size: 100%; color: rgb(70,146,81);"><%:MonthTrees.ToString("N") %></div>
+            <div style="position: relative; top: 185px; width: 156px; text-align: center; font-weight: 700; font-size: 100%"><%:Co2 %>T</div>
+            <div style="position: relative; top: 168px; left: 170px; width: 156px; text-align: center; font-weight: 700; font-size: 100%"><%:Trees %></div>
         </div>
         <div class="floatDiv">
             <table class="energy">
