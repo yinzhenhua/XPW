@@ -38,10 +38,10 @@
                             <a href="DashboardPage.aspx">Dashboard</a>
                         </li>
                         <li>
-                            <a href="#">Readings</a>
+                            <a href="ElectricityConsumptionPage.aspx">Dept. Consumption Statistics</a>
                         </li>
                         <li>
-                            <a href="#">Events</a>
+                            <a href="ChillerEnergyEfficiencyPage.aspx">Equipment Energy Efficiency</a>
                         </li>
                         <li>
                             <a href="#">Consumption</a>

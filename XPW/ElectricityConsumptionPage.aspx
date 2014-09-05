@@ -19,7 +19,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <div style="overflow-x: scroll; height: 480px; width: 940px" id="dvBody" runat="server">
+                    <div style="overflow-x: scroll; height: 440px; width: 940px" id="dvBody" runat="server">
                         <asp:GridView runat="server" ID="gvDept" AutoGenerateColumns="False" GridLines="None"
                             CssClass="mGrid"
                             PagerStyle-CssClass="pgr"

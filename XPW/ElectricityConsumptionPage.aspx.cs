@@ -50,7 +50,7 @@ namespace XPW
                 {
                     dvBody.Style.Clear();
                     dvBody.Style.Add("overflow-x", "scroll");
-                    dvBody.Style.Add("height", "480px");
+                    dvBody.Style.Add("height", "440px");
                     dvBody.Style.Add("width", "940px");
                     ElectricityConsumptionDS ds = _bc.GetAllEquipmentEnergy();
                     gvDept.DataSource = ds.ElectricityConsumption;
@@ -61,7 +61,7 @@ namespace XPW
                 {
                     dvBody.Style.Clear();
                     dvBody.Style.Add("overflow-x", "scroll");
-                    dvBody.Style.Add("height", "130px");
+                    dvBody.Style.Add("height", "120px");
                     dvBody.Style.Add("width", "940px");
 
                     int deviceID = Convert.ToInt32(dlSite.SelectedValue);
@@ -131,7 +131,7 @@ namespace XPW
         {
             try
             {
-                if(e.Row.RowType== DataControlRowType.Header)
+                if (e.Row.RowType == DataControlRowType.Header)
                 {
                     string style = "padding: 4px 2px;color: #fff;"
                         + "background: #424242 url(grd_head.png) repeat-x top;"
@@ -142,7 +142,7 @@ namespace XPW
                     e.Row.Cells[1].Attributes.Remove("style");
                     e.Row.Cells[1].Attributes.Add("style", style);
                 }
-                if(e.Row.RowType== DataControlRowType.DataRow)
+                if (e.Row.RowType == DataControlRowType.DataRow)
                 {
                     string style = "padding: 2px;"
                        + "border: solid 1px #c1c1c1;"
