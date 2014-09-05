@@ -192,8 +192,12 @@
     <Content Include="Images\accent.png" />
     <Content Include="Images\bullet.png" />
     <Content Include="Images\co2.png" />
+    <Content Include="Images\dian.jpg" />
     <Content Include="Images\graph.png" />
     <Content Include="Images\heroAccent.png" />
+    <Content Include="Images\max.png" />
+    <Content Include="Images\mei.png" />
+    <Content Include="Images\min.png" />
     <Content Include="Images\orderedList0.png" />
     <Content Include="Images\orderedList1.png" />
     <Content Include="Images\orderedList2.png" />
@@ -208,6 +212,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\sd.png" />
+    <Content Include="Images\shui.jpg" />
     <Content Include="packages.config" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
@@ -367,7 +372,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>16719</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
