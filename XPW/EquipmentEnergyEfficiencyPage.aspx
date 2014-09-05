@@ -5,11 +5,12 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="FeaturedContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="divClass">
+    <link type="text/css" rel="stylesheet" href="Content/GridView.css" />
+    <div>
         <table>
             <tr>
                 <td colspan="2">
-                    <asp:Chart ID="ecpChart" runat="server" Width="1000"
+                    <asp:Chart ID="ecpChart" runat="server" Width="950"
                         Palette="BrightPastel" BackColor="#F3DFC1" BorderDashStyle="Solid" BackGradientStyle="TopBottom" BorderWidth="1" BorderColor="181, 64, 1">
                         <Titles>
                             <asp:Title ShadowColor="32, 0, 0, 0" Font="Trebuchet MS, 14.25pt, style=Bold" Alignment="TopLeft" ShadowOffset="3" Name="ecpTitle" ForeColor="26, 59, 105"></asp:Title>
@@ -42,7 +43,11 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <asp:GridView runat="server" ID="gvDept" AutoGenerateColumns="False" OnRowCreated="gvDept_RowCreated" OnRowDataBound="gvDept_RowDataBound" Width="1000">
+                    <asp:GridView runat="server" ID="gvDept" AutoGenerateColumns="False"
+                        CssClass="mGrid"
+                        PagerStyle-CssClass="pgr"
+                        AlternatingRowStyle-CssClass="alt"
+                        OnRowCreated="gvDept_RowCreated" OnRowDataBound="gvDept_RowDataBound" Width="950">
                         <Columns>
                             <asp:BoundField DataField="Name" HeaderText="ITEM">
                                 <HeaderStyle Width="70px" Wrap="false" />

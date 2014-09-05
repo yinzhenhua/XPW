@@ -6,7 +6,7 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
     <link type="text/css" rel="stylesheet" href="Content/GridView.css" />
-    <div class="divClass">
+    <div>
         <table>
             <tr>
                 <td style="width: 10px">
