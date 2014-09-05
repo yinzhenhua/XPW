@@ -5,6 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="FeaturedContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
+    <link type="text/css" rel="stylesheet" href="Content/GridView.css" />
     <div>
         <table>
             <tr>
@@ -21,7 +22,12 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <asp:GridView runat="server" ID="gvDept" AutoGenerateColumns="False" OnRowCreated="gvDept_RowCreated" OnRowDataBound="gvDept_RowDataBound">
+                    <asp:GridView runat="server" ID="gvDept" Width="950" AutoGenerateColumns="False" GridLines="None"
+                        CssClass="mGrid"
+                        PagerStyle-CssClass="pgr"
+                        AlternatingRowStyle-CssClass="alt"
+                        OnRowCreated="gvDept_RowCreated"
+                        OnRowDataBound="gvDept_RowDataBound">
                         <Columns>
                             <asp:BoundField DataField="DeviceID" HeaderText="" ShowHeader="false" Visible="false" />
                             <asp:BoundField DataField="Name" HeaderText="Dept.">
@@ -100,17 +106,14 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <asp:Chart ID="ecpChart" runat="server" Visible="false" Width="800"
+                    <asp:Chart ID="ecpChart" runat="server" Visible="false" Width="950"
                         Palette="BrightPastel" BackColor="#F3DFC1" BorderDashStyle="Solid" BackGradientStyle="TopBottom" BorderWidth="1" BorderColor="181, 64, 1">
                         <Titles>
                             <asp:Title ShadowColor="32, 0, 0, 0" Font="Trebuchet MS, 14.25pt, style=Bold" Alignment="TopLeft" ShadowOffset="3" Name="ecpTitle" ForeColor="26, 59, 105"></asp:Title>
                         </Titles>
-                        <Legends>
-                            <asp:Legend TitleFont="Microsoft Sans Serif, 8pt, style=Bold" BackColor="Transparent" Font="Trebuchet MS, 8.25pt, style=Bold" IsTextAutoFit="False" Enabled="False" Name="Default"></asp:Legend>
-                        </Legends>
                         <BorderSkin SkinStyle="Emboss"></BorderSkin>
                         <Series>
-                            <asp:Series Name="ecpSeries" BorderColor="180, 26, 59, 105">
+                            <asp:Series Name="ecpSeries" BorderColor="180, 26, 59, 105" Color="#9bbb59">
                             </asp:Series>
                         </Series>
                         <ChartAreas>

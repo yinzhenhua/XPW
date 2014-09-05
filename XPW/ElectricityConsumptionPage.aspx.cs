@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -60,7 +61,6 @@ namespace XPW
                     gvDept.DataBind();
                     //MsChart
                     ecpChart.Visible = true;
-                    ecpChart.DataSource = _bc.CreateEquipmentEnergyTable(ds);
                     ecpChart.Titles["ecpTitle"].Text = dlSite.SelectedItem.Text;
                     ecpChart.Series["ecpSeries"].ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.Column;
                     ecpChart.Series["ecpSeries"]["PointWidth"] = "0.8";
@@ -69,9 +69,17 @@ namespace XPW
                     ecpChart.Series["ecpSeries"].IsValueShownAsLabel = true;//显示坐标值
                     ecpChart.Series["ecpSeries"].XValueMember = "Name";//X轴数据成员列
                     ecpChart.Series["ecpSeries"].YValueMembers = "Total";//Y轴数据成员列
-                    ecpChart.ChartAreas["ecpChartArea"].AxisX.Interval = 1;//X轴数据的间距
-                    ecpChart.ChartAreas["ecpChartArea"].AxisX.TextOrientation = System.Web.UI.DataVisualization.Charting.TextOrientation.Horizontal;
+                    //ecpChart.ChartAreas["ecpChartArea"].AxisY.Maximum = 60000000;
+                    //ecpChart.ChartAreas["ecpChartArea"].AxisY.Minimum = 0;
+                    //ecpChart.ChartAreas["ecpChartArea"].AxisY.Interval = 10000000;
+                    ecpChart.ChartAreas["ecpChartArea"].AxisY.LabelStyle.ForeColor = Color.Red;
+                    ecpChart.ChartAreas["ecpChartArea"].AxisY.LabelStyle.Font = new Font("Microsoft Sans Serif", 8);
+                    ecpChart.ChartAreas["ecpChartArea"].AxisX.LabelStyle.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Bold);
+                    ecpChart.ChartAreas["ecpChartArea"].AxisX.Interval = 1;
+                    ecpChart.ChartAreas["ecpChartArea"].AxisX.LabelStyle.ForeColor = Color.FromArgb(155, 187, 89);
                     ecpChart.ChartAreas["ecpChartArea"].AxisX.MajorGrid.Enabled = false;//不显示竖着的分割线
+                    ecpChart.DataSource = _bc.CreateEquipmentEnergyTable(ds);
+                    ecpChart.DataBind();
                 }
             }
             catch (Exception ex)
@@ -114,7 +122,7 @@ namespace XPW
         {
             try
             {
-                e.Row.Attributes.Add("style", "height:30px");
+                //e.Row.Attributes.Add("style", "height:30px");
             }
             catch (Exception ex)
             {

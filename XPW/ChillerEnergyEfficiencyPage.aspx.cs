@@ -30,22 +30,41 @@ namespace XPW
             gvDept.DataBind();
             //显示Chart图
             DataTable table = _bc.CreateChillerEnergyEfficiencyTable(ds);
-            ecpChart.Series["ecpSeries"].ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.Column;
-            ecpChart.Series["ecpSeries"]["PointWidth"] = "0.8";
-            ecpChart.Series["ecpSeries"]["BarLabelStyle"] = "Center";
-            ecpChart.Series["ecpSeries"]["DrawingStyle"] = "Cylinder";
-            ecpChart.Series["ecpSeries"].IsValueShownAsLabel = true;//显示坐标值
-            ecpChart.ChartAreas["ecpChartArea"].AxisX.Interval = 1;//X轴数据的间距
+            //Series - 0
+            ecpChart.Series["Actual VS Nominal COP"].ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.Column;
+            ecpChart.Series["Actual VS Nominal COP"]["PointWidth"] = "0.8";
+            ecpChart.Series["Actual VS Nominal COP"]["BarLabelStyle"] = "Center";
+            ecpChart.Series["Actual VS Nominal COP"]["DrawingStyle"] = "Cylinder";
+            ecpChart.Series["Actual VS Nominal COP"].IsValueShownAsLabel = false;//显示坐标值
+            //Series - 1
+            ecpChart.Series["BaseLine"].ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.Line;
+            ecpChart.Series["BaseLine"]["PointWidth"] = "2";
+            ecpChart.Series["BaseLine"]["BarLabelStyle"] = "Center";
+            ecpChart.Series["BaseLine"]["DrawingStyle"] = "Cylinder";
+            ecpChart.Series["BaseLine"].IsValueShownAsLabel = false;//显示坐标值
+            //
+            ecpChart.ChartAreas["ecpChartArea"].AxisY.Maximum = 1.2;
+            ecpChart.ChartAreas["ecpChartArea"].AxisY.Minimum = 0;
+            ecpChart.ChartAreas["ecpChartArea"].AxisY.Interval = 0.2;
+            ecpChart.ChartAreas["ecpChartArea"].AxisY.LabelStyle.ForeColor = Color.FromArgb(146, 208, 79);
+            ecpChart.ChartAreas["ecpChartArea"].AxisY.LabelStyle.Font = new Font("Microsoft Sans Serif", 12, FontStyle.Bold);
+            ecpChart.ChartAreas["ecpChartArea"].AxisY.IsMarginVisible = true;
+            ecpChart.ChartAreas["ecpChartArea"].AxisY.TextOrientation = System.Web.UI.DataVisualization.Charting.TextOrientation.Horizontal;
+            ecpChart.ChartAreas["ecpChartArea"].AxisY.MajorTickMark.TickMarkStyle = System.Web.UI.DataVisualization.Charting.TickMarkStyle.None;
+            ecpChart.ChartAreas["ecpChartArea"].AxisX.LabelStyle.ForeColor = Color.FromArgb(146, 208, 79);
+            ecpChart.ChartAreas["ecpChartArea"].AxisX.LabelStyle.Font = new Font("Microsoft Sans Serif", 12);
             ecpChart.ChartAreas["ecpChartArea"].AxisX.TextOrientation = System.Web.UI.DataVisualization.Charting.TextOrientation.Horizontal;
             ecpChart.ChartAreas["ecpChartArea"].AxisX.MajorGrid.Enabled = false;//不显示竖着的分割线
             ecpChart.ChartAreas["ecpChartArea"].AxisX.MajorTickMark.Enabled = false;
             for (int i = 0; i < table.Rows.Count; i++)
             {
-                double value = Convert.ToDouble(table.Rows[i]["Total"]);
-                ecpChart.Series["ecpSeries"].Points.AddXY(table.Rows[i]["Name"] as string, value);
-                if (value >= 1)
+                double value1 = Convert.ToDouble(table.Rows[i]["Total"]);
+                double value2 = Convert.ToDouble(table.Rows[i]["BaseLine"]);
+                ecpChart.Series["Actual VS Nominal COP"].Points.AddXY(table.Rows[i]["Name"] as string, value1);
+                ecpChart.Series["BaseLine"].Points.AddXY(table.Rows[i]["Name"] as string, value2);
+                if (value1 < 1)
                 {
-                    ecpChart.Series["ecpSeries"].Points[i].Color = Color.Red;
+                    ecpChart.Series["Actual VS Nominal COP"].Points[i].Color = Color.FromArgb(0, 176, 80);
                 }
             }
         }

@@ -1,5 +1,5 @@
 ﻿html {
-    background-color:#fff;
+    background-color: #fff;
     margin: 0;
     padding: 0;
 }
@@ -93,48 +93,74 @@ body {
 #main-content {
     padding-top: 20px;
 }
-.floatDiv{
-    float:left;
+
+.floatDiv {
+    float: left;
 }
-.leftWidth{
-    width:360px;
+
+.leftWidth {
+    width: 360px;
 }
-.co2{
-    background:url("../Images/co2.png") no-repeat;
-    width:360px;
-    height:261px;
+
+.co2 {
+    background: url("../Images/co2.png") no-repeat;
+    width: 360px;
+    height: 261px;
 }
-table.energy{
-    width:560px;
-    border:1px solid rgb(205,233,175);
-    border-collapse:collapse;
-    font-size:90%;
+
+table.energy {
+    width: 560px;
+    border: 1px solid rgb(205,233,175);
+    border-collapse: collapse;
+    font-size: 90%;
 }
-table.energy caption{
-    text-align:left;
-    background:rgb(146,208,80);
-    line-height:23px;
-    font-weight:bold;
-    text-indent:2em;
-}
-table.energy tr{
-    border-bottom:1px solid rgb(241,245,238);
-    line-height:16px;
-}
-    table.energy tr.split {
-        border-width:3px;
-        border-color:rgb(147,208,81);
+
+    table.energy caption {
+        text-align: left;
+        background: rgb(146,208,80);
+        line-height: 23px;
+        font-weight: bold;
+        text-indent: 2em;
     }
-    table.energy td{
-    border-right:1px solid rgb(242,249,230);
+
+    table.energy tr {
+        border-bottom: 1px solid rgb(241,245,238);
+        line-height: 16px;
+    }
+
+        table.energy tr.split {
+            border-width: 3px;
+            border-color: rgb(147,208,81);
+        }
+
+    table.energy td {
+        border-right: 1px solid rgb(242,249,230);
+    }
+
+        table.energy td.special {
+            color: rgb(107,205,152);
+            font-weight: 600;
+        }
+
+#wtd, #ytd {
+    background: rgb(223,233,201);
 }
-     table.energy td.special{
-         color:rgb(107,205,152);
-         font-weight:600;
-     }
-    #wtd,#ytd{
-        background:rgb(223,233,201);
-    }
-    #cat{
-        width:18%;
-    }
+
+#cat {
+    width: 18%;
+}
+
+.divClass {
+    border: solid thin Silver;
+    margin: 10px 20px 10px 20px;
+    padding: 10px 20px 10px 20px;
+}
+
+.PagerStyleClass * td {
+    border-style: none;
+}
+
+th, td {
+    border: solid thin #A3C0E8;
+    border-width: 1px;
+}
