@@ -1043,197 +1043,189 @@ BEGIN
 	SELECT * FROM @TEMP_ENGERY
 END
 GO
---Equipment Energy Efficiency模块  
-ALTER PROCEDURE [dbo].[GetChillerEnergyEfficiency]  
-AS  
-BEGIN  
-   
- DECLARE @TEMP_ENERGY TABLE(  
-  Name VARCHAR(510),  
-  Chiller1 FLOAT,  
-  Chiller2 FLOAT,  
-  Chiller3 FLOAT,  
-  Chiller4  FLOAT,  
-  Chiller5 FLOAT  
- )  
- --Nominal Power   
- INSERT INTO @TEMP_ENERGY VALUES(  
-  'Nominal Power',  
-  0,  
-  505,  
-  505,  
-  608,  
-  785  
- )  
- --Nominal CC  
- INSERT INTO @TEMP_ENERGY VALUES(  
-  'Nominal CC',  
-  0,  
-  2700,  
-  2700,  
-  3516,  
-  4570  
- )  
- --Normal COP  
- INSERT INTO @TEMP_ENERGY VALUES(  
-  'Nominal COP',  
-  0,  
-  5.34,  
-  5.34,  
-  5.78,  
-  5.82  
- )  
- DECLARE @HOUR_F DATETIME  
- DECLARE @HOUR_L DATETIME  
- SET @HOUR_F = DATEADD(hh, DATEDIFF(hh,0,GETDATE())-1,0)  
- SET @HOUR_L = DATEADD(ms, -3,DATEADD(hh,1,@HOUR_F))  
- DECLARE @Chiller1_1 FLOAT  
- DECLARE @Chiller2_1 FLOAT  
- DECLARE @Chiller3_1 FLOAT  
- DECLARE @Chiller4_1 FLOAT  
- --Actual Electricity Consumption  
- SELECT @Chiller1_1 = SUM(C.Value)  
- FROM ConsumptionData C    
- WHERE DeviceID=127   AND ReadingDate BETWEEN @HOUR_F AND @HOUR_L  
- IF @Chiller1_1 IS NULL  
-  SET @Chiller1_1 = 0  
- SELECT @Chiller2_1 = SUM(C.Value)  
- FROM ConsumptionData C    
- WHERE DeviceID=125   AND ReadingDate BETWEEN @HOUR_F AND @HOUR_L  
- IF @Chiller2_1 IS NULL  
-  SET @Chiller2_1 = 0  
- SELECT @Chiller3_1 = SUM(C.Value)  
- FROM ConsumptionData C    
- WHERE DeviceID=128   AND ReadingDate BETWEEN @HOUR_F AND @HOUR_L  
- IF @Chiller3_1 IS NULL  
-  SET @Chiller3_1 = 0  
- SELECT @Chiller4_1 = SUM(C.Value)  
- FROM ConsumptionData C    
- WHERE DeviceID=167   AND ReadingDate BETWEEN @HOUR_F AND @HOUR_L  
- IF @Chiller4_1 IS NULL  
-  SET @Chiller4_1 = 0  
- INSERT INTO @TEMP_ENERGY VALUES(  
-  'Actual Electricity Consumption',  
-  @Chiller1_1,  
-  @Chiller2_1,  
-  @Chiller3_1,  
-  @Chiller4_1,  
-  0  
- )  
- --Actual Accumulation Cooling   
- DECLARE @Chiller1_2 FLOAT  
- DECLARE @Chiller2_2 FLOAT  
- DECLARE @Chiller3_2 FLOAT  
- DECLARE @Chiller4_2 FLOAT  
- SELECT @Chiller1_2 = (SUM(C.Value)*284.43)
- FROM ConsumptionData C    
- WHERE DeviceID=401 AND (ReadingDate BETWEEN @HOUR_F AND @HOUR_L)  
- IF @Chiller1_2 IS NULL  
-  SET @Chiller1_2 = 0  
- SELECT @Chiller2_2 = (SUM(C.Value)*284.43)  
- FROM ConsumptionData C    
- WHERE DeviceID=403   AND (ReadingDate BETWEEN @HOUR_F AND @HOUR_L)  
- IF @Chiller2_2 IS NULL  
-  SET @Chiller2_2 = 0  
- SELECT @Chiller3_2 = (SUM(C.Value)*284.43)  
- FROM ConsumptionData C    
- WHERE DeviceID=404   AND (ReadingDate BETWEEN @HOUR_F AND @HOUR_L)  
- IF @Chiller3_2 IS NULL  
-  SET @Chiller3_2 = 0  
- SELECT @Chiller4_2 = (SUM(C.Value)*284.43)
- FROM ConsumptionData C    
- WHERE DeviceID=402   AND (ReadingDate BETWEEN @HOUR_F AND @HOUR_L)  
- IF @Chiller4_2 IS NULL  
-  SET @Chiller4_2 = 0  
- INSERT INTO @TEMP_ENERGY VALUES(  
-  'Actual Accumulation Cooling',  
-  @Chiller1_2,  
-  @Chiller2_2,  
-  @Chiller3_2,  
-  @Chiller4_2,  
-  0  
- )  
- --Actual COP  
- DECLARE @COP_1 FLOAT
- DECLARE @COP_2 FLOAT
- DECLARE @COP_3 FLOAT
- DECLARE @COP_4 FLOAT
- IF @Chiller1_1 = 0
-	SET @COP_2 = 0
- ELSE
-	SET @COP_2 = (@Chiller1_2*1000)/(@Chiller1_1*3.6)
- IF @Chiller2_1 = 0
-	SET @COP_2 = 0
- ELSE
-	SET @COP_2 = (@Chiller2_2*1000)/(@Chiller2_1*3.6)
- IF @Chiller3_1 = 0
-	SET @COP_3 = 0
- ELSE
-	SET @COP_3 = (@Chiller3_2*1000)/(@Chiller3_1*3.6)
- IF @Chiller4_1 = 0
-	SET @COP_4 = 0
- ELSE
-	SET @COP_4 = (@Chiller4_2*1000)/(@Chiller4_1*3.6) 
- 
- INSERT INTO @TEMP_ENERGY VALUES(  
-  'Actual COP',  
-  @COP_1,  
-  @COP_2,  
-  @COP_3,  
-  @COP_4,  
-  0  
- )  
- --Actual COP  
- DECLARE @Chiller1_COP FLOAT  
- DECLARE @Chiller2_COP FLOAT  
- DECLARE @Chiller3_COP FLOAT  
- DECLARE @Chiller4_COP FLOAT  
- IF @Chiller1_1 = 0  
-  SET @Chiller1_COP = 0  
- ELSE  
-  SET @Chiller1_COP = (@Chiller1_2*1000)/(@Chiller1_1*3.6)  
+--Equipment Energy Efficiency模块      
+ALTER PROCEDURE [dbo].[GetChillerEnergyEfficiency]      
+AS      
+BEGIN      
+       
+ DECLARE @TEMP_ENERGY TABLE(      
+  Name VARCHAR(510),      
+  Chiller1 FLOAT,      
+  Chiller2 FLOAT,      
+  Chiller3 FLOAT,      
+  Chiller4  FLOAT,      
+  Chiller5 FLOAT      
+ )      
+ --Nominal Power       
+ INSERT INTO @TEMP_ENERGY VALUES(      
+  'Nominal Power',      
+  0,      
+  505,      
+  505,      
+  608,      
+  785      
+ )      
+ --Nominal CC      
+ INSERT INTO @TEMP_ENERGY VALUES(      
+  'Nominal CC',      
+  0,      
+  2700,      
+  2700,      
+  3516,      
+  4570      
+ )      
+ --Normal COP      
+ INSERT INTO @TEMP_ENERGY VALUES(      
+  'Nominal COP',      
+  0,      
+  5.34,      
+  5.34,      
+  5.78,      
+  5.82      
+ )      
+ DECLARE @HOUR_F DATETIME      
+ DECLARE @HOUR_L DATETIME      
+ SET @HOUR_F = DATEADD(hh, DATEDIFF(hh,0,GETDATE())-1,0)      
+ SET @HOUR_L = DATEADD(ms, -3,DATEADD(hh,1,@HOUR_F))      
+ DECLARE @Chiller1_1 FLOAT      
+ DECLARE @Chiller2_1 FLOAT      
+ DECLARE @Chiller3_1 FLOAT      
+ DECLARE @Chiller4_1 FLOAT      
+ --Actual Electricity Consumption      
+ SELECT @Chiller1_1 = SUM(C.Value)      
+ FROM ConsumptionData C        
+ WHERE DeviceID=127   AND ReadingDate BETWEEN @HOUR_F AND @HOUR_L      
+ IF @Chiller1_1 IS NULL      
+  SET @Chiller1_1 = 0      
+ SELECT @Chiller2_1 = SUM(C.Value)      
+ FROM ConsumptionData C        
+ WHERE DeviceID=125   AND ReadingDate BETWEEN @HOUR_F AND @HOUR_L      
+ IF @Chiller2_1 IS NULL      
+  SET @Chiller2_1 = 0      
+ SELECT @Chiller3_1 = SUM(C.Value)      
+ FROM ConsumptionData C        
+ WHERE DeviceID=128   AND ReadingDate BETWEEN @HOUR_F AND @HOUR_L      
+ IF @Chiller3_1 IS NULL      
+  SET @Chiller3_1 = 0      
+ SELECT @Chiller4_1 = SUM(C.Value)      
+ FROM ConsumptionData C        
+ WHERE DeviceID=167   AND ReadingDate BETWEEN @HOUR_F AND @HOUR_L      
+ IF @Chiller4_1 IS NULL      
+  SET @Chiller4_1 = 0      
+ INSERT INTO @TEMP_ENERGY VALUES(      
+  'Actual Electricity Consumption',      
+  @Chiller1_1,      
+  @Chiller2_1,      
+  @Chiller3_1,      
+  @Chiller4_1,      
+  0      
+ )      
+ --Actual Accumulation Cooling       
+ DECLARE @Chiller1_2 FLOAT      
+ DECLARE @Chiller2_2 FLOAT      
+ DECLARE @Chiller3_2 FLOAT      
+ DECLARE @Chiller4_2 FLOAT      
+ SELECT @Chiller1_2 = (SUM(C.Value)*284.43)    
+ FROM ConsumptionData C        
+ WHERE DeviceID=401 AND (ReadingDate BETWEEN @HOUR_F AND @HOUR_L)      
+ IF @Chiller1_2 IS NULL      
+  SET @Chiller1_2 = 0      
+ SELECT @Chiller2_2 = (SUM(C.Value)*284.43)      
+ FROM ConsumptionData C        
+ WHERE DeviceID=403   AND (ReadingDate BETWEEN @HOUR_F AND @HOUR_L)      
+ IF @Chiller2_2 IS NULL      
+  SET @Chiller2_2 = 0      
+ SELECT @Chiller3_2 = (SUM(C.Value)*284.43)      
+ FROM ConsumptionData C        
+ WHERE DeviceID=404   AND (ReadingDate BETWEEN @HOUR_F AND @HOUR_L)      
+ IF @Chiller3_2 IS NULL      
+  SET @Chiller3_2 = 0      
+ SELECT @Chiller4_2 = (SUM(C.Value)*284.43)    
+ FROM ConsumptionData C        
+ WHERE DeviceID=402   AND (ReadingDate BETWEEN @HOUR_F AND @HOUR_L)      
+ IF @Chiller4_2 IS NULL      
+  SET @Chiller4_2 = 0      
+ INSERT INTO @TEMP_ENERGY VALUES(      
+  'Actual Accumulation Cooling',      
+  @Chiller1_2,      
+  @Chiller2_2,      
+  @Chiller3_2,      
+  @Chiller4_2,      
+  0      
+ )      
+ --Actual COP      
+ DECLARE @COP_1 FLOAT    
+ DECLARE @COP_2 FLOAT    
+ DECLARE @COP_3 FLOAT    
+ DECLARE @COP_4 FLOAT    
+ IF @Chiller1_1 = 0    
+ SET @COP_2 = 0    
+ ELSE    
+ SET @COP_2 = (@Chiller1_2*1000)/(@Chiller1_1*3.6)    
+ IF @Chiller2_1 = 0    
+ SET @COP_2 = 0    
+ ELSE    
+ SET @COP_2 = (@Chiller2_2*1000)/(@Chiller2_1*3.6)    
+ IF @Chiller3_1 = 0    
+ SET @COP_3 = 0    
+ ELSE    
+ SET @COP_3 = (@Chiller3_2*1000)/(@Chiller3_1*3.6)    
+ IF @Chiller4_1 = 0    
+ SET @COP_4 = 0    
+ ELSE    
+ SET @COP_4 = (@Chiller4_2*1000)/(@Chiller4_1*3.6)     
+     
+ INSERT INTO @TEMP_ENERGY VALUES(      
+  'Actual COP',      
+  @COP_1,      
+  @COP_2,      
+  @COP_3,      
+  @COP_4,      
+  0      
+ )      
+ --Actual COP      
+ DECLARE @Chiller1_COP FLOAT      
+ DECLARE @Chiller2_COP FLOAT      
+ DECLARE @Chiller3_COP FLOAT      
+ DECLARE @Chiller4_COP FLOAT      
+ IF @Chiller1_1 = 0      
+  SET @Chiller1_COP = 0      
+ ELSE      
+  SET @Chiller1_COP = (@Chiller1_2*1000)/(@Chiller1_1*3.6)      
+        
+ IF @Chiller2_1 = 0      
+  SET @Chiller2_COP = 0      
+ ELSE      
+  SET @Chiller2_COP = (@Chiller2_2*1000)/(@Chiller2_1*3.6)      
+        
+ IF @Chiller3_1 = 0      
+  SET @Chiller3_COP = 0      
+ ELSE      
+  SET @Chiller3_COP = (@Chiller3_2*1000)/(@Chiller3_1*3.6)      
+        
+ IF @Chiller4_1 = 0      
+  SET @Chiller4_COP = 0      
+ ELSE      
+  SET @Chiller4_COP = (@Chiller4_2*1000)/(@Chiller4_1*3.6)      
     
- IF @Chiller2_1 = 0  
-  SET @Chiller2_COP = 0  
- ELSE  
-  SET @Chiller2_COP = (@Chiller2_2*1000)/(@Chiller2_1*3.6)  
-    
- IF @Chiller3_1 = 0  
-  SET @Chiller3_COP = 0  
- ELSE  
-  SET @Chiller3_COP = (@Chiller3_2*1000)/(@Chiller3_1*3.6)  
-    
- IF @Chiller4_1 = 0  
-  SET @Chiller4_COP = 0  
- ELSE  
-  SET @Chiller4_COP = (@Chiller4_2*1000)/(@Chiller4_1*3.6)  
-  
- INSERT INTO @TEMP_ENERGY VALUES(  
-  'Actual COP',  
-  @Chiller1_COP,  
-  @Chiller2_COP,  
-  @Chiller3_COP,  
-  @Chiller4_COP,  
-  0  
- )  
- --Actual VS Nominal COP  
- INSERT INTO @TEMP_ENERGY VALUES(  
-  'Actual VS Nominal COP',  
-  @Chiller1_COP/100,  
-  @Chiller2_COP/100,  
-  @Chiller3_COP/100,  
-  @Chiller4_COP/100,  
-  0  
- )  
- --BaseLine  
- INSERT INTO @TEMP_ENERGY VALUES(  
-  'BaseLine',  
-  1,  
-  1,  
-  1,  
-  1,  
-  1  
- )  
- 
- SELECT * FROM @TEMP_ENERGY
+ --Actual VS Nominal COP      
+ INSERT INTO @TEMP_ENERGY VALUES(      
+  'Actual VS Nominal COP',      
+  @Chiller1_COP/100,      
+  @Chiller2_COP/100,      
+  @Chiller3_COP/100,      
+  @Chiller4_COP/100,      
+  0      
+ )      
+ --BaseLine      
+ INSERT INTO @TEMP_ENERGY VALUES(      
+  'BaseLine',      
+  1,      
+  1,      
+  1,      
+  1,      
+  1      
+ )      
+     
+ SELECT * FROM @TEMP_ENERGY    
 END

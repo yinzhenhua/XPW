@@ -112,9 +112,29 @@ namespace XPW
         {
             try
             {
-                e.Row.Attributes.Add("style", "height:30px");
+                if (e.Row.RowType == DataControlRowType.Header)
+                {
+                    string style = "padding: 4px 2px;color: #fff;"
+                        + "background: #424242 url(grd_head.png) repeat-x top;"
+                        + "border-left: solid 1px #525252;"
+                        + "font-size: 0.9em;"
+                        + "text-align: left;";
+                    e.Row.Cells[0].Attributes.Remove("style");
+                    e.Row.Cells[0].Attributes.Add("style", style);
+                }
                 if (e.Row.RowType == DataControlRowType.DataRow)
                 {
+                    string style = "padding: 2px;"
+                      + "border: solid 1px #c1c1c1;"
+                      + "color: #717171;"
+                      + "width: 80px;"
+                      + "text-align: left;"
+                      + "height: 24px;"
+                      + "width: 100px; "
+                      + "text-wrap: none";
+                    e.Row.Cells[0].Attributes.Remove("style");
+                    e.Row.Cells[0].Attributes.Add("style", style);
+
                     switch (e.Row.RowIndex)
                     {
                         case 1://第1行

@@ -48,6 +48,10 @@ namespace XPW
             {
                 if (dlSite.SelectedIndex == 0)
                 {
+                    dvBody.Style.Clear();
+                    dvBody.Style.Add("overflow-x", "scroll");
+                    dvBody.Style.Add("height", "480px");
+                    dvBody.Style.Add("width", "940px");
                     ElectricityConsumptionDS ds = _bc.GetAllEquipmentEnergy();
                     gvDept.DataSource = ds.ElectricityConsumption;
                     gvDept.DataBind();
@@ -55,6 +59,11 @@ namespace XPW
                 }
                 else
                 {
+                    dvBody.Style.Clear();
+                    dvBody.Style.Add("overflow-x", "scroll");
+                    dvBody.Style.Add("height", "130px");
+                    dvBody.Style.Add("width", "940px");
+
                     int deviceID = Convert.ToInt32(dlSite.SelectedValue);
                     ElectricityConsumptionDS ds = _bc.GetEquipmentEnergy(deviceID);
                     gvDept.DataSource = ds.ElectricityConsumption;
@@ -122,7 +131,28 @@ namespace XPW
         {
             try
             {
-                //e.Row.Attributes.Add("style", "height:30px");
+                if(e.Row.RowType== DataControlRowType.Header)
+                {
+                    string style = "padding: 4px 2px;color: #fff;"
+                        + "background: #424242 url(grd_head.png) repeat-x top;"
+                        + "border-left: solid 1px #525252;"
+                        + "font-size: 0.9em;"
+                        + "text-align: left;"
+                        + "height: 24px;";
+                    e.Row.Cells[1].Attributes.Remove("style");
+                    e.Row.Cells[1].Attributes.Add("style", style);
+                }
+                if(e.Row.RowType== DataControlRowType.DataRow)
+                {
+                    string style = "padding: 2px;"
+                       + "border: solid 1px #c1c1c1;"
+                       + "color: #717171;"
+                       + "width: 80px;"
+                       + "text-align: left;"
+                       + "height: 24px;";
+                    e.Row.Cells[1].Attributes.Remove("style");
+                    e.Row.Cells[1].Attributes.Add("style", style);
+                }
             }
             catch (Exception ex)
             {

@@ -62,10 +62,43 @@ namespace XPW
                 double value2 = Convert.ToDouble(table.Rows[i]["BaseLine"]);
                 ecpChart.Series["Actual VS Nominal COP"].Points.AddXY(table.Rows[i]["Name"] as string, value1);
                 ecpChart.Series["BaseLine"].Points.AddXY(table.Rows[i]["Name"] as string, value2);
-                if (value1 < 1)
+                if (value1 >= 1)
                 {
                     ecpChart.Series["Actual VS Nominal COP"].Points[i].Color = Color.FromArgb(0, 176, 80);
                 }
+            }
+        }
+
+        protected void gvDept_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            try
+            {
+                if (e.Row.RowType == DataControlRowType.Header)
+                {
+                    string style = "padding: 4px 2px;color: #fff;"
+                        + "background: #424242 url(grd_head.png) repeat-x top;"
+                        + "border-left: solid 1px #525252;"
+                        + "font-size: 0.9em;"
+                        + "text-align: left;"
+                        + "height: 24px;";
+                    e.Row.Cells[0].Attributes.Remove("style");
+                    e.Row.Cells[0].Attributes.Add("style", style);
+                }
+                if (e.Row.RowType == DataControlRowType.DataRow)
+                {
+                    string style = "padding: 2px;"
+                        + "border: solid 1px #c1c1c1;"
+                        + "color: #717171;"
+                        + "width: 80px;"
+                        + "text-align: left;"
+                        + "height: 24px;";
+                    e.Row.Cells[0].Attributes.Remove("style");
+                    e.Row.Cells[0].Attributes.Add("style", style);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
     }
