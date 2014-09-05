@@ -13,6 +13,33 @@ namespace XPW {
     public partial class DashboardPage {
         
         /// <summary>
+        /// lnk_Water 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnk_Water;
+        
+        /// <summary>
+        /// lnk_elctr 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnk_elctr;
+        
+        /// <summary>
+        /// lnk_Lng 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnk_Lng;
+        
+        /// <summary>
         /// chartEnerge 控件。
         /// </summary>
         /// <remarks>
