@@ -6,50 +6,44 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
     <link type="text/css" rel="stylesheet" href="Content/GridView.css" />
-    <div>
+    <div class="moduleDIV">
+        <h2>Real Time Chiller's Energy Efficiency
+        </h2>
         <table>
             <tr>
-                <td colspan="2">Real Time Chiller's Energy Efficiency
+                <td colspan="2">
+                    <div style="overflow-x: scroll; height: 300px; width: 940px" id="dvBody">
+                        <asp:GridView runat="server" ID="gvDept" AutoGenerateColumns="False"
+                            CssClass="mGrid"
+                            PagerStyle-CssClass="pgr"
+                            AlternatingRowStyle-CssClass="alt" OnRowDataBound="gvDept_RowDataBound">
+                            <Columns>
+                                <asp:BoundField DataField="Name" HeaderText="ITEM">
+                                    <ItemStyle Width="20%" Wrap="false" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="Chiller1" HeaderText="Chiller 1#">
+                                    <ItemStyle Width="16%" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="Chiller2" HeaderText="Chiller 2#">
+                                    <ItemStyle Width="16%" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="Chiller3" HeaderText="Chiller 3#">
+                                    <ItemStyle Width="16%" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="Chiller4" HeaderText="Chiller 4#">
+                                    <ItemStyle Width="16%" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="Chiller5" HeaderText="Chiller 5#">
+                                    <ItemStyle Width="16%" />
+                                </asp:BoundField>
+                            </Columns>
+                        </asp:GridView>
+                    </div>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <asp:GridView runat="server" ID="gvDept" AutoGenerateColumns="False" Width="950"
-                        CssClass="mGrid"
-                        PagerStyle-CssClass="pgr"
-                        AlternatingRowStyle-CssClass="alt">
-                        <Columns>
-                            <asp:BoundField DataField="Name" HeaderText="ITEM">
-                                <HeaderStyle Width="70px" Wrap="false" />
-                                <ItemStyle Width="70px" Wrap="false" />
-                            </asp:BoundField>
-                            <asp:BoundField DataField="Chiller1" HeaderText="Chiller 1#">
-                                <HeaderStyle Width="70px" Wrap="false" />
-                                <ItemStyle Width="70px" Wrap="false" />
-                            </asp:BoundField>
-                            <asp:BoundField DataField="Chiller2" HeaderText="Chiller 2#">
-                                <HeaderStyle Width="70px" Wrap="false" />
-                                <ItemStyle Width="70px" Wrap="false" />
-                            </asp:BoundField>
-                            <asp:BoundField DataField="Chiller3" HeaderText="Chiller 3#">
-                                <HeaderStyle Width="70px" Wrap="false" />
-                                <ItemStyle Width="70px" Wrap="false" />
-                            </asp:BoundField>
-                            <asp:BoundField DataField="Chiller4" HeaderText="Chiller 4#">
-                                <HeaderStyle Width="70px" Wrap="false" />
-                                <ItemStyle Width="70px" Wrap="false" />
-                            </asp:BoundField>
-                            <asp:BoundField DataField="Chiller5" HeaderText="Chiller 5#">
-                                <HeaderStyle Width="70px" Wrap="false" />
-                                <ItemStyle Width="70px" Wrap="false" />
-                            </asp:BoundField>
-                        </Columns>
-                    </asp:GridView>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <asp:Chart ID="ecpChart" runat="server" Width="950"
+                    <asp:Chart ID="ecpChart" runat="server" Width="940"
                         Palette="BrightPastel" BackColor="#F3DFC1" BorderDashStyle="Solid" BackGradientStyle="TopBottom" BorderWidth="1" BorderColor="181, 64, 1">
                         <Titles>
                             <asp:Title ShadowColor="32, 0, 0, 0" Font="Trebuchet MS, 14.25pt, style=Bold" Alignment="TopLeft" ShadowOffset="3" Name="ecpTitle" ForeColor="26, 59, 105" Text="Chiller's Energy Efficiency"></asp:Title>

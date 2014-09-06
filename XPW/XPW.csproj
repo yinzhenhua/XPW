@@ -126,6 +126,7 @@
     <Content Include="ChillerEnergyEfficiencyPage.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\GridView.css" />
+    <Content Include="Content\images\bg-cv-tit.gif" />
     <Content Include="Content\images\grd_alt.png" />
     <Content Include="Content\images\grd_head.png" />
     <Content Include="Content\images\grd_pgr.png" />
@@ -190,6 +191,7 @@
     <Content Include="ElectricityConsumptionPage.aspx" />
     <Content Include="EquipmentEnergyEfficiencyPage.aspx" />
     <Content Include="Images\accent.png" />
+    <Content Include="Images\bg-cv-tit.gif" />
     <Content Include="Images\bullet.png" />
     <Content Include="Images\co2.png" />
     <Content Include="Images\dian.jpg" />

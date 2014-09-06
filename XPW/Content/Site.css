@@ -160,7 +160,32 @@ table.energy {
     border-style: none;
 }
 
-th, td {
+/*th, td {
     border: solid thin #A3C0E8;
     border-width: 1px;
+}*/
+
+.moduleDIV {
+    border: 1px solid #d2d2d2;
+    font-family: "Microsoft YaHei";
+    width: 948px;
+    float: none;
+    position: relative;
+}
+
+    .moduleDIV h2 {
+        font-size: 18px;
+        background: url(images/bg-cv-tit.gif) repeat-x 0 0;
+        color: #333;
+        border-bottom: 1px solid #d2d2d2;
+        font-family: "Microsoft YaHei";
+    }
+
+.title {
+    border: 1px solid #d2d2d2;
+    font-family: "Microsoft YaHei";
+    width: 948px;
+    float: none;
+    position: relative;
+    padding-left: 2px;
 }
