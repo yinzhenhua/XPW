@@ -79,7 +79,7 @@
                                 <asp:TemplateField>
                                     <ItemTemplate>
                                         <asp:ImageButton runat="Server" ID="btnGraph" ImageUrl="~/Images/graph.png" ImageAlign="Middle"
-                                            PostBackUrl='<%# "/EquipmentEnergyEfficiencyPage.aspx?DeviceID="+Eval("DeviceID")+"&Name="+ Eval("Name")%>' />
+                                            PostBackUrl='<%# "EquipmentEnergyEfficiencyPage.aspx?DeviceID="+Eval("DeviceID")+"&Name="+ Eval("Name")%>' />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
