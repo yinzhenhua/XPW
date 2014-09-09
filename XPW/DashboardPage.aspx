@@ -14,6 +14,17 @@
                 $(this).hide(200);
                 $('#min').show(200);
             });
+
+            $('#min_enery').click(function () {
+                $('#energy').hide(500);
+                $('#max_enery').show(200);
+                $(this).hide(200);
+            });
+            $('#max_enery').click(function () {
+                $('#energy').show(500);
+                $(this).hide(200);
+                $('#min_enery').show(200);
+            });
         });
     </script>
 </asp:Content>
@@ -29,13 +40,15 @@
                 <asp:LinkButton ID="lnk_Water" runat="server" CommandArgument="373" OnClick="OnLinkClick"><img src="Images/shui.jpg" alt="水" height="28"/></asp:LinkButton>
                 <asp:LinkButton ID="lnk_elctr" runat="server" CommandArgument="388" OnClick="OnLinkClick"><img src="Images/dian.jpg" alt="电" height="28"/></asp:LinkButton>
                 <asp:LinkButton ID="lnk_Lng" runat="server" CommandArgument="358" OnClick="OnLinkClick"><img src="Images/mei.png" alt="煤" height="28"/></asp:LinkButton>
-                <a href='#' id="min"><img src="Images/min.png" alt="最小化"/></a>
-                <a href='#' id="max" style="display: none"><img src="Images/max.png" alt="最大化"/></a>
+                <a href='#' id="min">
+                    <img src="Images/min.png" alt="最小化" /></a>
+                <a href='#' id="max" style="display: none">
+                    <img src="Images/max.png" alt="最大化" /></a>
             </div>
             <div id="div_chart">
-                <asp:Chart ID="chartEnerge" runat="server" Width="560px" Height="260px" 
-                    Palette="BrightPastel" ImageType="Png" BorderlineDashStyle="Solid" 
-                    BackSecondaryColor="White" BackGradientStyle="TopBottom" BorderWidth="2" BackColor="#D3DFF0" 
+                <asp:Chart ID="chartEnerge" runat="server" Width="560px" Height="260px"
+                    Palette="BrightPastel" ImageType="Png" BorderlineDashStyle="Solid"
+                    BackSecondaryColor="White" BackGradientStyle="TopBottom" BorderWidth="2" BackColor="#D3DFF0"
                     BorderColor="26, 59, 105" OnClick="OnChartClick">
                     <%--<Legends>
                     <asp:Legend Name="Default" Docking="Bottom">
@@ -43,8 +56,8 @@
                 </Legends>--%>
                     <BorderSkin SkinStyle="Emboss" />
                     <ChartAreas>
-                        <asp:ChartArea Name="ChartArea1" BorderColor="64, 64, 64, 64" BorderDashStyle="Solid" 
-                            BackSecondaryColor="White" BackColor="64, 165, 191, 228" ShadowColor="Transparent" 
+                        <asp:ChartArea Name="ChartArea1" BorderColor="64, 64, 64, 64" BorderDashStyle="Solid"
+                            BackSecondaryColor="White" BackColor="64, 165, 191, 228" ShadowColor="Transparent"
                             BackGradientStyle="TopBottom">
                             <Area3DStyle Rotation="10" Perspective="10" Inclination="15" IsRightAngleAxes="False" WallWidth="0" IsClustered="False"></Area3DStyle>
                             <AxisY LineColor="64, 64, 64, 64" IsLabelAutoFit="False">
@@ -64,13 +77,19 @@
     </div>
     <div style="clear: both;">
         <div class="floatDiv leftWidth co2">
-            <div style="position: relative; top: 35px; width: 156px; text-align: center; font-weight: 700; font-size: 100%; color: rgb(70,146,81);"><%:MonthCo2.ToString("N") %>T</div>
-            <div style="position: relative; top: 18px; left: 170px; width: 156px; text-align: center; font-weight: 700; font-size: 100%; color: rgb(70,146,81);"><%:MonthTrees.ToString("N") %></div>
-            <div style="position: relative; top: 185px; width: 156px; text-align: center; font-weight: 700; font-size: 100%"><%:Co2 %>T</div>
-            <div style="position: relative; top: 168px; left: 170px; width: 156px; text-align: center; font-weight: 700; font-size: 100%"><%:Trees %></div>
+            <div style="position: relative; top: 35px; width: 156px; text-align: center; font-weight: 700; font-size: 100%; color: rgb(70,146,81);"><%:MonthCo2.ToString("N0") %>T</div>
+            <div style="position: relative; top: 18px; left: 170px; width: 156px; text-align: center; font-weight: 700; font-size: 100%; color: rgb(70,146,81);"><%:MonthTrees.ToString("N0") %></div>
+            <div style="position: relative; top: 185px; width: 156px; text-align: center; font-weight: 700; font-size: 100%"><%:Co2.ToString("N0") %>T</div>
+            <div style="position: relative; top: 168px; left: 170px; width: 156px; text-align: center; font-weight: 700; font-size: 100%"><%:Trees.ToString("N0") %></div>
         </div>
         <div class="floatDiv">
-            <table class="energy">
+            <div style="text-align: right;">
+                <a href='#' id="min_enery">
+                    <img src="Images/min.png" alt="最小化" /></a>
+                <a href='#' id="max_enery" style="display: none">
+                    <img src="Images/max.png" alt="最大化" /></a>
+            </div>
+            <table class="energy" id="energy">
                 <caption>Energy Consumption & Cost</caption>
                 <colgroup>
                     <col id="cat" />
@@ -95,31 +114,63 @@
                 </tr>
                 <tr>
                     <td>Electrictiy(KWH)</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td class="content">
+                        <asp:Label ID="lbl_Energy_today" runat="server" Text="0"></asp:Label>
+                    </td>
+                    <td class="content">
+                        <asp:Label ID="lbl_Energy_wtd" runat="server" Text="0"></asp:Label>
+                    </td>
+                    <td class="content">
+                        <asp:Label ID="lbl_Energy_mtd" runat="server" Text="0"></asp:Label>
+                    </td>
+                    <td class="content">
+                        <asp:Label ID="lbl_Energy_ytd" runat="server" Text="0"></asp:Label>
+                    </td>
                 </tr>
                 <tr>
                     <td>Water(m3)</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td class="content">
+                        <asp:Label ID="lbl_water_today" runat="server" Text="0"></asp:Label>
+                    </td>
+                    <td class="content">
+                        <asp:Label ID="lbl_water_wtd" runat="server" Text="0"></asp:Label>
+                    </td>
+                    <td class="content">
+                        <asp:Label ID="lbl_water_mtd" runat="server" Text="0"></asp:Label>
+                    </td>
+                    <td class="content">
+                        <asp:Label ID="lbl_water_ytd" runat="server" Text="0"></asp:Label>
+                    </td>
                 </tr>
                 <tr>
                     <td>Gas(m3)</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td class="content">
+                        <asp:Label ID="lbl_gas_today" runat="server" Text="0"></asp:Label>
+                    </td>
+                    <td class="content">
+                        <asp:Label ID="lbl_gas_wtd" runat="server" Text="0"></asp:Label>
+                    </td>
+                    <td class="content">
+                        <asp:Label ID="lbl_gas_mtd" runat="server" Text="0"></asp:Label>
+                    </td>
+                    <td class="content">
+                        <asp:Label ID="lbl_gas_ytd" runat="server" Text="0"></asp:Label>
+                    </td>
                 </tr>
                 <tr class="split">
                     <td>LN2(m3)</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td class="content">
+                        <asp:Label ID="lbl_ln_today" runat="server" Text="0"></asp:Label>
+                    </td>
+                    <td class="content">
+                        <asp:Label ID="lbl_ln_wtd" runat="server" Text="0"></asp:Label>
+                    </td>
+                    <td class="content">
+                        <asp:Label ID="lbl_ln_mtd" runat="server" Text="0"></asp:Label>
+                    </td>
+                    <td class="content">
+                        <asp:Label ID="lbl_ln_ytd" runat="server" Text="0"></asp:Label>
+                    </td>
                 </tr>
                 <tr>
                     <td class="special">Cost</td>
@@ -130,31 +181,63 @@
                 </tr>
                 <tr>
                     <td>Electrictiy Cost(￥)</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td class="content">
+                        <asp:Label ID="lbl_Energy_cost_today" runat="server" Text="0"></asp:Label>
+                    </td>
+                    <td class="content">
+                        <asp:Label ID="lbl_Energy_cost_wtd" runat="server" Text="0"></asp:Label>
+                    </td>
+                    <td class="content">
+                        <asp:Label ID="lbl_Energy_cost_mtd" runat="server" Text="0"></asp:Label>
+                    </td>
+                    <td class="content">
+                        <asp:Label ID="lbl_Energy_cost_ytd" runat="server" Text="0"></asp:Label>
+                    </td>
                 </tr>
                 <tr>
                     <td>Water Cost(￥)</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td class="content">
+                        <asp:Label ID="lbl_water_cost_today" runat="server" Text="0"></asp:Label>
+                    </td>
+                    <td class="content">
+                        <asp:Label ID="lbl_water_cost_wtd" runat="server" Text="0"></asp:Label>
+                    </td>
+                    <td class="content">
+                        <asp:Label ID="lbl_water_cost_mtd" runat="server" Text="0"></asp:Label>
+                    </td>
+                    <td class="content">
+                        <asp:Label ID="lbl_water_cost_ytd" runat="server" Text="0"></asp:Label>
+                    </td>
                 </tr>
                 <tr>
                     <td>Gas Cost(￥)</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td class="content">
+                        <asp:Label ID="lbl_gas_cost_today" runat="server" Text="0"></asp:Label>
+                    </td>
+                    <td class="content">
+                        <asp:Label ID="lbl_gas_cost_wtd" runat="server" Text="0"></asp:Label>
+                    </td>
+                    <td class="content">
+                        <asp:Label ID="lbl_gas_cost_mtd" runat="server" Text="0"></asp:Label>
+                    </td>
+                    <td class="content">
+                        <asp:Label ID="lbl_gas_cost_ytd" runat="server" Text="0"></asp:Label>
+                    </td>
                 </tr>
                 <tr>
                     <td>LN2 Cost(￥)</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td class="content">
+                        <asp:Label ID="lbl_ln_cost_today" runat="server" Text="0"></asp:Label>
+                    </td>
+                    <td class="content">
+                        <asp:Label ID="lbl_ln_cost_wtd" runat="server" Text="0"></asp:Label>
+                    </td>
+                    <td class="content">
+                        <asp:Label ID="lbl_ln_cost_mtd" runat="server" Text="0"></asp:Label>
+                    </td>
+                    <td class="content">
+                        <asp:Label ID="lbl_ln_cost_ytd" runat="server" Text="0"></asp:Label>
+                    </td>
                 </tr>
             </table>
         </div>

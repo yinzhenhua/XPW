@@ -15,6 +15,7 @@ namespace XPW
             if (!Page.IsPostBack)
             {
                 ShowEnergyWaste(388);
+                LoadEnergy();
             }
         }
 
@@ -231,6 +232,50 @@ namespace XPW
                     ShowEnergyWaste(deviceId);
                     break;
             }
+        }
+
+        protected void LoadEnergy()
+        {
+            var electricity = _bc.GetUtilitiesEnergy(388);
+            lbl_Energy_today.Text = electricity.Rows[0][0].ToString();
+            lbl_Energy_cost_today.Text = (Convert.ToInt32(electricity.Rows[0][0])*0.7463).ToString(CultureInfo.InvariantCulture);
+            lbl_Energy_wtd.Text = electricity.Rows[0][1].ToString();
+            lbl_Energy_cost_wtd.Text = (Convert.ToInt32(electricity.Rows[0][1]) * 0.7463).ToString(CultureInfo.InvariantCulture);
+            lbl_Energy_mtd.Text = electricity.Rows[0][2].ToString();
+            lbl_Energy_cost_mtd.Text = (Convert.ToInt32(electricity.Rows[0][2]) * 0.7463).ToString(CultureInfo.InvariantCulture);
+            lbl_Energy_ytd.Text = electricity.Rows[0][3].ToString();
+            lbl_Energy_cost_ytd.Text = (Convert.ToInt32(electricity.Rows[0][3]) * 0.7463).ToString(CultureInfo.InvariantCulture);
+
+            var water = _bc.GetUtilitiesEnergy(373);
+            lbl_water_today.Text = water.Rows[0][0].ToString();
+            lbl_water_cost_today.Text = (Convert.ToInt32(water.Rows[0][0]) * 4.996).ToString(CultureInfo.InvariantCulture);
+            lbl_water_wtd.Text = water.Rows[0][1].ToString();
+            lbl_water_cost_wtd.Text = (Convert.ToInt32(water.Rows[0][1]) * 4.996).ToString(CultureInfo.InvariantCulture);
+            lbl_water_mtd.Text = water.Rows[0][2].ToString();
+            lbl_water_cost_mtd.Text = (Convert.ToInt32(water.Rows[0][2]) * 4.996).ToString(CultureInfo.InvariantCulture);
+            lbl_water_ytd.Text = water.Rows[0][3].ToString();
+            lbl_water_cost_ytd.Text = (Convert.ToInt32(water.Rows[0][3]) * 4.996).ToString(CultureInfo.InvariantCulture);
+
+            var gas = _bc.GetUtilitiesEnergy(358);
+            lbl_gas_today.Text = gas.Rows[0][0].ToString();
+            lbl_gas_cost_today.Text = (Convert.ToInt32(gas.Rows[0][0]) * 2).ToString(CultureInfo.InvariantCulture);
+            lbl_gas_wtd.Text = gas.Rows[0][1].ToString();
+            lbl_gas_cost_wtd.Text = (Convert.ToInt32(gas.Rows[0][1]) * 2).ToString(CultureInfo.InvariantCulture);
+            lbl_gas_mtd.Text = gas.Rows[0][2].ToString();
+            lbl_gas_cost_mtd.Text = (Convert.ToInt32(gas.Rows[0][2]) * 2).ToString(CultureInfo.InvariantCulture);
+            lbl_gas_ytd.Text = gas.Rows[0][3].ToString();
+            lbl_gas_cost_ytd.Text = (Convert.ToInt32(gas.Rows[0][3]) * 2).ToString(CultureInfo.InvariantCulture);
+
+            var ln = _bc.GetUtilitiesEnergy(361);
+            lbl_ln_today.Text = ln.Rows[0][0].ToString();
+            lbl_ln_cost_today.Text = (Convert.ToInt32(ln.Rows[0][0]) * 5).ToString(CultureInfo.InvariantCulture);
+            lbl_ln_wtd.Text = ln.Rows[0][1].ToString();
+            lbl_ln_cost_wtd.Text = (Convert.ToInt32(ln.Rows[0][1]) * 5).ToString(CultureInfo.InvariantCulture);
+            lbl_ln_mtd.Text = ln.Rows[0][2].ToString();
+            lbl_ln_cost_mtd.Text = (Convert.ToInt32(ln.Rows[0][2]) * 5).ToString(CultureInfo.InvariantCulture);
+            lbl_ln_ytd.Text = ln.Rows[0][3].ToString();
+            lbl_ln_cost_ytd.Text = (Convert.ToInt32(ln.Rows[0][3]) * 5).ToString(CultureInfo.InvariantCulture);
+
         }
     }
 }
