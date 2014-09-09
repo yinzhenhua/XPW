@@ -17,8 +17,8 @@ BEGIN
 	
 	IF @TOTAL IS NULL
 		SET @TOTAL = 0.0
-	
-	SELECT @TOTAL
+	--去除小数
+	SELECT ROUND(@TOTAL,0)
 	
 END
 GO
@@ -41,7 +41,8 @@ BEGIN
 	--过滤为空
 	IF @TOTAL IS NULL
 		SET @TOTAL = 0.0
-	SELECT @TOTAL
+	--去除小数	
+	SELECT ROUND(@TOTAL,0)
 END
 /****** Object:  StoredProcedure [dbo].[GetUtilities]    Script Date: 08/31/2014 21:58:12 ******/
 SET ANSI_NULLS ON
@@ -64,8 +65,8 @@ BEGIN
 		WHERE DeviceID=@DeviceID AND ReadingDate BETWEEN @DAY_YEAR AND GETDATE()
 		IF @TOTAL IS NULL
 			SET @TOTAL = 0.0
-		
-	SELECT @TOTAL
+	--去除小数	
+	SELECT ROUND(@TOTAL,0)
 		
 END
 GO
@@ -129,11 +130,11 @@ BEGIN
 	WHERE DeviceID=@DeviceID AND ReadingDate BETWEEN @DAY_YEAR AND GETDATE()
 	IF @TOTAL_YEAR IS NULL
 		SET @TOTAL_YEAR = 0
-		
-	SELECT @TOTAL_TODAY AS 'Today',
-	@TOTAL_WEEK AS 'WTD',
-	@TOTAL_MONTH AS 'MTD',
-	@TOTAL_YEAR AS 'YTD'
+	--去除小数点
+	SELECT ROUND(@TOTAL_TODAY,0) AS 'Today',
+	ROUND(@TOTAL_WEEK,0) AS 'WTD',
+	ROUND(@TOTAL_MONTH,0) AS 'MTD',
+	ROUND(@TOTAL_YEAR,0) AS 'YTD'
 END
 Go
 /****** Object:  StoredProcedure [dbo].[GetUtilitiesPrev]    Script Date: 08/31/2014 21:58:41 ******/
@@ -159,8 +160,9 @@ BEGIN
 	FROM ConsumptionData C
 	WHERE DeviceID=@DeviceID AND ReadingDate BETWEEN @DAY_YEAR_F AND @DAY_YEAR_L
 	IF @TOTAL IS NULL
-		SET @TOTAL = 0.0	
-	SELECT @TOTAL
+		SET @TOTAL = 0.0
+	--去除小数点	
+	SELECT ROUND(@TOTAL,0)
 END
 GO
 /****** Object:  StoredProcedure [dbo].[GetUtilitiesPrevMonths]    Script Date: 09/02/2014 11:18:37 ******/
@@ -196,6 +198,8 @@ BEGIN
 		WHERE DeviceID=@DeviceID AND ReadingDate BETWEEN @MONTH_F AND @MONTH_L
 		IF @TOTAL IS NULL
 			SET @TOTAL = 0.0
+		--去除小数点	
+		SET @TOTAL = ROUND(@TOTAL,0)
 		INSERT INTO @TEMP_ENGERY VALUES(@TOTAL)
 		SET @INDEX = @INDEX + 1
 	END
@@ -239,6 +243,8 @@ BEGIN
 		WHERE DeviceID=@DeviceID AND ReadingDate BETWEEN @DAY_F AND @DAY_L
 		IF @TOTAL IS NULL
 			SET @TOTAL = 0.0
+		--去除小数点	
+		SET @TOTAL = ROUND(@TOTAL,0)
 		INSERT INTO @TEMP_ENGERY VALUES(@TOTAL)
 		SET @INDEX = @INDEX+1
 	END
@@ -280,6 +286,8 @@ BEGIN
 		WHERE DeviceID=@DeviceID AND (ReadingDate BETWEEN @HOUR_F AND @HOUR_L)
 		IF @TOTAL IS NULL
 			SET @TOTAL = 0.0
+		--去除小数点	
+		SET @TOTAL = ROUND(@TOTAL,0)
 		INSERT INTO @TEMP_ENGERY VALUES(@TOTAL)
 		SET @INDEX = @INDEX+1
 	END
@@ -432,25 +440,26 @@ BEGIN
 	FROM ConsumptionData C
 	WHERE DeviceID=@DeviceID AND (ReadingDate BETWEEN @WEEK_4_F AND @WEEK_4_L)
 	
+	--去除小数点	
 	SELECT
 	@DeviceID AS 'DeviceID', 
 	@NAME AS 'Name',
-	@TOTAL1 AS 'PreviousYear',
-	@TOTAL2 AS 'YearlyTarget',
-	@TOTAL3 AS 'YTD',
-	@TOTAL4 AS 'Percentage',
-	@TOTAL5 AS 'Q1',
-	@TOTAL6 AS 'Q2',
-	@TOTAL7 AS 'Q3',
-	@TOTAL8 AS 'Q4',
-	@TOTAL9 AS 'Month1', 
-	@TOTAL10 AS 'Month2',
-	@TOTAL11 AS 'Month3',
-	@TOTAL12 AS 'Week1',
-	@TOTAL13 AS 'Week2',
-	@TOTAL14 AS 'Week3',
-	@TOTAL15 AS 'Week4',
-	@TOTAL AS 'TotalYTD'
+	ROUND(@TOTAL1,0) AS 'PreviousYear',
+	ROUND(@TOTAL2,0) AS 'YearlyTarget',
+	ROUND(@TOTAL3,0) AS 'YTD',
+	ROUND(@TOTAL4,3) AS 'Percentage',
+	ROUND(@TOTAL5,0) AS 'Q1',
+	ROUND(@TOTAL6,0) AS 'Q2',
+	ROUND(@TOTAL7,0) AS 'Q3',
+	ROUND(@TOTAL8,0) AS 'Q4',
+	ROUND(@TOTAL9,0) AS 'Month1', 
+	ROUND(@TOTAL10,0) AS 'Month2',
+	ROUND(@TOTAL11,0) AS 'Month3',
+	ROUND(@TOTAL12,0) AS 'Week1',
+	ROUND(@TOTAL13,0) AS 'Week2',
+	ROUND(@TOTAL14,0) AS 'Week3',
+	ROUND(@TOTAL15,0) AS 'Week4',
+	ROUND(@TOTAL,0) AS 'TotalYTD'
 END
 GO
 --获得去年的水电气  
@@ -495,7 +504,12 @@ BEGIN
  SET @MONTH_2_L = DATEADD(ms,-3,DATEADD(mm,1,@MONTH_2_F))  
  SET @MONTH_3_F = DATEADD(mm,2,@MONTH_1_F)  
  SET @MONTH_3_L = DATEADD(ms,-3,DATEADD(mm,1,@MONTH_3_F))  
- --获得当前月的各个星期  
+ --获得当前月的各个星期
+ DECLARE @DAY_WEEK	   DATETIME--当前周的周一
+ IF DATEPART(weekday,GETDATE()) = 1
+	SET @DAY_WEEK = DATEADD(wk,DATEDIFF(wk,7,getdate()),0)    
+ ELSE
+	SET @DAY_WEEK = DATEADD(wk,DATEDIFF(wk,0,GETDATE()),0)  
  DECLARE @WEEK_1_F DATETIME  
  DECLARE @WEEK_1_L DATETIME  
  DECLARE @WEEK_2_F DATETIME  
@@ -504,14 +518,22 @@ BEGIN
  DECLARE @WEEK_3_L DATETIME  
  DECLARE @WEEK_4_F DATETIME  
  DECLARE @WEEK_4_L DATETIME  
- SET @WEEK_1_F = DATEADD(mm, DATEDIFF(m,0,GETDATE()), 0)  
- SET @WEEK_1_L = DATEADD(ms,-3,DATEADD(ww,1,@WEEK_1_F))  
- SET @WEEK_2_F = DATEADD(ww, 1, @WEEK_1_F)  
+ DECLARE @WEEK_5_F DATETIME  
+ DECLARE @WEEK_5_L DATETIME  
+ DECLARE @WEEK_6_F DATETIME  
+ DECLARE @WEEK_6_L DATETIME  
+ SET @WEEK_1_F = DATEADD(mm, DATEDIFF(m,0,GETDATE()), 0)--第一周第一天
+ SET @WEEK_1_L = DATEADD(ms,-3,DATEADD(dd,9-DATEPART(weekday,@WEEK_1_F),@WEEK_1_F))--第一周最后一天  
+ SET @WEEK_2_F = DATEADD(dd,1,DATEADD(dd,8-DATEPART(weekday,@WEEK_1_F),@WEEK_1_F))--第二周第一天 
  SET @WEEK_2_L = DATEADD(ms,-3,DATEADD(ww,1,@WEEK_2_F))  
  SET @WEEK_3_F = DATEADD(ww, 1, @WEEK_2_F)  
  SET @WEEK_3_L = DATEADD(ms,-3,DATEADD(ww,1,@WEEK_3_F))  
  SET @WEEK_4_F = DATEADD(ww, 1, @WEEK_3_F)  
- SET @WEEK_4_L = DATEADD(ms,-3,DATEADD(ww,1,@WEEK_3_F))  
+ SET @WEEK_4_L = DATEADD(ms,-3,DATEADD(ww,1,@WEEK_4_F)) 
+ SET @WEEK_5_F = DATEADD(ww, 1, @WEEK_4_F)
+ SET @WEEK_5_L = DATEADD(ms,-3,DATEADD(ww,1,@WEEK_5_F)) 
+ SET @WEEK_6_F = DATEADD(ww, 1, @WEEK_5_F)   
+ SET @WEEK_6_L = DATEADD(ms,-3,DATEADD(ww,1,@WEEK_6_F))
  --声明表变量  
  DECLARE @TEMP_ENERGY TABLE( 
 	DeviceID INT, 
@@ -530,7 +552,9 @@ BEGIN
 	Week1 FLOAT,  
 	Week2 FLOAT,  
 	Week3 FLOAT,  
-	Week4 FLOAT,  
+	Week4 FLOAT, 
+	Week5 FLOAT,
+	Week6 FLOAT,
 	TotalYTD FLOAT   
  )  
  --获得各个时间段的值  
@@ -568,6 +592,8 @@ BEGIN
  DECLARE @SUM_TOTAL_13 FLOAT  
  DECLARE @SUM_TOTAL_14 FLOAT  
  DECLARE @SUM_TOTAL_15 FLOAT  
+ DECLARE @SUM_TOTAL_16 FLOAT  
+ DECLARE @SUM_TOTAL_17 FLOAT  
  SET @SUM_TOTAL_1 = 0  
  SET @SUM_TOTAL_2 = 0  
  SET @SUM_TOTAL_3 = 0  
@@ -581,7 +607,9 @@ BEGIN
  SET @SUM_TOTAL_12 = 0  
  SET @SUM_TOTAL_13 = 0  
  SET @SUM_TOTAL_14 = 0  
- SET @SUM_TOTAL_15 = 0  
+ SET @SUM_TOTAL_15 = 0
+ SET @SUM_TOTAL_16 = 0  
+ SET @SUM_TOTAL_17 = 0  
  --循环ID表  
  DECLARE @ID INT  
  DECLARE CURSOR1 CURSOR FOR SELECT * FROM @TABLE  
@@ -613,7 +641,7 @@ BEGIN
   AND (ReadingDate BETWEEN @DAY_YEAR AND GETDATE())  
   IF @TOTAL3 IS NULL   
    SET @TOTAL3 = 0  
-  SET @SUM_TOTAL_3 = @SUM_TOTAL_3+@TOTAL3  
+  SET @SUM_TOTAL_3 = @SUM_TOTAL_3+@TOTAL3
   --%  
   DECLARE @TOTAL4 FLOAT   
   IF @TOTAL IS NULL  
@@ -628,7 +656,7 @@ BEGIN
   AND (ReadingDate BETWEEN @QUARTER_1_F AND @QUARTER_1_L)  
   IF @TOTAL5 IS NULL   
    SET @TOTAL5 = 0  
-  SET @SUM_TOTAL_5 = @SUM_TOTAL_5+@TOTAL5  
+  SET @SUM_TOTAL_5 = @SUM_TOTAL_5+@TOTAL5
   --Q2  
   DECLARE @TOTAL6 FLOAT   
   SELECT @TOTAL6 = SUM(C.Value)  
@@ -637,7 +665,7 @@ BEGIN
   AND (ReadingDate BETWEEN @QUARTER_2_F AND @QUARTER_2_L)  
   IF @TOTAL6 IS NULL   
    SET @TOTAL6 = 0  
-  SET @SUM_TOTAL_6 = @SUM_TOTAL_6+@TOTAL6  
+  SET @SUM_TOTAL_6 = @SUM_TOTAL_6+@TOTAL6
   --Q3  
   DECLARE @TOTAL7 FLOAT   
   SELECT @TOTAL7 = SUM(C.Value)  
@@ -719,25 +747,47 @@ BEGIN
   IF @TOTAL15 IS NULL   
    SET @TOTAL15 = 0  
   SET @SUM_TOTAL_15 = @SUM_TOTAL_15+@TOTAL15  
+  
+  --Week5  
+  DECLARE @TOTAL16 FLOAT   
+  SELECT @TOTAL16 = SUM(C.Value)  
+	FROM ConsumptionData C
+  WHERE DeviceID = @ID  
+  AND (ReadingDate BETWEEN @WEEK_5_F AND @WEEK_5_L)  
+  IF @TOTAL16 IS NULL   
+   SET @TOTAL16 = 0  
+  SET @SUM_TOTAL_16 = @SUM_TOTAL_16+@TOTAL16  
+  
+  --Week6  
+  DECLARE @TOTAL17 FLOAT   
+  SELECT @TOTAL17 = SUM(C.Value)  
+	FROM ConsumptionData C
+  WHERE DeviceID = @ID  
+  AND (ReadingDate BETWEEN @WEEK_6_F AND @WEEK_6_L)  
+  IF @TOTAL17 IS NULL   
+   SET @TOTAL17 = 0  
+  SET @SUM_TOTAL_17 = @SUM_TOTAL_17+@TOTAL17  			
 			
   INSERT INTO @TEMP_ENERGY VALUES(
   @ID,
   @NAME,  
-  @TOTAL1,  
-  @TOTAL2,  
-  @TOTAL3,  
-  @TOTAL4,  
-  @TOTAL5,  
-  @TOTAL6,  
-  @TOTAL7,  
-  @TOTAL8,  
-  @TOTAL9,  
-  @TOTAL10,  
-  @TOTAL11,  
-  @TOTAL12,  
-  @TOTAL13,  
-  @TOTAL14,  
-  @TOTAL15,  
+  ROUND(@TOTAL1,0),  
+  ROUND(@TOTAL2,0),  
+  ROUND(@TOTAL3,0),  
+  ROUND(@TOTAL4,3),  
+  ROUND(@TOTAL5,0),  
+  ROUND(@TOTAL6,0),  
+  ROUND(@TOTAL7,0),  
+  ROUND(@TOTAL8,0),  
+  ROUND(@TOTAL9,0),  
+  ROUND(@TOTAL10,0), 
+  ROUND(@TOTAL11,0),  
+  ROUND(@TOTAL12,0),  
+  ROUND(@TOTAL13,0),  
+  ROUND(@TOTAL14,0),  
+  ROUND(@TOTAL15,0),
+  ROUND(@TOTAL16,0),
+  ROUND(@TOTAL17,0),  
   0)  
 			
  FETCH NEXT FROM CURSOR1 INTO @ID  
@@ -749,21 +799,23 @@ BEGIN
  INSERT INTO @TEMP_ENERGY VALUES(
  -1,
  'Total',  
- @SUM_TOTAL_1,  
- @SUM_TOTAL_2,  
- @SUM_TOTAL_3,  
+ ROUND(@SUM_TOTAL_1,0),  
+ ROUND(@SUM_TOTAL_2,0),  
+ ROUND(@SUM_TOTAL_3,0),  
  0,  
- @SUM_TOTAL_5,  
- @SUM_TOTAL_6,  
- @SUM_TOTAL_7,  
- @SUM_TOTAL_8,  
- @SUM_TOTAL_9,  
- @SUM_TOTAL_10,  
- @SUM_TOTAL_11,  
- @SUM_TOTAL_12,  
- @SUM_TOTAL_13,  
- @SUM_TOTAL_14,  
- @SUM_TOTAL_15,  
+ ROUND(@SUM_TOTAL_5,0),  
+ ROUND(@SUM_TOTAL_6,0),  
+ ROUND(@SUM_TOTAL_7,0),  
+ ROUND(@SUM_TOTAL_8,0),  
+ ROUND(@SUM_TOTAL_9,0),  
+ ROUND(@SUM_TOTAL_10,0),  
+ ROUND(@SUM_TOTAL_11,0),  
+ ROUND(@SUM_TOTAL_12,0),  
+ ROUND(@SUM_TOTAL_13,0),  
+ ROUND(@SUM_TOTAL_14,0),  
+ ROUND(@SUM_TOTAL_15,0), 
+ ROUND(@SUM_TOTAL_16,0),
+ ROUND(@SUM_TOTAL_17,0), 
  0)  
 			
  SELECT * FROM @TEMP_ENERGY  
@@ -772,6 +824,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+
 --Dept. Equipment Energy Efficiency模块  
 ALTER PROCEDURE [dbo].[GetEquipmentEnergyEfficiency]  
  @DeviceID INT,  
@@ -788,7 +841,9 @@ ALTER PROCEDURE [dbo].[GetEquipmentEnergyEfficiency]
  @Week1 FLOAT,  
  @Week2 FLOAT,  
  @Week3 FLOAT,  
- @Week4 FLOAT  
+ @Week4 FLOAT,
+ @Week5 FLOAT,
+ @Week6 FLOAT  
 AS  
 BEGIN  
  DECLARE @DAY_YEAR DATETIME  
@@ -814,17 +869,66 @@ BEGIN
  --Month1  
  DECLARE @DAY_MONTH_1_NUM INT  
  DECLARE @DAY_MONTH_1 DATETIME  
-    SET @DAY_MONTH_1 = DATEADD(mm,3*(DATEPART(qq,GETDATE())-1),@DAY_YEAR)  
-    SET @DAY_MONTH_1_NUM = DATEDIFF(dd,@DAY_MONTH_1,DATEADD(mm,1,@DAY_MONTH_1))  
+ SET @DAY_MONTH_1 = DATEADD(mm,3*(DATEPART(qq,GETDATE())-1),@DAY_YEAR)  
+ SET @DAY_MONTH_1_NUM = DATEDIFF(dd,@DAY_MONTH_1,DATEADD(mm,1,@DAY_MONTH_1))  
  --Month2  
  DECLARE @DAY_MONTH_2_NUM INT  
  SET @DAY_MONTH_2_NUM = DATEDIFF(dd,DATEADD(mm,1,@DAY_MONTH_1),DATEADD(mm,2,@DAY_MONTH_1))  
  --Month3  
  DECLARE @DAY_MONTH_3_NUM INT  
- SET @DAY_MONTH_3_NUM = DATEDIFF(dd,DATEADD(mm,2,@DAY_MONTH_1),DATEADD(mm,3,@DAY_MONTH_1))  
- --Week  
- DECLARE @DAY_WEEK_NUM INT  
- SET @DAY_WEEK_NUM = 7    
+ SET @DAY_MONTH_3_NUM = DATEDIFF(dd,DATEADD(mm,2,@DAY_MONTH_1),DATEADD(mm,3,@DAY_MONTH_1))
+ --获得当前月的各个星期
+ DECLARE @WEEK_1_F DATETIME  
+ DECLARE @WEEK_2_F DATETIME  
+ DECLARE @WEEK_3_F DATETIME    
+ DECLARE @WEEK_4_F DATETIME    
+ DECLARE @WEEK_5_F DATETIME  
+ DECLARE @WEEK_6_F DATETIME  
+ DECLARE @DAY_WEEK	   DATETIME--当前时间周的周一
+ IF DATEPART(weekday,GETDATE()) = 1
+	SET @DAY_WEEK = DATEADD(wk,DATEDIFF(wk,7,getdate()),0)    
+ELSE
+	SET @DAY_WEEK = DATEADD(wk,DATEDIFF(wk,0,GETDATE()),0)
+ SET @WEEK_1_F = DATEADD(mm, DATEDIFF(m,0,GETDATE()), 0)--第一周第一天  
+ SET @WEEK_2_F = DATEADD(dd,1,DATEADD(dd,8-DATEPART(weekday,@WEEK_1_F),@WEEK_1_F))--第二周第一天   
+ SET @WEEK_3_F = DATEADD(ww, 1, @WEEK_2_F)   
+ SET @WEEK_4_F = DATEADD(ww, 1, @WEEK_3_F)   
+ SET @WEEK_5_F = DATEADD(ww, 1, @WEEK_4_F)
+ SET @WEEK_6_F = DATEADD(ww, 1, @WEEK_5_F)   
+ 
+ DECLARE @DAY_MOUTH DATETIME
+ SET @DAY_MOUTH = DATEADD(mm,1,CONVERT(VARCHAR(100), DATEADD(dd,-DAY(GETDATE())+1,GETDATE()),23))--下一个月第一天
+ 
+ DECLARE @DAY_WEEK_NUM_1 INT  
+ SET @DAY_WEEK_NUM_1 = DATEDIFF(dd,@WEEK_1_F,@WEEK_2_F)
+ 
+ DECLARE @DAY_WEEK_NUM_2 INT 
+ SET @DAY_WEEK_NUM_2 = DATEDIFF(dd,@WEEK_2_F,@WEEK_3_F)
+ 
+ DECLARE @DAY_WEEK_NUM_3 INT 
+ SET @DAY_WEEK_NUM_3 = DATEDIFF(dd,@WEEK_3_F,@WEEK_4_F)
+ 
+ DECLARE @DAY_WEEK_NUM_4 INT 
+ IF DATEDIFF(dd,@WEEK_4_F,@DAY_MOUTH) >= 7
+   SET @DAY_WEEK_NUM_4 = 7
+ ELSE
+   SET @DAY_WEEK_NUM_4 = DATEDIFF(dd,@WEEK_4_F,@DAY_MOUTH)
+ 
+ DECLARE @DAY_WEEK_NUM_5 INT 
+ IF DATEDIFF(dd,@WEEK_5_F,@DAY_MOUTH) >= 7
+   SET @DAY_WEEK_NUM_5 = 7
+ ELSE
+   SET @DAY_WEEK_NUM_5 = DATEDIFF(dd,@WEEK_5_F,@DAY_MOUTH)
+ 
+ DECLARE @DAY_WEEK_NUM_6 INT 
+ IF DATEDIFF(dd,@WEEK_6_F,@DAY_MOUTH) >= 7
+   SET @DAY_WEEK_NUM_6 = 7
+ ELSE
+	BEGIN
+		SET @DAY_WEEK_NUM_6 = DATEDIFF(dd,@WEEK_6_F,@DAY_MOUTH)
+		IF @DAY_WEEK_NUM_6 < 0
+			SET @DAY_WEEK_NUM_6 = 0
+	END
  --获取数据  
  DECLARE @TEMP_ENERGY TABLE(  
   Name VARCHAR(510),  
@@ -840,8 +944,27 @@ BEGIN
   Week1 FLOAT,  
   Week2 FLOAT,  
   Week3 FLOAT,  
-  Week4 FLOAT  
+  Week4 FLOAT,
+  Week5 FLOAT,
+  Week6 FLOAT  
  )  
+ DECLARE @VALUE1 FLOAT
+ DECLARE @VALUE2 FLOAT
+ DECLARE @VALUE3 FLOAT
+ DECLARE @VALUE4 FLOAT
+ DECLARE @VALUE5 FLOAT
+ DECLARE @VALUE6 FLOAT
+ DECLARE @VALUE7 FLOAT
+ DECLARE @VALUE8 FLOAT
+ DECLARE @VALUE9 FLOAT
+ DECLARE @VALUE10 FLOAT
+ DECLARE @VALUE11 FLOAT
+ DECLARE @VALUE12 FLOAT
+ DECLARE @VALUE13 FLOAT
+ DECLARE @VALUE14 FLOAT
+ DECLARE @VALUE15 FLOAT
+ DECLARE @VALUE16 FLOAT
+ 
  --Equipment Quantity定值后续会提供  
  INSERT INTO @TEMP_ENERGY VALUES('Equipment Quantity',  
   220,  
@@ -856,6 +979,8 @@ BEGIN
   220,  
   220,  
   220,  
+  220,
+  220,
   220)  
  --Capacity Factor定值后续会提供  
  INSERT INTO @TEMP_ENERGY VALUES('Capacity Factor',  
@@ -871,22 +996,116 @@ BEGIN
   0.91,  
   0.91,  
   0.91,  
+  0.91,
+  0.91,
   0.91)  
  --Consumption – Goal  
+ SET @VALUE1 = @Benchmark*0.91*220*@DAY_YEAR_NUM
+ IF @VALUE1 > 1000
+	SET @VALUE1 = ROUND(@VALUE1,0)
+ ELSE
+	SET @VALUE1 =  ROUND(@VALUE1,1)
+ 	
+SET @VALUE2 = @Benchmark*0.91*220*@DAY_YTD_NUM
+ IF @VALUE2 > 1000
+	SET @VALUE2 = ROUND(@VALUE2,0)
+ ELSE
+	SET @VALUE2 =  ROUND(@VALUE2,1)
+	
+SET @VALUE3 = @Benchmark*0.91*220*@DAY_Q1_NUM
+ IF @VALUE3 > 1000
+	SET @VALUE3 = ROUND(@VALUE3,0)
+ ELSE
+	SET @VALUE3 =  ROUND(@VALUE3,1)
+
+SET @VALUE4 = @Benchmark*0.91*220*@DAY_Q2_NUM
+ IF @VALUE4 > 1000
+	SET @VALUE4 = ROUND(@VALUE4,0)
+ ELSE
+	SET @VALUE4 =  ROUND(@VALUE4,1)
+
+SET @VALUE5 = @Benchmark*0.91*220*@DAY_Q3_NUM
+ IF @VALUE5 > 1000
+	SET @VALUE5 = ROUND(@VALUE5,0)
+ ELSE
+	SET @VALUE5 =  ROUND(@VALUE5,1)
+
+SET @VALUE6 = @Benchmark*0.91*220*@DAY_Q4_NUM
+ IF @VALUE6 > 1000
+	SET @VALUE6 = ROUND(@VALUE6,0)
+ ELSE
+	SET @VALUE6 =  ROUND(@VALUE6,1)
+
+SET @VALUE7 = @Benchmark*0.91*220*@DAY_MONTH_1_NUM
+ IF @VALUE7 > 1000
+	SET @VALUE7 = ROUND(@VALUE7,0)
+ ELSE
+	SET @VALUE7 =  ROUND(@VALUE7,1)
+	
+SET @VALUE8 = @Benchmark*0.91*220*@DAY_MONTH_2_NUM
+ IF @VALUE8 > 1000
+	SET @VALUE8 = ROUND(@VALUE8,0)
+ ELSE
+	SET @VALUE8 =  ROUND(@VALUE8,1)
+	
+SET @VALUE9 = @Benchmark*0.91*220*@DAY_MONTH_3_NUM
+ IF @VALUE9 > 1000
+	SET @VALUE9 = ROUND(@VALUE9,0)
+ ELSE
+	SET @VALUE9 =  ROUND(@VALUE9,1)
+
+SET @VALUE10 = @Benchmark*0.91*220*@DAY_WEEK_NUM_1
+ IF @VALUE10 > 1000
+	SET @VALUE10 = ROUND(@VALUE10,0)
+ ELSE
+	SET @VALUE10 =  ROUND(@VALUE10,1)
+
+SET @VALUE11 = @Benchmark*0.91*220*@DAY_WEEK_NUM_2
+ IF @VALUE11 > 1000
+	SET @VALUE11 = ROUND(@VALUE11,0)
+ ELSE
+	SET @VALUE11 =  ROUND(@VALUE11,1)
+
+SET @VALUE12 = @Benchmark*0.91*220*@DAY_WEEK_NUM_3
+ IF @VALUE12 > 1000
+	SET @VALUE12 = ROUND(@VALUE12,0)
+ ELSE
+	SET @VALUE12 =  ROUND(@VALUE12,1)
+	
+SET @VALUE13 = @Benchmark*0.91*220*@DAY_WEEK_NUM_4
+ IF @VALUE13 > 1000
+	SET @VALUE13 = ROUND(@VALUE13,0)
+ ELSE
+	SET @VALUE13 =  ROUND(@VALUE13,1)
+	
+SET @VALUE14 = @Benchmark*0.91*220*@DAY_WEEK_NUM_5
+ IF @VALUE14 > 1000
+	SET @VALUE14 = ROUND(@VALUE14,0)
+ ELSE
+	SET @VALUE14 =  ROUND(@VALUE14,1)
+	
+SET @VALUE15 = @Benchmark*0.91*220*@DAY_WEEK_NUM_6
+ IF @VALUE15 > 1000
+	SET @VALUE15 = ROUND(@VALUE15,0)
+ ELSE
+	SET @VALUE15 =  ROUND(@VALUE15,1)
+	
  INSERT INTO @TEMP_ENERGY VALUES('Consumption – Goal',  
-  @Benchmark*0.91*220*@DAY_YEAR_NUM,  
-  @Benchmark*0.91*220*@DAY_YTD_NUM,  
-  @Benchmark*0.91*220*@DAY_Q1_NUM,  
-  @Benchmark*0.91*220*@DAY_Q2_NUM,  
-  @Benchmark*0.91*220*@DAY_Q3_NUM,  
-  @Benchmark*0.91*220*@DAY_Q4_NUM,  
-  @Benchmark*0.91*220*@DAY_MONTH_1_NUM,  
-  @Benchmark*0.91*220*@DAY_MONTH_2_NUM,  
-  @Benchmark*0.91*220*@DAY_MONTH_3_NUM,  
-  @Benchmark*0.91*220*@DAY_WEEK_NUM,  
-  @Benchmark*0.91*220*@DAY_WEEK_NUM,  
-  @Benchmark*0.91*220*@DAY_WEEK_NUM,  
-  @Benchmark*0.91*220*@DAY_WEEK_NUM)  
+  @VALUE1,  
+  @VALUE2,  
+  @VALUE3,  
+  @VALUE4,  
+  @VALUE5,  
+  @VALUE6,  
+  @VALUE7,  
+  @VALUE8,  
+  @VALUE9,  
+  @VALUE10,  
+  @VALUE11,  
+  @VALUE12,  
+  @VALUE13,
+  @VALUE14,
+  @VALUE15)  
  --Consumption – Actual  
  INSERT INTO @TEMP_ENERGY VALUES('Consumption – Actual',  
   @PreviousYear,  
@@ -901,23 +1120,50 @@ BEGIN
   @Week1,  
   @Week2,  
   @Week3,  
-  @Week4)  
+  @Week4,
+  @Week5,
+  @Week6)  
  --Efficiency  
+ SET @VALUE1 = ROUND(@PreviousYear/(@Benchmark*0.91*220*@DAY_YEAR_NUM),2)
+ SET @VALUE2 = ROUND(@YTD/(@Benchmark*0.91*220*@DAY_YTD_NUM),2)
+ SET @VALUE3 = ROUND(@Q1/(@Benchmark*0.91*220*@DAY_Q1_NUM),2)
+ SET @VALUE4 = ROUND(@Q2/(@Benchmark*0.91*220*@DAY_Q2_NUM),2)
+ SET @VALUE5 = ROUND(@Q3/(@Benchmark*0.91*220*@DAY_Q3_NUM),2)
+ SET @VALUE6 = ROUND(@Q4/(@Benchmark*0.91*220*@DAY_Q4_NUM),2)
+ SET @VALUE7 = ROUND(@Month1/(@Benchmark*0.91*220*@DAY_MONTH_1_NUM),2)
+ SET @VALUE8 = ROUND(@Month2/(@Benchmark*0.91*220*@DAY_MONTH_2_NUM),2)
+ SET @VALUE9 = ROUND(@Month3/(@Benchmark*0.91*220*@DAY_MONTH_3_NUM),2)
+ SET @VALUE10 = ROUND(@Week1/(@Benchmark*0.91*220*@DAY_WEEK_NUM_1),2)
+ SET @VALUE11 = ROUND(@Week2/(@Benchmark*0.91*220*@DAY_WEEK_NUM_2),2)
+ SET @VALUE12 = ROUND(@Week3/(@Benchmark*0.91*220*@DAY_WEEK_NUM_3),2)
+ IF @DAY_WEEK_NUM_4 = 0
+	SET @VALUE13 = 0
+ ELSE
+	SET @VALUE13 = ROUND(@Week4/(@Benchmark*0.91*220*@DAY_WEEK_NUM_4),2)
+ IF @DAY_WEEK_NUM_5 = 0
+	SET @VALUE14 = 0
+ ELSE
+	SET @VALUE14 = ROUND(@Week5/(@Benchmark*0.91*220*@DAY_WEEK_NUM_5),2)
+ IF @DAY_WEEK_NUM_6 = 0 
+	SET @VALUE15 = 0
+ ELSE
+	SET @VALUE15 = ROUND(@Week6/(@Benchmark*0.91*220*@DAY_WEEK_NUM_6),2)
  INSERT INTO @TEMP_ENERGY VALUES('Efficiency',
-	CONVERT(decimal(18,2),@PreviousYear/(@Benchmark*0.91*220*@DAY_YEAR_NUM)),
-	CONVERT(decimal(18,2),@YTD/(@Benchmark*0.91*220*@DAY_YTD_NUM)),
-	CONVERT(decimal(18,2),@Q1/(@Benchmark*0.91*220*@DAY_Q1_NUM)),
-	CONVERT(decimal(18,2),@Q2/(@Benchmark*0.91*220*@DAY_Q2_NUM)),
-	CONVERT(decimal(18,2),@Q3/(@Benchmark*0.91*220*@DAY_Q3_NUM)),
-	CONVERT(decimal(18,2),@Q4/(@Benchmark*0.91*220*@DAY_Q4_NUM)),
-	CONVERT(decimal(18,2),@Month1/(@Benchmark*0.91*220*@DAY_MONTH_1_NUM)),
-	CONVERT(decimal(18,2),@Month2/(@Benchmark*0.91*220*@DAY_MONTH_2_NUM)),
-	CONVERT(decimal(18,2),@Month3/(@Benchmark*0.91*220*@DAY_MONTH_3_NUM)),
-	CONVERT(decimal(18,2),@Week1/(@Benchmark*0.91*220*@DAY_WEEK_NUM)),
-	CONVERT(decimal(18,2),@Week2/(@Benchmark*0.91*220*@DAY_WEEK_NUM)),
-	CONVERT(decimal(18,2),@Week3/(@Benchmark*0.91*220*@DAY_WEEK_NUM)),
-	CONVERT(decimal(18,2),@Week4/(@Benchmark*0.91*220*@DAY_WEEK_NUM))
-	)
+	@VALUE1,
+	@VALUE2,
+	@VALUE3,
+	@VALUE4,
+	@VALUE5,
+	@VALUE6,
+	@VALUE7,
+	@VALUE8,
+	@VALUE9,
+	@VALUE10,
+	@VALUE11,
+	@VALUE12,
+	@VALUE13,
+	@VALUE14,
+	@VALUE15)
     
  SELECT * FROM @TEMP_ENERGY  
 END
@@ -953,6 +1199,8 @@ BEGIN
 		WHERE DeviceID=@DeviceID AND ReadingDate BETWEEN @MONTH_F AND @MONTH_L
 		IF @TOTAL IS NULL
 			SET @TOTAL = 0.0
+		--去除小数
+		SET @TOTAL = ROUND(@TOTAL,0)
 		INSERT INTO @TEMP_ENGERY VALUES(@TOTAL)
 		SET @INDEX = @INDEX + 1
 	END
@@ -996,6 +1244,8 @@ BEGIN
   WHERE DeviceID=@DeviceID AND ReadingDate BETWEEN @DAY_F AND @DAY_L  
   IF @TOTAL IS NULL  
    SET @TOTAL = 0.0  
+  --去除小数
+  SET @TOTAL = ROUND(@TOTAL,0)
   INSERT INTO @TEMP_ENGERY VALUES(@TOTAL)  
   SET @INDEX = @INDEX+1  
  END  
@@ -1037,6 +1287,8 @@ BEGIN
 		WHERE DeviceID=@DeviceID AND (ReadingDate BETWEEN @HOUR_F AND @HOUR_L)
 		IF @TOTAL IS NULL
 			SET @TOTAL = 0.0
+		--去除小数
+		SET @TOTAL = ROUND(@TOTAL,0)
 		INSERT INTO @TEMP_ENGERY VALUES(@TOTAL)
 		SET @INDEX = @INDEX+1
 	END
@@ -1096,22 +1348,42 @@ BEGIN
  FROM ConsumptionData C        
  WHERE DeviceID=127   AND ReadingDate BETWEEN @HOUR_F AND @HOUR_L      
  IF @Chiller1_1 IS NULL      
-  SET @Chiller1_1 = 0      
+  SET @Chiller1_1 = 0 
+ IF @Chiller1_1 > 1000
+	SET  @Chiller1_1 = ROUND(@Chiller1_1,0)
+  ELSE
+	SET @Chiller1_1 = ROUND(@Chiller1_1,1)
+     
  SELECT @Chiller2_1 = SUM(C.Value)      
  FROM ConsumptionData C        
  WHERE DeviceID=125   AND ReadingDate BETWEEN @HOUR_F AND @HOUR_L      
  IF @Chiller2_1 IS NULL      
   SET @Chiller2_1 = 0      
+ IF @Chiller2_1 > 1000
+	SET  @Chiller2_1 = ROUND(@Chiller2_1,0)
+  ELSE
+	SET @Chiller2_1 = ROUND(@Chiller2_1,1)
+  
  SELECT @Chiller3_1 = SUM(C.Value)      
  FROM ConsumptionData C        
  WHERE DeviceID=128   AND ReadingDate BETWEEN @HOUR_F AND @HOUR_L      
  IF @Chiller3_1 IS NULL      
-  SET @Chiller3_1 = 0      
+  SET @Chiller3_1 = 0   
+ IF @Chiller3_1 > 1000
+	SET  @Chiller3_1 = ROUND(@Chiller3_1,0)
+  ELSE
+	SET @Chiller3_1 = ROUND(@Chiller3_1,1) 
+     
  SELECT @Chiller4_1 = SUM(C.Value)      
  FROM ConsumptionData C        
  WHERE DeviceID=167   AND ReadingDate BETWEEN @HOUR_F AND @HOUR_L      
  IF @Chiller4_1 IS NULL      
-  SET @Chiller4_1 = 0      
+  SET @Chiller4_1 = 0  
+ IF @Chiller4_1 > 1000
+	SET  @Chiller4_1 = ROUND(@Chiller4_1,0)
+  ELSE
+	SET @Chiller4_1 = ROUND(@Chiller4_1,1)
+     
  INSERT INTO @TEMP_ENERGY VALUES(      
   'Actual Electricity Consumption',      
   @Chiller1_1,      
@@ -1130,21 +1402,41 @@ BEGIN
  WHERE DeviceID=401 AND (ReadingDate BETWEEN @HOUR_F AND @HOUR_L)      
  IF @Chiller1_2 IS NULL      
   SET @Chiller1_2 = 0      
+ IF @Chiller1_2 > 1000
+	SET  @Chiller1_2 = ROUND(@Chiller1_2,0)
+  ELSE
+	SET @Chiller1_2 = ROUND(@Chiller1_2,1)
+ 
  SELECT @Chiller2_2 = (SUM(C.Value)*284.43)      
  FROM ConsumptionData C        
  WHERE DeviceID=403   AND (ReadingDate BETWEEN @HOUR_F AND @HOUR_L)      
  IF @Chiller2_2 IS NULL      
-  SET @Chiller2_2 = 0      
+  SET @Chiller2_2 = 0    
+ IF @Chiller2_2 > 1000
+	SET  @Chiller2_2 = ROUND(@Chiller2_2,0)
+  ELSE
+	SET @Chiller2_2 = ROUND(@Chiller2_2,1)
+
  SELECT @Chiller3_2 = (SUM(C.Value)*284.43)      
  FROM ConsumptionData C        
  WHERE DeviceID=404   AND (ReadingDate BETWEEN @HOUR_F AND @HOUR_L)      
  IF @Chiller3_2 IS NULL      
-  SET @Chiller3_2 = 0      
+  SET @Chiller3_2 = 0    
+ IF @Chiller3_2 > 1000
+	SET  @Chiller3_2 = ROUND(@Chiller3_2,0)
+  ELSE
+	SET @Chiller3_2 = ROUND(@Chiller3_2,1)
+	  
  SELECT @Chiller4_2 = (SUM(C.Value)*284.43)    
  FROM ConsumptionData C        
  WHERE DeviceID=402   AND (ReadingDate BETWEEN @HOUR_F AND @HOUR_L)      
  IF @Chiller4_2 IS NULL      
-  SET @Chiller4_2 = 0      
+  SET @Chiller4_2 = 0  
+ IF @Chiller4_2 > 1000
+	SET  @Chiller4_2 = ROUND(@Chiller4_2,0)
+  ELSE
+	SET @Chiller4_2 = ROUND(@Chiller4_2,1)
+	    
  INSERT INTO @TEMP_ENERGY VALUES(      
   'Actual Accumulation Cooling',      
   @Chiller1_2,      
@@ -1177,10 +1469,10 @@ BEGIN
      
  INSERT INTO @TEMP_ENERGY VALUES(      
   'Actual COP',      
-  @COP_1,      
-  @COP_2,      
-  @COP_3,      
-  @COP_4,      
+  ROUND(@COP_1,2),      
+  ROUND(@COP_2,2),      
+  ROUND(@COP_3,2),      
+  ROUND(@COP_4,2),      
   0      
  )      
  --Actual COP      
@@ -1211,10 +1503,10 @@ BEGIN
  --Actual VS Nominal COP      
  INSERT INTO @TEMP_ENERGY VALUES(      
   'Actual VS Nominal COP',      
-  @Chiller1_COP/100,      
-  @Chiller2_COP/100,      
-  @Chiller3_COP/100,      
-  @Chiller4_COP/100,      
+  ROUND(@Chiller1_COP/100,2),      
+  ROUND(@Chiller2_COP/100,2),      
+  ROUND(@Chiller3_COP/100,2),      
+  ROUND(@Chiller4_COP/100,2),      
   0      
  )      
  --BaseLine      

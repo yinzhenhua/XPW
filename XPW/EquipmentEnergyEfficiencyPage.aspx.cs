@@ -47,7 +47,9 @@ namespace XPW
                     ds.ElectricityConsumption[0].Week1,
                     ds.ElectricityConsumption[0].Week2,
                     ds.ElectricityConsumption[0].Week3,
-                    ds.ElectricityConsumption[0].Week4);
+                    ds.ElectricityConsumption[0].Week4,
+                    ds.ElectricityConsumption[0].Week5,
+                    ds.ElectricityConsumption[0].Week6);
                 gvDept.DataSource = energyDS.EquipmentEnergyEfficiency;
                 gvDept.DataBind();
                 //显示Chart图

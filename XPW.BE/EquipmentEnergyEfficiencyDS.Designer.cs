@@ -307,6 +307,10 @@ namespace XPW.BE {
             
             private global::System.Data.DataColumn columnWeek4;
             
+            private global::System.Data.DataColumn columnWeek5;
+            
+            private global::System.Data.DataColumn columnWeek6;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public EquipmentEnergyEfficiencyDataTable() {
@@ -454,6 +458,22 @@ namespace XPW.BE {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn Week5Column {
+                get {
+                    return this.columnWeek5;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn Week6Column {
+                get {
+                    return this.columnWeek6;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -489,7 +509,23 @@ namespace XPW.BE {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public EquipmentEnergyEfficiencyRow AddEquipmentEnergyEfficiencyRow(string Name, double PreviousYear, double YTD, double Q1, double Q2, double Q3, double Q4, double Month1, double Month2, double Month3, double Week1, double Week2, double Week3, double Week4) {
+            public EquipmentEnergyEfficiencyRow AddEquipmentEnergyEfficiencyRow(
+                        string Name, 
+                        double PreviousYear, 
+                        double YTD, 
+                        double Q1, 
+                        double Q2, 
+                        double Q3, 
+                        double Q4, 
+                        double Month1, 
+                        double Month2, 
+                        double Month3, 
+                        double Week1, 
+                        double Week2, 
+                        double Week3, 
+                        double Week4, 
+                        double Week5, 
+                        double Week6) {
                 EquipmentEnergyEfficiencyRow rowEquipmentEnergyEfficiencyRow = ((EquipmentEnergyEfficiencyRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Name,
@@ -505,7 +541,9 @@ namespace XPW.BE {
                         Week1,
                         Week2,
                         Week3,
-                        Week4};
+                        Week4,
+                        Week5,
+                        Week6};
                 rowEquipmentEnergyEfficiencyRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowEquipmentEnergyEfficiencyRow);
                 return rowEquipmentEnergyEfficiencyRow;
@@ -542,6 +580,8 @@ namespace XPW.BE {
                 this.columnWeek2 = base.Columns["Week2"];
                 this.columnWeek3 = base.Columns["Week3"];
                 this.columnWeek4 = base.Columns["Week4"];
+                this.columnWeek5 = base.Columns["Week5"];
+                this.columnWeek6 = base.Columns["Week6"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -575,6 +615,10 @@ namespace XPW.BE {
                 base.Columns.Add(this.columnWeek3);
                 this.columnWeek4 = new global::System.Data.DataColumn("Week4", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnWeek4);
+                this.columnWeek5 = new global::System.Data.DataColumn("Week5", typeof(double), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWeek5);
+                this.columnWeek6 = new global::System.Data.DataColumn("Week6", typeof(double), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWeek6);
                 this.columnName.MaxLength = 510;
                 this.columnPreviousYear.DefaultValue = ((double)(0D));
                 this.columnYTD.Caption = "YearlyTarget";
@@ -601,6 +645,10 @@ namespace XPW.BE {
                 this.columnWeek3.DefaultValue = ((double)(0D));
                 this.columnWeek4.Caption = "YearlyTarget";
                 this.columnWeek4.DefaultValue = ((double)(0D));
+                this.columnWeek5.Caption = "YearlyTarget";
+                this.columnWeek5.DefaultValue = ((double)(0D));
+                this.columnWeek6.Caption = "YearlyTarget";
+                this.columnWeek6.DefaultValue = ((double)(0D));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -967,6 +1015,38 @@ namespace XPW.BE {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public double Week5 {
+                get {
+                    if (this.IsWeek5Null()) {
+                        return 0D;
+                    }
+                    else {
+                        return ((double)(this[this.tableEquipmentEnergyEfficiency.Week5Column]));
+                    }
+                }
+                set {
+                    this[this.tableEquipmentEnergyEfficiency.Week5Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public double Week6 {
+                get {
+                    if (this.IsWeek6Null()) {
+                        return 0D;
+                    }
+                    else {
+                        return ((double)(this[this.tableEquipmentEnergyEfficiency.Week6Column]));
+                    }
+                }
+                set {
+                    this[this.tableEquipmentEnergyEfficiency.Week6Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsNameNull() {
                 return this.IsNull(this.tableEquipmentEnergyEfficiency.NameColumn);
             }
@@ -1131,6 +1211,30 @@ namespace XPW.BE {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetWeek4Null() {
                 this[this.tableEquipmentEnergyEfficiency.Week4Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsWeek5Null() {
+                return this.IsNull(this.tableEquipmentEnergyEfficiency.Week5Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetWeek5Null() {
+                this[this.tableEquipmentEnergyEfficiency.Week5Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsWeek6Null() {
+                return this.IsNull(this.tableEquipmentEnergyEfficiency.Week6Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetWeek6Null() {
+                this[this.tableEquipmentEnergyEfficiency.Week6Column] = global::System.Convert.DBNull;
             }
         }
         

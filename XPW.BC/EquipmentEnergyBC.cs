@@ -28,7 +28,9 @@ namespace XPW.BC
             double Week1,
             double Week2,
             double Week3,
-            double Week4
+            double Week4,
+            double Week5,
+            double Week6
             )
         {
             try
@@ -49,7 +51,9 @@ namespace XPW.BC
                     Week1,
                     Week2,
                     Week3,
-                    Week4
+                    Week4,
+                    Week5,
+                    Week6
                 });
                 return ds;
             }

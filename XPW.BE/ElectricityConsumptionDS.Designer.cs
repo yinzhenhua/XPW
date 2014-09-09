@@ -313,6 +313,10 @@ namespace XPW.BE {
             
             private global::System.Data.DataColumn columnWeek4;
             
+            private global::System.Data.DataColumn columnWeek5;
+            
+            private global::System.Data.DataColumn columnWeek6;
+            
             private global::System.Data.DataColumn columnTotalYTD;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -486,6 +490,22 @@ namespace XPW.BE {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn Week5Column {
+                get {
+                    return this.columnWeek5;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn Week6Column {
+                get {
+                    return this.columnWeek6;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn TotalYTDColumn {
                 get {
                     return this.columnTotalYTD;
@@ -547,6 +567,8 @@ namespace XPW.BE {
                         double Week2, 
                         double Week3, 
                         double Week4, 
+                        double Week5, 
+                        double Week6, 
                         double TotalYTD) {
                 ElectricityConsumptionRow rowElectricityConsumptionRow = ((ElectricityConsumptionRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
@@ -567,6 +589,8 @@ namespace XPW.BE {
                         Week2,
                         Week3,
                         Week4,
+                        Week5,
+                        Week6,
                         TotalYTD};
                 rowElectricityConsumptionRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowElectricityConsumptionRow);
@@ -614,6 +638,8 @@ namespace XPW.BE {
                 this.columnWeek2 = base.Columns["Week2"];
                 this.columnWeek3 = base.Columns["Week3"];
                 this.columnWeek4 = base.Columns["Week4"];
+                this.columnWeek5 = base.Columns["Week5"];
+                this.columnWeek6 = base.Columns["Week6"];
                 this.columnTotalYTD = base.Columns["TotalYTD"];
             }
             
@@ -654,6 +680,10 @@ namespace XPW.BE {
                 base.Columns.Add(this.columnWeek3);
                 this.columnWeek4 = new global::System.Data.DataColumn("Week4", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnWeek4);
+                this.columnWeek5 = new global::System.Data.DataColumn("Week5", typeof(double), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWeek5);
+                this.columnWeek6 = new global::System.Data.DataColumn("Week6", typeof(double), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWeek6);
                 this.columnTotalYTD = new global::System.Data.DataColumn("TotalYTD", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTotalYTD);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
@@ -689,6 +719,10 @@ namespace XPW.BE {
                 this.columnWeek3.DefaultValue = ((double)(0D));
                 this.columnWeek4.Caption = "YearlyTarget";
                 this.columnWeek4.DefaultValue = ((double)(0D));
+                this.columnWeek5.Caption = "YearlyTarget";
+                this.columnWeek5.DefaultValue = ((double)(0D));
+                this.columnWeek6.Caption = "YearlyTarget";
+                this.columnWeek6.DefaultValue = ((double)(0D));
                 this.columnTotalYTD.Caption = "YearlyTarget";
                 this.columnTotalYTD.DefaultValue = ((double)(0D));
             }
@@ -1100,6 +1134,38 @@ namespace XPW.BE {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public double Week5 {
+                get {
+                    if (this.IsWeek5Null()) {
+                        return 0D;
+                    }
+                    else {
+                        return ((double)(this[this.tableElectricityConsumption.Week5Column]));
+                    }
+                }
+                set {
+                    this[this.tableElectricityConsumption.Week5Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public double Week6 {
+                get {
+                    if (this.IsWeek6Null()) {
+                        return 0D;
+                    }
+                    else {
+                        return ((double)(this[this.tableElectricityConsumption.Week6Column]));
+                    }
+                }
+                set {
+                    this[this.tableElectricityConsumption.Week6Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public double TotalYTD {
                 get {
                     if (this.IsTotalYTDNull()) {
@@ -1304,6 +1370,30 @@ namespace XPW.BE {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetWeek4Null() {
                 this[this.tableElectricityConsumption.Week4Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsWeek5Null() {
+                return this.IsNull(this.tableElectricityConsumption.Week5Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetWeek5Null() {
+                this[this.tableElectricityConsumption.Week5Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsWeek6Null() {
+                return this.IsNull(this.tableElectricityConsumption.Week6Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetWeek6Null() {
+                this[this.tableElectricityConsumption.Week6Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
