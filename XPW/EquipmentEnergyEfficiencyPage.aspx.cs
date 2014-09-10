@@ -116,24 +116,25 @@ namespace XPW
             {
                 if (e.Row.RowType == DataControlRowType.Header)
                 {
-                    string style = "padding: 4px 2px;color: #fff;"
-                        + "background: #424242 url(grd_head.png) repeat-x top;"
-                        + "border-left: solid 1px #525252;"
-                        + "font-size: 0.9em;"
-                        + "text-align: left;";
+                    string style = "padding: 4px 2px;"
+                     + " color: #fff;"
+                     + " background: #424242 url(grd_head.png) repeat-x top;"
+                     + "border-left: solid 1px #525252;"
+                     + "font-size: 14px;"
+                     + "text-align: left;";
                     e.Row.Cells[0].Attributes.Remove("style");
                     e.Row.Cells[0].Attributes.Add("style", style);
                 }
                 if (e.Row.RowType == DataControlRowType.DataRow)
                 {
-                    string style = "padding: 2px;"
-                      + "border: solid 1px #c1c1c1;"
-                      + "color: #717171;"
-                      + "width: 80px;"
-                      + "text-align: left;"
-                      + "height: 24px;"
-                      + "width: 100px; "
-                      + "text-wrap: none";
+                    string style = " padding: 4px;"
+                    + "border: solid 1px #92d050;"
+                    + "color: #92D050;"
+                    + "text-align: left;"
+                    + "font-family: \"Microsoft YaHei\";"
+                    + "font-size: 13px;"
+                    + "font-weight: 700;"
+                    + "height: 30px;";
                     e.Row.Cells[0].Attributes.Remove("style");
                     e.Row.Cells[0].Attributes.Add("style", style);
 

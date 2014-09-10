@@ -49,8 +49,8 @@ namespace XPW
                 if (dlSite.SelectedIndex == 0)
                 {
                     dvBody.Style.Clear();
-                    dvBody.Style.Add("overflow-x", "scroll");
-                    dvBody.Style.Add("height", "440px");
+                    dvBody.Style.Add("overflow", "auto");
+                    dvBody.Style.Add("height", "500px");
                     dvBody.Style.Add("width", "940px");
                     ElectricityConsumptionDS ds = _bc.GetAllEquipmentEnergy();
                     gvDept.DataSource = ds.ElectricityConsumption;
@@ -60,8 +60,8 @@ namespace XPW
                 else
                 {
                     dvBody.Style.Clear();
-                    dvBody.Style.Add("overflow-x", "scroll");
-                    dvBody.Style.Add("height", "120px");
+                    dvBody.Style.Add("overflow", "auto");
+                    dvBody.Style.Add("height", "135px");
                     dvBody.Style.Add("width", "940px");
 
                     int deviceID = Convert.ToInt32(dlSite.SelectedValue);
@@ -133,23 +133,25 @@ namespace XPW
             {
                 if (e.Row.RowType == DataControlRowType.Header)
                 {
-                    string style = "padding: 4px 2px;color: #fff;"
-                        + "background: #424242 url(grd_head.png) repeat-x top;"
-                        + "border-left: solid 1px #525252;"
-                        + "font-size: 0.9em;"
-                        + "text-align: left;"
-                        + "height: 24px;";
+                    string style = "padding: 4px 2px;"
+                    + " color: #fff;"
+                    + " background: #424242 url(grd_head.png) repeat-x top;"
+                    + "border-left: solid 1px #525252;"
+                    + "font-size: 14px;"
+                    + "text-align: left;";
                     e.Row.Cells[1].Attributes.Remove("style");
                     e.Row.Cells[1].Attributes.Add("style", style);
                 }
                 if (e.Row.RowType == DataControlRowType.DataRow)
                 {
-                    string style = "padding: 2px;"
-                       + "border: solid 1px #c1c1c1;"
-                       + "color: #717171;"
-                       + "width: 80px;"
-                       + "text-align: left;"
-                       + "height: 24px;";
+                    string style = " padding: 4px;"
+                    + "border: solid 1px #92d050;"
+                    + "color: #92D050;"
+                    + "text-align: left;"
+                    + "font-family: \"Microsoft YaHei\";"
+                    + "font-size: 13px;"
+                    + "font-weight: 700;"
+                    + "height: 30px;";
                     e.Row.Cells[1].Attributes.Remove("style");
                     e.Row.Cells[1].Attributes.Add("style", style);
                 }

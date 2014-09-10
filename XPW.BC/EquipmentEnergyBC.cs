@@ -89,66 +89,66 @@ namespace XPW.BC
                 table.Columns.Add("Total", typeof(double));
                 table.Columns.Add("Name", typeof(string));
                 table.Columns.Add("BaseLine", typeof(double));
-                //Chiller 1#
-                DataRow newRow1 = table.NewRow();
-                newRow1[0] = 0.3;
-                newRow1[1] = "Chiller 1#";
-                newRow1[2] = 1;
-                table.Rows.Add(newRow1);
-                //Chiller 2#
-                DataRow newRow2 = table.NewRow();
-                newRow2[0] = 1.1;
-                newRow2[1] = "Chiller 2#";
-                newRow2[2] = 1;
-                table.Rows.Add(newRow2);
-                //Chiller 3#
-                DataRow newRow3 = table.NewRow();
-                newRow3[0] = 1.0;
-                newRow3[1] = "Chiller 3#";
-                newRow3[2] = 1;
-                table.Rows.Add(newRow3);
-                //Chiller 4#
-                DataRow newRow4 = table.NewRow();
-                newRow4[0] = 0.6;
-                newRow4[1] = "Chiller 4#";
-                newRow4[2] = 1;
-                table.Rows.Add(newRow4);
-                //Chiller 5#
-                DataRow newRow5 = table.NewRow();
-                newRow5[0] = 0.87;
-                newRow5[1] = "Chiller 5#";
-                newRow5[2] = 1;
-                table.Rows.Add(newRow5);
                 ////Chiller 1#
                 //DataRow newRow1 = table.NewRow();
-                //newRow1[0] = row.Chiller1;
+                //newRow1[0] = 0.3;
                 //newRow1[1] = "Chiller 1#";
                 //newRow1[2] = 1;
                 //table.Rows.Add(newRow1);
                 ////Chiller 2#
                 //DataRow newRow2 = table.NewRow();
-                //newRow2[0] = row.Chiller2;
+                //newRow2[0] = 1.1;
                 //newRow2[1] = "Chiller 2#";
                 //newRow2[2] = 1;
                 //table.Rows.Add(newRow2);
                 ////Chiller 3#
                 //DataRow newRow3 = table.NewRow();
-                //newRow3[0] = row.Chiller3;
+                //newRow3[0] = 1.0;
                 //newRow3[1] = "Chiller 3#";
                 //newRow3[2] = 1;
                 //table.Rows.Add(newRow3);
                 ////Chiller 4#
                 //DataRow newRow4 = table.NewRow();
-                //newRow4[0] = row.Chiller4;
+                //newRow4[0] = 0.6;
                 //newRow4[1] = "Chiller 4#";
                 //newRow4[2] = 1;
                 //table.Rows.Add(newRow4);
                 ////Chiller 5#
                 //DataRow newRow5 = table.NewRow();
-                //newRow5[0] = row.Chiller5;
+                //newRow5[0] = 0.87;
                 //newRow5[1] = "Chiller 5#";
                 //newRow5[2] = 1;
                 //table.Rows.Add(newRow5);
+                //Chiller 1#
+                DataRow newRow1 = table.NewRow();
+                newRow1[0] = row.Chiller1;
+                newRow1[1] = "Chiller 1#";
+                newRow1[2] = 1;
+                table.Rows.Add(newRow1);
+                //Chiller 2#
+                DataRow newRow2 = table.NewRow();
+                newRow2[0] = row.Chiller2;
+                newRow2[1] = "Chiller 2#";
+                newRow2[2] = 1;
+                table.Rows.Add(newRow2);
+                //Chiller 3#
+                DataRow newRow3 = table.NewRow();
+                newRow3[0] = row.Chiller3;
+                newRow3[1] = "Chiller 3#";
+                newRow3[2] = 1;
+                table.Rows.Add(newRow3);
+                //Chiller 4#
+                DataRow newRow4 = table.NewRow();
+                newRow4[0] = row.Chiller4;
+                newRow4[1] = "Chiller 4#";
+                newRow4[2] = 1;
+                table.Rows.Add(newRow4);
+                //Chiller 5#
+                DataRow newRow5 = table.NewRow();
+                newRow5[0] = row.Chiller5;
+                newRow5[1] = "Chiller 5#";
+                newRow5[2] = 1;
+                table.Rows.Add(newRow5);
 
                 return table;
             }

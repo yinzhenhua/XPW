@@ -11,7 +11,7 @@
         </h2>
         <table>
             <tr>
-                <td style="width: 10px">Site
+                <td style="width: 10px;">Site
                 </td>
                 <td style="width: auto">
                     <asp:DropDownList runat="server" ID="dlSite" AutoPostBack=" true" OnSelectedIndexChanged="dlSite_SelectedIndexChanged"></asp:DropDownList>
@@ -19,67 +19,85 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <div style="overflow-x: scroll; height: 440px; width: 940px" id="dvBody" runat="server">
+                    <div style="overflow: auto; height: 500px; width: 940px; margin-left: 3px; margin-right: 3px" id="dvBody" runat="server">
                         <asp:GridView runat="server" ID="gvDept" AutoGenerateColumns="False" GridLines="None"
+                            Width="1400px"
                             CssClass="mGrid"
-                            PagerStyle-CssClass="pgr"
                             AlternatingRowStyle-CssClass="alt"
                             OnRowCreated="gvDept_RowCreated"
                             OnRowDataBound="gvDept_RowDataBound">
                             <Columns>
                                 <asp:BoundField DataField="DeviceID" HeaderText="" ShowHeader="false" Visible="false" />
                                 <asp:BoundField DataField="Name" HeaderText="Dept.">
-                                    <ItemStyle Width="6.5%" />
+                                    <HeaderStyle Width="6%" />
+                                    <ItemStyle Width="6%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="PreviousYear" HeaderText="Previous Year">
+                                    <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="YearlyTarget" HeaderText="Yearly Target">
+                                    <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="YTD" HeaderText="YTD">
+                                    <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Percentage" HeaderText="%" DataFormatString="{0:p}">
+                                    <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Q1" HeaderText="Q1">
+                                    <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Q2" HeaderText="Q2">
+                                    <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Q3" HeaderText="Q3">
+                                    <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Q4" HeaderText="Q4">
+                                    <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Month1" HeaderText="">
+                                    <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Month2" HeaderText="">
+                                    <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Month3" HeaderText="">
+                                    <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Week1" HeaderText="Week-1">
+                                    <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Week2" HeaderText="Week-2">
+                                    <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Week3" HeaderText="Week-3">
+                                    <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Week4" HeaderText="Week-4">
+                                    <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Week5" HeaderText="Week-5">
+                                    <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Week6" HeaderText="Week-6">
+                                    <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
                                 <asp:TemplateField>
@@ -87,6 +105,8 @@
                                         <asp:ImageButton runat="Server" ID="btnGraph" ImageUrl="~/Images/graph.png" ImageAlign="Middle"
                                             PostBackUrl='<%# "EquipmentEnergyEfficiencyPage.aspx?DeviceID="+Eval("DeviceID")+"&Name="+ Eval("Name")%>' />
                                     </ItemTemplate>
+                                    <HeaderStyle Width="0.5%" />
+                                    <ItemStyle Width="0.5%" />
                                 </asp:TemplateField>
                             </Columns>
                         </asp:GridView>

@@ -13,27 +13,32 @@
             <tr>
                 <td colspan="2">
                     <div style="overflow-x: scroll; height: 300px; width: 940px" id="dvBody">
-                        <asp:GridView runat="server" ID="gvDept" AutoGenerateColumns="False"
+                        <asp:GridView runat="server" ID="gvDept" AutoGenerateColumns="False" Width="1000px"
                             CssClass="mGrid"
-                            PagerStyle-CssClass="pgr"
                             AlternatingRowStyle-CssClass="alt" OnRowDataBound="gvDept_RowDataBound">
                             <Columns>
                                 <asp:BoundField DataField="Name" HeaderText="ITEM">
-                                    <ItemStyle Width="20%" Wrap="false" />
+                                    <HeaderStyle Width="20%" />
+                                    <ItemStyle Width="20%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Chiller1" HeaderText="Chiller 1#">
+                                    <HeaderStyle Width="16%" />
                                     <ItemStyle Width="16%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Chiller2" HeaderText="Chiller 2#">
+                                    <HeaderStyle Width="16%" />
                                     <ItemStyle Width="16%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Chiller3" HeaderText="Chiller 3#">
+                                    <HeaderStyle Width="16%" />
                                     <ItemStyle Width="16%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Chiller4" HeaderText="Chiller 4#">
+                                    <HeaderStyle Width="16%" />
                                     <ItemStyle Width="16%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Chiller5" HeaderText="Chiller 5#">
+                                    <HeaderStyle Width="16%" />
                                     <ItemStyle Width="16%" />
                                 </asp:BoundField>
                             </Columns>

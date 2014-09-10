@@ -1,5 +1,4 @@
 ﻿.mGrid {
-    width: 100%;
     background-color: #fff;
     margin: 5px 0 10px 0;
     border: solid 1px #525252;
@@ -7,11 +6,14 @@
 }
 
     .mGrid td {
-        padding: 2px;
-        border: solid 1px #c1c1c1;
-        color: #717171;
+        padding: 4px;
+        border: solid 1px #92d050;
+        color: black;
         text-align: right;
-        height: 24px;
+        font-family: "Microsoft YaHei";
+        font-size: 13px;
+        font-weight: 700;
+        height: 30px;
     }
 
     .mGrid th {
@@ -19,38 +21,10 @@
         color: #fff;
         background: #424242 url(grd_head.png) repeat-x top;
         border-left: solid 1px #525252;
-        font-size: 0.9em;
+        font-size: 14px;
         text-align: center;
     }
 
     .mGrid .alt {
         background: #fcfcfc url(grd_alt.png) repeat-x top;
     }
-
-    .mGrid .pgr {
-        background: #424242 url(grd_pgr.png) repeat-x top;
-    }
-
-        .mGrid .pgr table {
-            margin: 5px 0;
-        }
-
-        .mGrid .pgr td {
-            border-width: 0;
-            padding: 0 6px;
-            border-left: solid 1px #666;
-            font-weight: bold;
-            color: #fff;
-            line-height: 12px;
-            height: 24px;
-        }
-
-        .mGrid .pgr a {
-            color: #666;
-            text-decoration: none;
-        }
-
-            .mGrid .pgr a:hover {
-                color: #000;
-                text-decoration: none;
-            }

@@ -24,13 +24,7 @@
         </asp:ScriptManager>
         <div id="container">
             <div id="header">
-                <div>
-                    <div class="subMenu" style="display: none;">
-                        <a href="#" class="active">Manager menu</a>
-                        <a href="#" class="noborder">Administration menu</a>
-                    </div>
-                    <div class="logo">
-                    </div>
+                <div class="logo">
                 </div>
                 <div class="mainMenu">
                     <ul>
@@ -44,19 +38,13 @@
                             <a href="ChillerEnergyEfficiencyPage.aspx">Equipment Energy Efficiency</a>
                         </li>
                         <li>
-                            <a href="#">Consumption</a>
+                            <a href="#">Alarms</a>
                         </li>
                         <li>
-                            <a href="#">Power Quality</a>
+                            <a href="#">Project Tracking</a>
                         </li>
                         <li>
-                            <a href="#">Billing</a>
-                        </li>
-                        <li>
-                            <a href="#">Generators</a>
-                        </li>
-                        <li>
-                            <a href="#">Reports</a>
+                            <a href="#">Report</a>
                         </li>
                     </ul>
                 </div>
