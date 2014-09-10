@@ -38,7 +38,7 @@
                             <a href="ChillerEnergyEfficiencyPage.aspx">Equipment Energy Efficiency</a>
                         </li>
                         <li>
-                            <a href="#">Alarms</a>
+                            <a href="#" target="_blank">ALarm</a>
                         </li>
                         <li>
                             <a href="#">Project Tracking</a>

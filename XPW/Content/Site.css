@@ -92,7 +92,7 @@ body {
             }
 
 #main-content {
-    padding-top: 20px;
+    padding-top: 5px;
 }
 
 .floatDiv {
@@ -174,7 +174,7 @@ table.energy {
 }
 
     .moduleDIV h2 {
-        font-size: 18px;
+        font-size: 15px;
         background: url(images/bg-cv-tit.gif) repeat-x 0 0;
         color: #92D050;
         font-weight: 700;
@@ -183,7 +183,30 @@ table.energy {
         font-family: "Microsoft YaHei";
     }
 
-.title {
+.selectStyle {
+    width: 150px;
+    height: 25px;
+    overflow: hidden;
+    background: url(images/arrow.png) no-repeat right #F6F1DB;
+    border: 2px solid #7d6754;
+    border-radius: 2px;
+}
+
+    .selectStyle select {
+        background: transparent;
+        width: 180px;
+        padding: 3px;
+        font-size: 16px;
+        line-height: 1;
+        border: 0;
+        border-radius: 0;
+        height: 30px;
+        -webkit-appearance: none;
+        font-family: "Microsoft YaHei";
+        color: #7d6754;
+    }
+
+share|improve this answer .title {
     border: 1px solid #d2d2d2;
     font-family: "Microsoft YaHei";
     width: 948px;
@@ -191,3 +214,46 @@ table.energy {
     position: relative;
     padding-left: 2px;
 }
+
+
+.homeLinkSelect {
+    z-index: 99;
+    font-size: 15px;
+    font-weight: bold;
+    margin: 0;
+    height: 25px;
+    line-height: 25px;
+    float: left;
+}
+
+    .homeLinkSelect .selList {
+        float: left;
+        height: 15px;
+        margin-left: 10px;
+        width: 190px;
+        text-align: left;
+    }
+
+    .homeLinkSelect select {
+        font-size: 15px;
+        max-width: 190px;
+    }
+
+    .homeLinkSelect .selOption {
+        display: block;
+        float: left;
+        margin-right: 10px;
+    }
+
+    .homeLinkSelect .seldate {
+        margin-top: 1px;
+        display: block;
+        float: right;
+        z-index: 9;
+        font-weight: normal;
+        position: relative;
+    }
+
+        .homeLinkSelect .seldate a {
+            display: inline-block;
+        }

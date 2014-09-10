@@ -50,45 +50,45 @@ namespace XPW
                 {
                     dvBody.Style.Clear();
                     dvBody.Style.Add("overflow", "auto");
-                    dvBody.Style.Add("height", "500px");
+                    dvBody.Style.Add("height", "480px");
                     dvBody.Style.Add("width", "940px");
                     ElectricityConsumptionDS ds = _bc.GetAllEquipmentEnergy();
                     gvDept.DataSource = ds.ElectricityConsumption;
                     gvDept.DataBind();
-                    ecpChart.Visible = false;
+                    //ecpChart.Visible = false;
                 }
                 else
                 {
                     dvBody.Style.Clear();
                     dvBody.Style.Add("overflow", "auto");
-                    dvBody.Style.Add("height", "135px");
+                    dvBody.Style.Add("height", "120px");
                     dvBody.Style.Add("width", "940px");
 
                     int deviceID = Convert.ToInt32(dlSite.SelectedValue);
                     ElectricityConsumptionDS ds = _bc.GetEquipmentEnergy(deviceID);
                     gvDept.DataSource = ds.ElectricityConsumption;
                     gvDept.DataBind();
-                    //MsChart
-                    ecpChart.Visible = true;
-                    ecpChart.Titles["ecpTitle"].Text = dlSite.SelectedItem.Text;
-                    ecpChart.Series["ecpSeries"].ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.Column;
-                    ecpChart.Series["ecpSeries"]["PointWidth"] = "0.8";
-                    ecpChart.Series["ecpSeries"]["BarLabelStyle"] = "Center";
-                    ecpChart.Series["ecpSeries"]["DrawingStyle"] = "Cylinder";
-                    ecpChart.Series["ecpSeries"].IsValueShownAsLabel = true;//显示坐标值
-                    ecpChart.Series["ecpSeries"].XValueMember = "Name";//X轴数据成员列
-                    ecpChart.Series["ecpSeries"].YValueMembers = "Total";//Y轴数据成员列
-                    //ecpChart.ChartAreas["ecpChartArea"].AxisY.Maximum = 60000000;
-                    //ecpChart.ChartAreas["ecpChartArea"].AxisY.Minimum = 0;
-                    //ecpChart.ChartAreas["ecpChartArea"].AxisY.Interval = 10000000;
-                    ecpChart.ChartAreas["ecpChartArea"].AxisY.LabelStyle.ForeColor = Color.Red;
-                    ecpChart.ChartAreas["ecpChartArea"].AxisY.LabelStyle.Font = new Font("Microsoft Sans Serif", 8);
-                    ecpChart.ChartAreas["ecpChartArea"].AxisX.LabelStyle.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Bold);
-                    ecpChart.ChartAreas["ecpChartArea"].AxisX.Interval = 1;
-                    ecpChart.ChartAreas["ecpChartArea"].AxisX.LabelStyle.ForeColor = Color.FromArgb(155, 187, 89);
-                    ecpChart.ChartAreas["ecpChartArea"].AxisX.MajorGrid.Enabled = false;//不显示竖着的分割线
-                    ecpChart.DataSource = _bc.CreateEquipmentEnergyTable(ds);
-                    ecpChart.DataBind();
+                    ////MsChart
+                    //ecpChart.Visible = true;
+                    //ecpChart.Titles["ecpTitle"].Text = dlSite.SelectedItem.Text;
+                    //ecpChart.Series["ecpSeries"].ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.Column;
+                    //ecpChart.Series["ecpSeries"]["PointWidth"] = "0.8";
+                    //ecpChart.Series["ecpSeries"]["BarLabelStyle"] = "Center";
+                    //ecpChart.Series["ecpSeries"]["DrawingStyle"] = "Cylinder";
+                    //ecpChart.Series["ecpSeries"].IsValueShownAsLabel = true;//显示坐标值
+                    //ecpChart.Series["ecpSeries"].XValueMember = "Name";//X轴数据成员列
+                    //ecpChart.Series["ecpSeries"].YValueMembers = "Total";//Y轴数据成员列
+                    ////ecpChart.ChartAreas["ecpChartArea"].AxisY.Maximum = 60000000;
+                    ////ecpChart.ChartAreas["ecpChartArea"].AxisY.Minimum = 0;
+                    ////ecpChart.ChartAreas["ecpChartArea"].AxisY.Interval = 10000000;
+                    //ecpChart.ChartAreas["ecpChartArea"].AxisY.LabelStyle.ForeColor = Color.Red;
+                    //ecpChart.ChartAreas["ecpChartArea"].AxisY.LabelStyle.Font = new Font("Microsoft Sans Serif", 8);
+                    //ecpChart.ChartAreas["ecpChartArea"].AxisX.LabelStyle.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Bold);
+                    //ecpChart.ChartAreas["ecpChartArea"].AxisX.Interval = 1;
+                    //ecpChart.ChartAreas["ecpChartArea"].AxisX.LabelStyle.ForeColor = Color.FromArgb(155, 187, 89);
+                    //ecpChart.ChartAreas["ecpChartArea"].AxisX.MajorGrid.Enabled = false;//不显示竖着的分割线
+                    //ecpChart.DataSource = _bc.CreateEquipmentEnergyTable(ds);
+                    //ecpChart.DataBind();
                 }
             }
             catch (Exception ex)
@@ -151,7 +151,7 @@ namespace XPW
                     + "font-family: \"Microsoft YaHei\";"
                     + "font-size: 13px;"
                     + "font-weight: 700;"
-                    + "height: 30px;";
+                    + "height: 25px;";
                     e.Row.Cells[1].Attributes.Remove("style");
                     e.Row.Cells[1].Attributes.Add("style", style);
                 }

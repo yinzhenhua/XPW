@@ -36,12 +36,14 @@ namespace XPW
             ecpChart.Series["Actual VS Nominal COP"]["BarLabelStyle"] = "Center";
             ecpChart.Series["Actual VS Nominal COP"]["DrawingStyle"] = "Cylinder";
             ecpChart.Series["Actual VS Nominal COP"].IsValueShownAsLabel = false;//显示坐标值
+            ecpChart.Series["Actual VS Nominal COP"].ToolTip = "#VALX : #VALY";
             //Series - 1
             ecpChart.Series["BaseLine"].ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.Line;
             ecpChart.Series["BaseLine"]["PointWidth"] = "2";
             ecpChart.Series["BaseLine"]["BarLabelStyle"] = "Center";
             ecpChart.Series["BaseLine"]["DrawingStyle"] = "Cylinder";
             ecpChart.Series["BaseLine"].IsValueShownAsLabel = false;//显示坐标值
+
             //
             ecpChart.ChartAreas["ecpChartArea"].AxisY.Maximum = 1.2;
             ecpChart.ChartAreas["ecpChartArea"].AxisY.Minimum = 0;
@@ -93,7 +95,7 @@ namespace XPW
                     + "font-family: \"Microsoft YaHei\";"
                     + "font-size: 13px;"
                     + "font-weight: 700;"
-                    + "height: 30px;";
+                    + "height: 25px;";
                     e.Row.Cells[0].Attributes.Remove("style");
                     e.Row.Cells[0].Attributes.Add("style", style);
                 }

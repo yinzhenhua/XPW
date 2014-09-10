@@ -684,43 +684,10 @@ BEGIN
  DECLARE @TOTAL FLOAT   
  SELECT @TOTAL = SUM(C.Value)  
  FROM ConsumptionData C  
- WHERE C.DeviceID IN (390,391,392,393,394,395,396,397,398,399,400)  
+ WHERE C.DeviceID = 388
  AND (C.ReadingDate BETWEEN @DAY_YEAR AND GETDATE())  
  AND C.Tariffnum = 0 
-	AND C.UsageTypeID IN (1,8,9)
- --声明变量  
- DECLARE @SUM_TOTAL_1 FLOAT  
- DECLARE @SUM_TOTAL_2 FLOAT  
- DECLARE @SUM_TOTAL_3 FLOAT  
- DECLARE @SUM_TOTAL_5 FLOAT  
- DECLARE @SUM_TOTAL_6 FLOAT  
- DECLARE @SUM_TOTAL_7 FLOAT  
- DECLARE @SUM_TOTAL_8 FLOAT  
- DECLARE @SUM_TOTAL_9 FLOAT  
- DECLARE @SUM_TOTAL_10 FLOAT  
- DECLARE @SUM_TOTAL_11 FLOAT  
- DECLARE @SUM_TOTAL_12 FLOAT  
- DECLARE @SUM_TOTAL_13 FLOAT  
- DECLARE @SUM_TOTAL_14 FLOAT  
- DECLARE @SUM_TOTAL_15 FLOAT  
- DECLARE @SUM_TOTAL_16 FLOAT  
- DECLARE @SUM_TOTAL_17 FLOAT  
- SET @SUM_TOTAL_1 = 0  
- SET @SUM_TOTAL_2 = 0  
- SET @SUM_TOTAL_3 = 0  
- SET @SUM_TOTAL_5 = 0  
- SET @SUM_TOTAL_6 = 0  
- SET @SUM_TOTAL_7 = 0  
- SET @SUM_TOTAL_8 = 0  
- SET @SUM_TOTAL_9 = 0  
- SET @SUM_TOTAL_10 = 0  
- SET @SUM_TOTAL_11 = 0  
- SET @SUM_TOTAL_12 = 0  
- SET @SUM_TOTAL_13 = 0  
- SET @SUM_TOTAL_14 = 0  
- SET @SUM_TOTAL_15 = 0
- SET @SUM_TOTAL_16 = 0  
- SET @SUM_TOTAL_17 = 0  
+ AND C.UsageTypeID IN (1,8,9) 
  --循环ID表  
  DECLARE @ID INT  
  DECLARE CURSOR1 CURSOR FOR SELECT * FROM @TABLE  
@@ -741,11 +708,9 @@ BEGIN
   AND C.UsageTypeID IN (1,8,9)
   IF @TOTAL1 IS NULL   
    SET @TOTAL1 = 0  
-  SET @SUM_TOTAL_1 = @SUM_TOTAL_1+@TOTAL1  
   --Yearly Target  
   DECLARE @TOTAL2 FLOAT   
-  SET @TOTAL2 = 0.0 --定制目前空着  
-  SET @SUM_TOTAL_2 = 0.0  
+  SET @TOTAL2 = 0.0 --定制目前空着   
   --YTD  
   DECLARE @TOTAL3 FLOAT   
   SELECT @TOTAL3 = SUM(C.Value)  
@@ -756,7 +721,6 @@ BEGIN
   AND C.UsageTypeID IN (1,8,9)
   IF @TOTAL3 IS NULL   
    SET @TOTAL3 = 0  
-  SET @SUM_TOTAL_3 = @SUM_TOTAL_3+@TOTAL3
   --%  
   DECLARE @TOTAL4 FLOAT   
   IF @TOTAL IS NULL  
@@ -773,7 +737,6 @@ BEGIN
   AND C.UsageTypeID IN (1,8,9)
   IF @TOTAL5 IS NULL   
    SET @TOTAL5 = 0  
-  SET @SUM_TOTAL_5 = @SUM_TOTAL_5+@TOTAL5
   --Q2  
   DECLARE @TOTAL6 FLOAT   
   SELECT @TOTAL6 = SUM(C.Value)  
@@ -784,7 +747,6 @@ BEGIN
   AND C.UsageTypeID IN (1,8,9)
   IF @TOTAL6 IS NULL   
    SET @TOTAL6 = 0  
-  SET @SUM_TOTAL_6 = @SUM_TOTAL_6+@TOTAL6
   --Q3  
   DECLARE @TOTAL7 FLOAT   
   SELECT @TOTAL7 = SUM(C.Value)  
@@ -794,8 +756,7 @@ BEGIN
   AND C.Tariffnum = 0 
   AND C.UsageTypeID IN (1,8,9)
   IF @TOTAL7 IS NULL   
-   SET @TOTAL7 = 0  
-  SET @SUM_TOTAL_7 = @SUM_TOTAL_7+@TOTAL7  
+   SET @TOTAL7 = 0   
   --Q4  
   DECLARE @TOTAL8 FLOAT   
   SELECT @TOTAL8 = SUM(C.Value)  
@@ -806,7 +767,6 @@ BEGIN
   AND C.UsageTypeID IN (1,8,9)
   IF @TOTAL8 IS NULL   
    SET @TOTAL8 = 0  
-  SET @SUM_TOTAL_8 = @SUM_TOTAL_8+@TOTAL8  
   --Month1  
   DECLARE @TOTAL9 FLOAT   
   SELECT @TOTAL9 = SUM(C.Value)  
@@ -816,8 +776,7 @@ BEGIN
   AND C.Tariffnum = 0 
   AND C.UsageTypeID IN (1,8,9)
   IF @TOTAL9 IS NULL   
-   SET @TOTAL9 = 0  
-  SET @SUM_TOTAL_9 = @SUM_TOTAL_9+@TOTAL9  
+   SET @TOTAL9 = 0   
   --Month2  
   DECLARE @TOTAL10 FLOAT   
   SELECT @TOTAL10 = SUM(C.Value)  
@@ -828,7 +787,6 @@ BEGIN
   AND C.UsageTypeID IN (1,8,9)
   IF @TOTAL10 IS NULL   
    SET @TOTAL10 = 0  
-  SET @SUM_TOTAL_10 = @SUM_TOTAL_10+@TOTAL10  
   --Month3  
   DECLARE @TOTAL11 FLOAT   
   SELECT @TOTAL11 = SUM(C.Value)  
@@ -838,8 +796,7 @@ BEGIN
   AND C.Tariffnum = 0 
   AND C.UsageTypeID IN (1,8,9)
   IF @TOTAL11 IS NULL   
-   SET @TOTAL11 = 0  
-  SET @SUM_TOTAL_11 = @SUM_TOTAL_11+@TOTAL11  
+   SET @TOTAL11 = 0   
   --Week1  
   DECLARE @TOTAL12 FLOAT   
   SELECT @TOTAL12 = SUM(C.Value)  
@@ -849,8 +806,7 @@ BEGIN
   AND C.Tariffnum = 0 
   AND C.UsageTypeID IN (1,8,9)
   IF @TOTAL12 IS NULL   
-   SET @TOTAL12 = 0  
-  SET @SUM_TOTAL_12 = @SUM_TOTAL_12+@TOTAL12  
+   SET @TOTAL12 = 0   
   --Week2  
   DECLARE @TOTAL13 FLOAT   
   SELECT @TOTAL13 = SUM(C.Value)  
@@ -860,8 +816,7 @@ BEGIN
   AND C.Tariffnum = 0 
   AND C.UsageTypeID IN (1,8,9)
   IF @TOTAL13 IS NULL   
-   SET @TOTAL13 = 0  
-  SET @SUM_TOTAL_13 = @SUM_TOTAL_13+@TOTAL13  
+   SET @TOTAL13 = 0   
   --Week3  
   DECLARE @TOTAL14 FLOAT   
   SELECT @TOTAL14 = SUM(C.Value)  
@@ -871,8 +826,7 @@ BEGIN
   AND C.Tariffnum = 0 
   AND C.UsageTypeID IN (1,8,9) 
   IF @TOTAL14 IS NULL   
-   SET @TOTAL14 = 0  
-  SET @SUM_TOTAL_14 = @SUM_TOTAL_14+@TOTAL14  
+   SET @TOTAL14 = 0   
   --Week4  
   DECLARE @TOTAL15 FLOAT   
   SELECT @TOTAL15 = SUM(C.Value)  
@@ -883,7 +837,6 @@ BEGIN
   AND C.UsageTypeID IN (1,8,9)
   IF @TOTAL15 IS NULL   
    SET @TOTAL15 = 0  
-  SET @SUM_TOTAL_15 = @SUM_TOTAL_15+@TOTAL15  
   
   --Week5  
   DECLARE @TOTAL16 FLOAT   
@@ -894,8 +847,7 @@ BEGIN
   AND C.Tariffnum = 0 
   AND C.UsageTypeID IN (1,8,9)
   IF @TOTAL16 IS NULL   
-   SET @TOTAL16 = 0  
-  SET @SUM_TOTAL_16 = @SUM_TOTAL_16+@TOTAL16  
+   SET @TOTAL16 = 0   
   
   --Week6  
   DECLARE @TOTAL17 FLOAT   
@@ -906,8 +858,7 @@ BEGIN
   AND C.Tariffnum = 0 
   AND C.UsageTypeID IN (1,8,9)
   IF @TOTAL17 IS NULL   
-   SET @TOTAL17 = 0  
-  SET @SUM_TOTAL_17 = @SUM_TOTAL_17+@TOTAL17  			
+   SET @TOTAL17 = 0   			
 			
   INSERT INTO @TEMP_ENERGY VALUES(
   @ID,
@@ -936,7 +887,163 @@ BEGIN
  CLOSE CURSOR1  
  DEALLOCATE CURSOR1  
  DELETE @TABLE  
-	
+ 
+ --声明变量  
+ --Previous Year  
+ DECLARE @SUM_TOTAL_1 FLOAT   
+  SELECT @SUM_TOTAL_1 = SUM(C.Value)  
+  FROM ConsumptionData C  
+  WHERE C.DeviceID = 388  
+  AND (C.ReadingDate BETWEEN @DAY_YEAR_F AND @DAY_YEAR_L)  
+  AND C.Tariffnum = 0 
+  AND C.UsageTypeID IN (1,8,9)
+  IF @SUM_TOTAL_1 IS NULL   
+   SET @SUM_TOTAL_1 = 0 
+ DECLARE @SUM_TOTAL_2 FLOAT  
+ SET @SUM_TOTAL_2 = 0  
+ --YTD  
+ DECLARE @SUM_TOTAL_3 FLOAT   
+ SELECT @SUM_TOTAL_3 = SUM(C.Value)  
+  FROM ConsumptionData C  
+  WHERE C.DeviceID = 388  
+  AND (C.ReadingDate BETWEEN @DAY_YEAR AND GETDATE())
+  AND C.Tariffnum = 0 
+  AND C.UsageTypeID IN (1,8,9)
+  IF @SUM_TOTAL_3 IS NULL   
+   SET @SUM_TOTAL_3 = 0    
+ --Q1  
+  DECLARE @SUM_TOTAL_5 FLOAT   
+  SELECT @SUM_TOTAL_5 = SUM(C.Value)  
+  FROM ConsumptionData C  
+  WHERE C.DeviceID = 388  
+  AND (C.ReadingDate BETWEEN @QUARTER_1_F AND @QUARTER_1_L)  
+  AND C.Tariffnum = 0 
+  AND C.UsageTypeID IN (1,8,9)
+  IF @SUM_TOTAL_5 IS NULL   
+   SET @SUM_TOTAL_5 = 0  
+  --Q2  
+  DECLARE @SUM_TOTAL_6 FLOAT   
+  SELECT @SUM_TOTAL_6 = SUM(C.Value)  
+  FROM ConsumptionData C  
+  WHERE C.DeviceID = 388  
+  AND (C.ReadingDate BETWEEN @QUARTER_2_F AND @QUARTER_2_L)  
+  AND C.Tariffnum = 0 
+  AND C.UsageTypeID IN (1,8,9)
+  IF @SUM_TOTAL_6 IS NULL   
+   SET @SUM_TOTAL_6 = 0  
+  --Q3  
+  DECLARE @SUM_TOTAL_7 FLOAT   
+  SELECT @SUM_TOTAL_7 = SUM(C.Value)  
+  FROM ConsumptionData C  
+  WHERE C.DeviceID = 388  
+  AND (C.ReadingDate BETWEEN @QUARTER_3_F AND @QUARTER_3_L)  
+  AND C.Tariffnum = 0 
+  AND C.UsageTypeID IN (1,8,9)
+  IF @SUM_TOTAL_7 IS NULL   
+   SET @SUM_TOTAL_7 = 0   
+  --Q4  
+  DECLARE @SUM_TOTAL_8 FLOAT   
+  SELECT @SUM_TOTAL_8 = SUM(C.Value)  
+  FROM ConsumptionData C  
+  WHERE C.DeviceID = 388  
+  AND (C.ReadingDate BETWEEN @QUARTER_4_F AND @QUARTER_4_L)  
+  AND C.Tariffnum = 0 
+  AND C.UsageTypeID IN (1,8,9)
+  IF @SUM_TOTAL_8 IS NULL   
+   SET @SUM_TOTAL_8 = 0  
+  --Month1  
+  DECLARE @SUM_TOTAL_9 FLOAT   
+  SELECT @SUM_TOTAL_9 = SUM(C.Value)  
+  FROM ConsumptionData C  
+  WHERE C.DeviceID = 388  
+  AND (C.ReadingDate BETWEEN @MONTH_1_F AND @MONTH_1_L) 
+  AND C.Tariffnum = 0 
+  AND C.UsageTypeID IN (1,8,9)
+  IF @SUM_TOTAL_9 IS NULL   
+   SET @SUM_TOTAL_9 = 0   
+  --Month2  
+  DECLARE @SUM_TOTAL_10 FLOAT   
+  SELECT @SUM_TOTAL_10 = SUM(C.Value)  
+  FROM ConsumptionData C  
+  WHERE C.DeviceID = 388  
+  AND (C.ReadingDate BETWEEN @MONTH_2_F AND @MONTH_2_L)  
+  AND C.Tariffnum = 0 
+  AND C.UsageTypeID IN (1,8,9)
+  IF @SUM_TOTAL_10 IS NULL   
+   SET @SUM_TOTAL_10 = 0  
+  --Month3  
+  DECLARE @SUM_TOTAL_11 FLOAT   
+  SELECT @SUM_TOTAL_11 = SUM(C.Value)  
+  FROM ConsumptionData C  
+  WHERE C.DeviceID = 388  
+  AND (C.ReadingDate BETWEEN @MONTH_3_F AND @MONTH_3_L)  
+  AND C.Tariffnum = 0 
+  AND C.UsageTypeID IN (1,8,9)
+  IF @SUM_TOTAL_11 IS NULL   
+   SET @SUM_TOTAL_11 = 0   
+  --Week1  
+  DECLARE @SUM_TOTAL_12 FLOAT   
+  SELECT @SUM_TOTAL_12 = SUM(C.Value)  
+	FROM ConsumptionData C
+  WHERE C.DeviceID = 388  
+  AND (C.ReadingDate BETWEEN @WEEK_1_F AND @WEEK_1_L)  
+  AND C.Tariffnum = 0 
+  AND C.UsageTypeID IN (1,8,9)
+  IF @SUM_TOTAL_12 IS NULL   
+   SET @SUM_TOTAL_12 = 0   
+  --Week2  
+  DECLARE @SUM_TOTAL_13 FLOAT   
+  SELECT @SUM_TOTAL_13 = SUM(C.Value)  
+	FROM ConsumptionData C
+  WHERE C.DeviceID = 388  
+  AND (C.ReadingDate BETWEEN @WEEK_2_F AND @WEEK_2_L)  
+  AND C.Tariffnum = 0 
+  AND C.UsageTypeID IN (1,8,9)
+  IF @SUM_TOTAL_13 IS NULL   
+   SET @SUM_TOTAL_13 = 0   
+  --Week3  
+  DECLARE @SUM_TOTAL_14 FLOAT   
+  SELECT @SUM_TOTAL_14 = SUM(C.Value)  
+	FROM ConsumptionData C
+  WHERE C.DeviceID = 388  
+  AND (C.ReadingDate BETWEEN @WEEK_3_F AND @WEEK_3_L)  
+  AND C.Tariffnum = 0 
+  AND C.UsageTypeID IN (1,8,9) 
+  IF @SUM_TOTAL_14 IS NULL   
+   SET @SUM_TOTAL_14 = 0   
+  --Week4  
+  DECLARE @SUM_TOTAL_15 FLOAT   
+  SELECT @SUM_TOTAL_15 = SUM(C.Value)  
+	FROM ConsumptionData C
+  WHERE C.DeviceID = 388  
+  AND (C.ReadingDate BETWEEN @WEEK_4_F AND @WEEK_4_L)  
+  AND C.Tariffnum = 0 
+  AND C.UsageTypeID IN (1,8,9)
+  IF @SUM_TOTAL_15 IS NULL   
+   SET @SUM_TOTAL_15 = 0  
+  
+  --Week5  
+  DECLARE @SUM_TOTAL_16 FLOAT   
+  SELECT @SUM_TOTAL_16 = SUM(C.Value)  
+	FROM ConsumptionData C
+  WHERE C.DeviceID = 388  
+  AND (C.ReadingDate BETWEEN @WEEK_5_F AND @WEEK_5_L)  
+  AND C.Tariffnum = 0 
+  AND C.UsageTypeID IN (1,8,9)
+  IF @SUM_TOTAL_16 IS NULL   
+   SET @SUM_TOTAL_16 = 0   
+  
+  --Week6  
+  DECLARE @SUM_TOTAL_17 FLOAT   
+  SELECT @SUM_TOTAL_17 = SUM(C.Value)  
+	FROM ConsumptionData C
+  WHERE C.DeviceID = 388  
+  AND (C.ReadingDate BETWEEN @WEEK_6_F AND @WEEK_6_L)  
+  AND C.Tariffnum = 0 
+  AND C.UsageTypeID IN (1,8,9)
+  IF @SUM_TOTAL_17 IS NULL   
+   SET @SUM_TOTAL_17 = 0   			
+ 
  INSERT INTO @TEMP_ENERGY VALUES(
  -1,
  'Total',  
@@ -958,7 +1065,6 @@ BEGIN
  ROUND(@SUM_TOTAL_16,0),
  ROUND(@SUM_TOTAL_17,0), 
  0)  
-			
  SELECT * FROM @TEMP_ENERGY  
 END
 SET ANSI_NULLS ON
