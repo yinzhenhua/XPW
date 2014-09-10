@@ -43,7 +43,7 @@ namespace XPW
 
         public int MonthCo2
         {
-            get { return Convert.ToInt32(_bc.GetCO2Mouth() * 001); }
+            get { return Convert.ToInt32(_bc.GetCO2Mouth() * 0.001); }
         }
 
         public int MonthTrees
