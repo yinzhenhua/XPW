@@ -23,7 +23,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <div style="overflow: auto; height: 480px; width: 940px; margin-left: 3px; margin-right: 3px" id="dvBody" runat="server">
+                    <div style="overflow: auto; height: 500px; width: 940px; margin-left: 3px; margin-right: 3px" id="dvBody" runat="server">
                         <asp:GridView runat="server" ID="gvDept" AutoGenerateColumns="False" GridLines="None"
                             Width="1400px"
                             CssClass="mGrid"

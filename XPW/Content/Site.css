@@ -122,6 +122,7 @@ table.energy {
         line-height: 23px;
         font-weight: bold;
         text-indent: 2em;
+        font-family: 'Times New Roman';
     }
 
     table.energy tr {

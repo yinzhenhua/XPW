@@ -12,7 +12,7 @@
         <table>
             <tr>
                 <td colspan="2">
-                    <div style="overflow-x: scroll; height: 330px; width: 940px" id="dvBody">
+                    <div style="overflow-x: scroll; height: 350px; width: 940px" id="dvBody">
                         <asp:GridView runat="server" ID="gvDept" AutoGenerateColumns="False" Width="920px"
                             CssClass="mGrid"
                             AlternatingRowStyle-CssClass="alt" OnRowDataBound="gvDept_RowDataBound">

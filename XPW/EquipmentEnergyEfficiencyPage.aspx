@@ -13,7 +13,7 @@
         <table>
             <tr>
                 <td colspan="2">
-                    <div style="overflow: auto; height: 250px; width: 940px" id="dvBody">
+                    <div style="overflow: auto; height: 270px; width: 940px" id="dvBody">
                         <asp:GridView runat="server" ID="gvDept" AutoGenerateColumns="False"
                             Width="1300px"
                             CssClass="mGrid"

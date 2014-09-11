@@ -50,7 +50,7 @@ namespace XPW
                 {
                     dvBody.Style.Clear();
                     dvBody.Style.Add("overflow", "auto");
-                    dvBody.Style.Add("height", "480px");
+                    dvBody.Style.Add("height", "500px");
                     dvBody.Style.Add("width", "940px");
                     ElectricityConsumptionDS ds = _bc.GetAllEquipmentEnergy();
                     gvDept.DataSource = ds.ElectricityConsumption;
