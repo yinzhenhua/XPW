@@ -201,7 +201,8 @@ namespace XPW
             series["DrawingStyle"] = "Cylinder";
             series.BorderWidth = 3;
             series.ShadowOffset = 2;
-            series.IsValueShownAsLabel = true;
+            series.IsValueShownAsLabel = false;
+            series.ToolTip = "#VALX:#VALY";
             series.Font = new Font("宋体", 8.0f);
 
 

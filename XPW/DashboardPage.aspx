@@ -26,6 +26,12 @@
                 $(this).hide(200);
                 $('#min_enery').show(200);
             });
+            $('tr').mouseover(function() {
+                $(this).css("background-color", "#def0d1");
+            });
+            $('tr').mouseout(function() {
+                $(this).css("background-color", "#f0fbe8");
+            });
         });
     </script>
     <style type="text/css">
@@ -44,16 +50,16 @@
         </div>
         <div class="floatDiv subContainer" style="padding: 0;">
             <div class="titleBar">
-                <asp:LinkButton ID="lnk_Water" runat="server" CommandArgument="373" OnClick="OnLinkClick"><img src="Images/shui.jpg" alt="水"/></asp:LinkButton>
-                <asp:LinkButton ID="lnk_elctr" runat="server" CommandArgument="388" OnClick="OnLinkClick"><img src="Images/dian.jpg" height="20" alt="电" /></asp:LinkButton>
-                <asp:LinkButton ID="lnk_Lng" runat="server" CommandArgument="358" OnClick="OnLinkClick"><img src="Images/mei.png" alt="煤" height="20"/></asp:LinkButton>
+                <asp:LinkButton ID="lnk_Water" runat="server" CommandArgument="373" OnClick="OnLinkClick"><img src="Images/water.png" alt="水" /></asp:LinkButton>
+                <asp:LinkButton ID="lnk_elctr" runat="server" CommandArgument="388" OnClick="OnLinkClick"><img src="Images/electricity.png" alt="电" /></asp:LinkButton>
+                <asp:LinkButton ID="lnk_Lng" runat="server" CommandArgument="358" OnClick="OnLinkClick"><img src="Images/natural.png" alt="煤" /></asp:LinkButton>
                 <a href='#' id="min">
-                    <img src="Images/min.png" height="22" alt="最小化" /></a>
+                    <img src="Images/min.png" height="22"  alt="最小化" /></a>
                 <a href='#' id="max" style="display: none">
-                    <img src="Images/max.png" height="22"  alt="最大化" /></a>
+                    <img src="Images/max.png" height="22"  alt="最大化"/></a>
             </div>
             <div id="div_chart">
-                <asp:Chart ID="chartEnerge" runat="server" Width="668px" Height="248px"
+                <asp:Chart ID="chartEnerge" runat="server" Width="710px" Height="248px"
                     Palette="BrightPastel" ImageType="Png" BorderlineDashStyle="Solid"
                     BackSecondaryColor="White" BackGradientStyle="TopBottom" BorderWidth="2" BackColor="#D3DFF0"
                     BorderColor="26, 59, 105" OnClick="OnChartClick">
@@ -84,20 +90,21 @@
     </div>
     <div style="clear: both;">
         <div class="floatDiv leftWidth co2 subContainer">
-            <div style="position: relative; top: 35px; width: 200px; text-align: center; font-weight: 700; font-size: 100%; color: rgb(70,146,81);font-family:Tahoma"><%:MonthCo2.ToString("N0") %>T</div>
-            <div style="position: relative; top: 18px; left: 190px; width: 156px; text-align: center; font-weight: 700; font-size: 100%; color: rgb(70,146,81);font-family:Tahoma"><%:MonthTrees.ToString("N0") %></div>
-            <div style="position: relative; top: 185px; width: 200px; text-align: center; font-weight: 700; font-size: 100%;font-family:Tahoma"><%:Co2.ToString("N0") %>T</div>
-            <div style="position: relative; top: 168px; left: 190px; width: 156px; text-align: center; font-weight: 700; font-size: 100%;font-family:Tahoma"><%:Trees.ToString("N0") %></div>
+            <div style="position: relative; top: 35px; width: 200px; text-align: center; font-weight: 700; font-size: 100%; color: rgb(70,146,81);font-family:Arial,"ＭＳ Ｐゴシック", Helvetica, sans-serif,"宋体""><%:MonthCo2.ToString("N0") %>T</div>
+            <div style="position: relative; top: 18px; left: 190px; width: 156px; text-align: center; font-weight: 700; font-size: 100%; color: rgb(70,146,81);font-family:Arial,"ＭＳ Ｐゴシック", Helvetica, sans-serif,"宋体""><%:MonthTrees.ToString("N0") %></div>
+            <div style="position: relative; top: 185px; width: 200px; text-align: center; font-weight: 700; font-size: 100%;font-family:Arial,"ＭＳ Ｐゴシック", Helvetica, sans-serif,"宋体""><%:Co2.ToString("N0") %>T</div>
+            <div style="position: relative; top: 168px; left: 190px; width: 156px; text-align: center; font-weight: 700; font-size: 100%;font-family:Arial,"ＭＳ Ｐゴシック", Helvetica, sans-serif,"宋体""><%:Trees.ToString("N0") %></div>
         </div>
-        <div class="floatDiv subContainer">
+        <div class="floatDiv subContainer" style="padding:0;">
             <div  class="titleBar">
+                <div style="float:left;padding-left: 5px;font-size: 1.0em;font-family:微软雅黑;font-weight:700;color:rgba(125,125,125,1);line-height: 24px;">Energy Consumption & Cost</div>
                 <a href='#' id="min_enery">
                     <img src="Images/min.png" height="22" alt="最小化" /></a>
                 <a href='#' id="max_enery" style="display: none">
                     <img src="Images/max.png" height="22" alt="最大化" /></a>
             </div>
             <table class="energy" id="energy">
-                <caption>Energy Consumption & Cost</caption>
+              <%--  <caption>Energy Consumption & Cost</caption>--%>
                 <colgroup>
                     <col id="cat" />
                     <col id="today" />
