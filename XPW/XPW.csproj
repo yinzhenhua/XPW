@@ -195,11 +195,13 @@
     <Content Include="Images\bullet.png" />
     <Content Include="Images\co2.png" />
     <Content Include="Images\dian.jpg" />
+    <Content Include="Images\electricity.png" />
     <Content Include="Images\graph.png" />
     <Content Include="Images\heroAccent.png" />
     <Content Include="Images\max.png" />
     <Content Include="Images\mei.png" />
     <Content Include="Images\min.png" />
+    <Content Include="Images\natural.png" />
     <Content Include="Images\orderedList0.png" />
     <Content Include="Images\orderedList1.png" />
     <Content Include="Images\orderedList2.png" />
@@ -214,7 +216,9 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\sd.png" />
+    <Content Include="Images\sdm.png" />
     <Content Include="Images\shui.jpg" />
+    <Content Include="Images\water.png" />
     <Content Include="packages.config" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />

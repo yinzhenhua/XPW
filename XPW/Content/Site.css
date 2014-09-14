@@ -13,8 +13,27 @@ body {
 }
 
 #container {
-    width: 950px;
+    width: 1128px;
     margin: 0 auto;
+}
+
+.titleBar {
+    width: 100%;
+    /*line-height: 22px;*/
+    text-align: right;
+    background: #e2e2e2;
+    background: rgba(226,226,226,1);
+}
+
+.nopadding {
+    padding: 0;
+}
+
+.subContainer {
+    border: 1px solid #a7a7a7;
+    border: 1px solid rgba(167,167,167,1);
+    padding: 7px;
+    margin: 3px 5px;
 }
 
 #header {
@@ -33,6 +52,7 @@ body {
 
 .subMenu {
     border: 1px solid rgb(202,207,218);
+    -ms-border-radius: 5px 5px 1px 1px;
     border-radius: 5px 5px 1px 1px;
     width: 290px;
     float: right;
@@ -68,10 +88,11 @@ body {
     background: rgb(98,174,16);
     line-height: 30px;
     border: 1px solid rgb(166,205,116);
+    -ms-border-radius: 0 0 5px 5px;
     border-radius: 0 0 5px 5px;
 }
 
-    .mainMenu ul {
+.mainMenu ul {
         margin: 0;
         padding: 0;
     }
@@ -86,34 +107,43 @@ body {
                 color: rgb(255,250,220);
                 font-weight: 600;
                 border-right: 2px solid rgb(123,192,50);
-                padding-left: 10px;
-                padding-right: 10px;
+                padding-left: 30px;
+                padding-right: 30px;
                 font-size: .85em;
             }
 
 #main-content {
-    padding-top: 20px;
+    /*padding-top: 20px;*/
+    /*-webkit-box-shadow:  2px 2px #c8c8c8;
+    -webkit-box-shadow:  2px 2px rgba(200,200,200,1);
+    -ms-box-shadow:  2px 2px #c8c8c8;
+    -ms-box-shadow:  2px 2px rgba(200,200,200,1);
+    box-shadow:  2px 2px #c8c8c8;
+    box-shadow:  2px 2px rgba(200,200,200,1)*/
 }
 
 .floatDiv {
     float: left;
+    width: 714px;
 }
 
 .leftWidth {
     width: 360px;
+    text-align: center;
 }
 
 .co2 {
-    background: url("../Images/co2.png") no-repeat;
+    background: url("../Images/co2.png") no-repeat center center;
     width: 360px;
-    height: 261px;
+    height: 263px;
 }
 
 table.energy {
-    width: 560px;
+    width: 100%;
     border: 1px solid rgb(205,233,175);
     border-collapse: collapse;
-    font-size: 90%;
+    font-size: .6em;
+    font-family: 微软雅黑, Arial,Verdana;
 }
 
     table.energy caption {
@@ -121,7 +151,6 @@ table.energy {
         background: rgb(146,208,80);
         line-height: 23px;
         font-weight: bold;
-        text-indent: 2em;
     }
 
     table.energy tr {

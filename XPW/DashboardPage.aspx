@@ -1,11 +1,12 @@
 ﻿<%@ Page Title="Dashboard" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="DashboardPage.aspx.cs" Inherits="XPW.DashboardPage" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
-    <script src="Scripts/jquery-1.8.2.min.js"></script>
+    <script src="Scripts/jquery-1.8.2.min.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('#min').click(function () {
                 $('#div_chart').hide(500);
+                $('#div_chart').css('display', 'none');
                 $('#max').show(200);
                 $(this).hide(200);
             });
@@ -27,26 +28,32 @@
             });
         });
     </script>
+    <style type="text/css">
+        #div_chart {
+            width: 674px;
+            height: 248px;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="FeaturedContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
     <div>
-        <div class="floatDiv leftWidth">
-            <img src="Images/sd.png" />
+        <div class="floatDiv leftWidth subContainer">
+            <img src="Images/sd.png" alt="Sandisk"/>
         </div>
-        <div class="floatDiv">
-            <div style="text-align: right;">
-                <asp:LinkButton ID="lnk_Water" runat="server" CommandArgument="373" OnClick="OnLinkClick"><img src="Images/shui.jpg" alt="水" height="28"/></asp:LinkButton>
-                <asp:LinkButton ID="lnk_elctr" runat="server" CommandArgument="388" OnClick="OnLinkClick"><img src="Images/dian.jpg" alt="电" height="28"/></asp:LinkButton>
-                <asp:LinkButton ID="lnk_Lng" runat="server" CommandArgument="358" OnClick="OnLinkClick"><img src="Images/mei.png" alt="煤" height="28"/></asp:LinkButton>
+        <div class="floatDiv subContainer" style="padding: 0;">
+            <div class="titleBar">
+                <asp:LinkButton ID="lnk_Water" runat="server" CommandArgument="373" OnClick="OnLinkClick"><img src="Images/shui.jpg" alt="水"/></asp:LinkButton>
+                <asp:LinkButton ID="lnk_elctr" runat="server" CommandArgument="388" OnClick="OnLinkClick"><img src="Images/dian.jpg" height="20" alt="电" /></asp:LinkButton>
+                <asp:LinkButton ID="lnk_Lng" runat="server" CommandArgument="358" OnClick="OnLinkClick"><img src="Images/mei.png" alt="煤" height="20"/></asp:LinkButton>
                 <a href='#' id="min">
-                    <img src="Images/min.png" alt="最小化" /></a>
+                    <img src="Images/min.png" height="22" alt="最小化" /></a>
                 <a href='#' id="max" style="display: none">
-                    <img src="Images/max.png" alt="最大化" /></a>
+                    <img src="Images/max.png" height="22"  alt="最大化" /></a>
             </div>
             <div id="div_chart">
-                <asp:Chart ID="chartEnerge" runat="server" Width="560px" Height="260px"
+                <asp:Chart ID="chartEnerge" runat="server" Width="668px" Height="248px"
                     Palette="BrightPastel" ImageType="Png" BorderlineDashStyle="Solid"
                     BackSecondaryColor="White" BackGradientStyle="TopBottom" BorderWidth="2" BackColor="#D3DFF0"
                     BorderColor="26, 59, 105" OnClick="OnChartClick">
@@ -76,18 +83,18 @@
         </div>
     </div>
     <div style="clear: both;">
-        <div class="floatDiv leftWidth co2">
-            <div style="position: relative; top: 35px; width: 156px; text-align: center; font-weight: 700; font-size: 100%; color: rgb(70,146,81);"><%:MonthCo2.ToString("N0") %>T</div>
-            <div style="position: relative; top: 18px; left: 170px; width: 156px; text-align: center; font-weight: 700; font-size: 100%; color: rgb(70,146,81);"><%:MonthTrees.ToString("N0") %></div>
-            <div style="position: relative; top: 185px; width: 156px; text-align: center; font-weight: 700; font-size: 100%"><%:Co2.ToString("N0") %>T</div>
-            <div style="position: relative; top: 168px; left: 170px; width: 156px; text-align: center; font-weight: 700; font-size: 100%"><%:Trees.ToString("N0") %></div>
+        <div class="floatDiv leftWidth co2 subContainer">
+            <div style="position: relative; top: 35px; width: 200px; text-align: center; font-weight: 700; font-size: 100%; color: rgb(70,146,81);font-family:Tahoma"><%:MonthCo2.ToString("N0") %>T</div>
+            <div style="position: relative; top: 18px; left: 190px; width: 156px; text-align: center; font-weight: 700; font-size: 100%; color: rgb(70,146,81);font-family:Tahoma"><%:MonthTrees.ToString("N0") %></div>
+            <div style="position: relative; top: 185px; width: 200px; text-align: center; font-weight: 700; font-size: 100%;font-family:Tahoma"><%:Co2.ToString("N0") %>T</div>
+            <div style="position: relative; top: 168px; left: 190px; width: 156px; text-align: center; font-weight: 700; font-size: 100%;font-family:Tahoma"><%:Trees.ToString("N0") %></div>
         </div>
-        <div class="floatDiv">
-            <div style="text-align: right;">
+        <div class="floatDiv subContainer">
+            <div  class="titleBar">
                 <a href='#' id="min_enery">
-                    <img src="Images/min.png" alt="最小化" /></a>
+                    <img src="Images/min.png" height="22" alt="最小化" /></a>
                 <a href='#' id="max_enery" style="display: none">
-                    <img src="Images/max.png" alt="最大化" /></a>
+                    <img src="Images/max.png" height="22" alt="最大化" /></a>
             </div>
             <table class="energy" id="energy">
                 <caption>Energy Consumption & Cost</caption>
@@ -113,7 +120,7 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td>Electrictiy(KWH)</td>
+                    <td>Electrictiy(kWh)</td>
                     <td class="content">
                         <asp:Label ID="lbl_Energy_today" runat="server" Text="0"></asp:Label>
                     </td>
@@ -128,7 +135,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Water(m3)</td>
+                    <td>Water(m&sup3;)</td>
                     <td class="content">
                         <asp:Label ID="lbl_water_today" runat="server" Text="0"></asp:Label>
                     </td>
@@ -158,7 +165,7 @@
                     </td>
                 </tr>
                 <tr class="split">
-                    <td>LN2(m3)</td>
+                    <td>LN2(m&sup3;)</td>
                     <td class="content">
                         <asp:Label ID="lbl_ln_today" runat="server" Text="0"></asp:Label>
                     </td>
