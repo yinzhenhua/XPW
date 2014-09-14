@@ -134,7 +134,7 @@ namespace XPW
                     + "font-family: \"Microsoft YaHei\";"
                     + "font-size: 13px;"
                     + "font-weight: 700;"
-                    + "height: 30px;";
+                    + "height: 25px;";
                     e.Row.Cells[0].Attributes.Remove("style");
                     e.Row.Cells[0].Attributes.Add("style", style);
 
