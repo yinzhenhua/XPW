@@ -61,13 +61,12 @@
             <div id="div_chart">
                 <asp:Chart ID="chartEnerge" runat="server" Width="710px" Height="248px"
                     Palette="BrightPastel" ImageType="Png" BorderlineDashStyle="Solid"
-                    BackSecondaryColor="White" BackGradientStyle="TopBottom" BorderWidth="2" BackColor="#D3DFF0"
-                    BorderColor="26, 59, 105" OnClick="OnChartClick">
+                    BackColor="#F3DFC1" BorderDashStyle="Solid" BackGradientStyle="TopBottom" BorderWidth="1" BorderColor="181, 64, 1" OnClick="OnChartClick">
                     <%--<Legends>
                     <asp:Legend Name="Default" Docking="Bottom">
                     </asp:Legend>
                 </Legends>--%>
-                    <BorderSkin SkinStyle="Emboss" />
+                    <%--<BorderSkin SkinStyle="Emboss" />--%>
                     <ChartAreas>
                         <asp:ChartArea Name="ChartArea1" BorderColor="64, 64, 64, 64" BorderDashStyle="Solid"
                             BackSecondaryColor="White" BackColor="64, 165, 191, 228" ShadowColor="Transparent"

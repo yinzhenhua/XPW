@@ -17,12 +17,13 @@ namespace XPW
 
         public static Color GenColor()
         {
-            const int r = 255;
-            const int g = 255;
-            const int b = 255;
+            //const int r = 255;
+            //const int g = 255;
+            //const int b = 255;
 
             var rand = new Random((int)DateTime.Now.Ticks);
-            return Color.FromArgb(rand.Next(255), rand.Next(r), rand.Next(g), rand.Next(b));
+            //return Color.FromArgb(rand.Next(255), rand.Next(r), rand.Next(g), rand.Next(b));
+            return Colors[rand.Next(Colors.Length)];
         }
     }
 
