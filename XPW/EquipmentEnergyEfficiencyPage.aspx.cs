@@ -61,6 +61,7 @@ namespace XPW
                 ecpChart.Series["Efficiency"]["BarLabelStyle"] = "Center";
                 ecpChart.Series["Efficiency"]["DrawingStyle"] = "Cylinder";
                 ecpChart.Series["Efficiency"].IsValueShownAsLabel = false;//显示坐标值
+                ecpChart.Series["Efficiency"].ToolTip = "#VALX:#VALY";
                 //BaseLine
                 ecpChart.Series["Baseline"].ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.Line;
                 ecpChart.Series["Baseline"]["PointWidth"] = "2";
