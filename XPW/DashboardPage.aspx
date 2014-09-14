@@ -59,7 +59,7 @@
                     <img src="Images/max.png" height="22"  alt="最大化"/></a>
             </div>
             <div id="div_chart">
-                <asp:Chart ID="chartEnerge" runat="server" Width="710px" Height="248px"
+                <asp:Chart ID="chartEnerge" runat="server" Width="710px" Height="245px"
                     Palette="BrightPastel" ImageType="Png" BorderlineDashStyle="Solid"
                     BackColor="#F3DFC1" BorderDashStyle="Solid" BackGradientStyle="TopBottom" BorderWidth="1" BorderColor="181, 64, 1" OnClick="OnChartClick">
                     <%--<Legends>
@@ -111,7 +111,7 @@
                     <col id="mtd" />
                     <col id="ytd" />
                 </colgroup>
-                <tr class="split">
+                <tr class="split" style="line-height: 24px;">
                     <th scope="col"></th>
                     <th scope="col">Today</th>
                     <th scope="col">WTD</th>

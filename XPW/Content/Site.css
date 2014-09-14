@@ -299,3 +299,6 @@ share|improve this answer .title {
             background: url(../images/water.png) no-repeat;
             width: 45px;
         }
+#div_chart {
+    padding-top: 2px;
+}
