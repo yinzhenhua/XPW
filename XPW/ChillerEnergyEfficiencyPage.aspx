@@ -12,8 +12,8 @@
         <table>
             <tr>
                 <td colspan="2">
-                    <div style="overflow-x: scroll; height: 300px; width: 940px" id="dvBody">
-                        <asp:GridView runat="server" ID="gvDept" AutoGenerateColumns="False" Width="920px"
+                    <div style="overflow-x: scroll; height: 335px; width: 1120px" id="dvBody">
+                        <asp:GridView runat="server" ID="gvDept" AutoGenerateColumns="False" Width="1118px"
                             CssClass="mGrid"
                             AlternatingRowStyle-CssClass="alt" OnRowDataBound="gvDept_RowDataBound">
                             <Columns>
@@ -48,7 +48,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <asp:Chart ID="ecpChart" runat="server" Width="940"
+                    <asp:Chart ID="ecpChart" runat="server" Width="1118px"
                         Palette="BrightPastel" BackColor="#F3DFC1" BorderDashStyle="Solid" BackGradientStyle="TopBottom" BorderWidth="1" BorderColor="181, 64, 1">
                         <Titles>
                             <asp:Title ShadowColor="32, 0, 0, 0" Font="Trebuchet MS, 14.25pt, style=Bold" Alignment="TopLeft" ShadowOffset="3" Name="ecpTitle" ForeColor="26, 59, 105" Text="Chiller's Energy Efficiency"></asp:Title>

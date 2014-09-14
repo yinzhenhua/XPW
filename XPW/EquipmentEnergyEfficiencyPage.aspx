@@ -13,7 +13,7 @@
         <table>
             <tr>
                 <td colspan="2">
-                    <div style="overflow: auto; height: 235px; width: 940px" id="dvBody">
+                    <div style="overflow: auto; height: 255px; width: 1118px" id="dvBody">
                         <asp:GridView runat="server" ID="gvDept" AutoGenerateColumns="False"
                             Width="1300px"
                             CssClass="mGrid"
@@ -21,68 +21,68 @@
                             OnRowCreated="gvDept_RowCreated" OnRowDataBound="gvDept_RowDataBound">
                             <Columns>
                                 <asp:BoundField DataField="Name" HeaderText="ITEM">
-                                    <HeaderStyle Width="10%" />
-                                    <ItemStyle Width="10%" />
+                                    <HeaderStyle Width="17.5%" />
+                                    <ItemStyle Width="17.5%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="PreviousYear" HeaderText="Previous Year">
-                                    <HeaderStyle Width="6%" />
-                                    <ItemStyle Width="6%" />
+                                    <HeaderStyle Width="5.5%" />
+                                    <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="YTD" HeaderText="YTD">
-                                    <HeaderStyle Width="6%" />
-                                    <ItemStyle Width="6%" />
+                                    <HeaderStyle Width="5.5%" />
+                                    <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Q1" HeaderText="Q1">
-                                    <HeaderStyle Width="6%" />
-                                    <ItemStyle Width="6%" />
+                                    <HeaderStyle Width="5.5%" />
+                                    <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Q2" HeaderText="Q2">
-                                    <HeaderStyle Width="6%" />
-                                    <ItemStyle Width="6%" />
+                                    <HeaderStyle Width="5.5%" />
+                                    <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Q3" HeaderText="Q3">
-                                    <HeaderStyle Width="6%" />
-                                    <ItemStyle Width="6%" />
+                                    <HeaderStyle Width="5.5%" />
+                                    <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Q4" HeaderText="Q4">
-                                    <HeaderStyle Width="6%" />
-                                    <ItemStyle Width="6%" />
+                                    <HeaderStyle Width="5.5%" />
+                                    <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Month1" HeaderText="">
-                                    <HeaderStyle Width="6%" />
-                                    <ItemStyle Width="6%" />
+                                    <HeaderStyle Width="5.5%" />
+                                    <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Month2" HeaderText="">
-                                    <HeaderStyle Width="6%" />
-                                    <ItemStyle Width="6%" />
+                                    <HeaderStyle Width="5.5%" />
+                                    <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Month3" HeaderText="">
-                                    <HeaderStyle Width="6%" />
-                                    <ItemStyle Width="6%" />
+                                    <HeaderStyle Width="5.5%" />
+                                    <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Week1" HeaderText="Week-1">
-                                    <HeaderStyle Width="6%" />
-                                    <ItemStyle Width="6%" />
+                                    <HeaderStyle Width="5.5%" />
+                                    <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Week2" HeaderText="Week-2">
-                                    <HeaderStyle Width="6%" />
-                                    <ItemStyle Width="6%" />
+                                    <HeaderStyle Width="5.5%" />
+                                    <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Week3" HeaderText="Week-3">
-                                    <HeaderStyle Width="6%" />
-                                    <ItemStyle Width="6%" />
+                                    <HeaderStyle Width="5.5%" />
+                                    <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Week4" HeaderText="Week-4">
-                                    <HeaderStyle Width="6%" />
-                                    <ItemStyle Width="6%" />
+                                    <HeaderStyle Width="5.5%" />
+                                    <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Week5" HeaderText="Week-5">
-                                    <HeaderStyle Width="6%" />
-                                    <ItemStyle Width="6%" />
+                                    <HeaderStyle Width="5.5%" />
+                                    <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Week6" HeaderText="Week-6">
-                                    <HeaderStyle Width="6%" />
-                                    <ItemStyle Width="6%" />
+                                    <HeaderStyle Width="5.5%" />
+                                    <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
                             </Columns>
                         </asp:GridView>
@@ -91,7 +91,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <asp:Chart ID="ecpChart" runat="server" Width="940"
+                    <asp:Chart ID="ecpChart" runat="server" Width="1118px"
                         Palette="BrightPastel" BackColor="#F3DFC1" BorderDashStyle="Solid" BackGradientStyle="TopBottom" BorderWidth="1" BorderColor="181, 64, 1">
                         <Titles>
                             <asp:Title ShadowColor="32, 0, 0, 0" Font="Trebuchet MS, 14.25pt, style=Bold" Alignment="TopLeft" ShadowOffset="3" Name="ecpTitle" ForeColor="26, 59, 105"></asp:Title>

@@ -11,15 +11,19 @@
         </h2>
         <table>
             <tr>
-                <td style="width: 10px;">Site
+                <td style="color: #535353; text-align: left; width: 50px">
+                    <p style="width: 32px; padding-left: 10px; font-family: Arial; font-size: 14px; font-weight: 700;">Site:</p>
                 </td>
-                <td style="width: auto">
-                    <asp:DropDownList runat="server" ID="dlSite" AutoPostBack=" true" OnSelectedIndexChanged="dlSite_SelectedIndexChanged"></asp:DropDownList>
+                <td>
+                    <asp:DropDownList runat="server" ID="dlSite" CssClass="homeLinkSelect" AutoPostBack=" true" OnSelectedIndexChanged="dlSite_SelectedIndexChanged"></asp:DropDownList>
                 </td>
             </tr>
             <tr>
+                <td></td>
+            </tr>
+            <tr>
                 <td colspan="2">
-                    <div style="overflow: auto; height: 500px; width: 940px; margin-left: 3px; margin-right: 3px" id="dvBody" runat="server">
+                    <div style="overflow: auto; height: 490px; width: 1118px; margin-left: 3px; margin-right: 3px" id="dvBody" runat="server">
                         <asp:GridView runat="server" ID="gvDept" AutoGenerateColumns="False" GridLines="None"
                             Width="1400px"
                             CssClass="mGrid"
@@ -29,8 +33,8 @@
                             <Columns>
                                 <asp:BoundField DataField="DeviceID" HeaderText="" ShowHeader="false" Visible="false" />
                                 <asp:BoundField DataField="Name" HeaderText="Dept.">
-                                    <HeaderStyle Width="6%" />
-                                    <ItemStyle Width="6%" />
+                                    <HeaderStyle Width="5%" />
+                                    <ItemStyle Width="5%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="PreviousYear" HeaderText="Previous Year">
                                     <HeaderStyle Width="5.5%" />
@@ -105,15 +109,16 @@
                                         <asp:ImageButton runat="Server" ID="btnGraph" ImageUrl="~/Images/graph.png" ImageAlign="Middle"
                                             PostBackUrl='<%# "EquipmentEnergyEfficiencyPage.aspx?DeviceID="+Eval("DeviceID")+"&Name="+ Eval("Name")%>' />
                                     </ItemTemplate>
-                                    <HeaderStyle Width="0.5%" />
-                                    <ItemStyle Width="0.5%" />
+                                    <HeaderStyle Width="1.5%" />
+                                    <ItemStyle Width="1.5%" />
                                 </asp:TemplateField>
                             </Columns>
                         </asp:GridView>
                     </div>
                 </td>
             </tr>
-            <tr>
+        </table>
+        <%--<tr>
                 <td colspan="2">
                     <asp:Chart ID="ecpChart" runat="server" Visible="false" Width="940"
                         Palette="BrightPastel" BackColor="#F3DFC1" BorderDashStyle="Solid" BackGradientStyle="TopBottom" BorderWidth="1" BorderColor="181, 64, 1">
@@ -131,6 +136,6 @@
                     </asp:Chart>
                 </td>
             </tr>
-        </table>
+        </table>--%>
     </div>
 </asp:Content>
