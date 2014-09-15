@@ -77,7 +77,6 @@ namespace XPW
                     {
                         //绑定数据
                         EquipmentEnergyEfficiencyDS energyDS = _energyBC.GetEquipmentEnergyEfficiency(deviceID,
-                            108,//Todo
                             ds.ElectricityConsumption[0].PreviousYear,
                             ds.ElectricityConsumption[0].YTD,
                             ds.ElectricityConsumption[0].Q1,

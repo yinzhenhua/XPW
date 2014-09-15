@@ -37,6 +37,9 @@
                         <li>
                             <a href="ChillerEnergyEfficiencyPage.aspx">Equipment Energy Efficiency</a>
                         </li>
+                        <%--<li>
+                            <a href="#">Device Reading</a>
+                        </li>--%>
                         <%-- <li>
                             <a href="#" target="_blank">ALarm</a>
                         </li>

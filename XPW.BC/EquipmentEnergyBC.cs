@@ -15,7 +15,6 @@ namespace XPW.BC
         /// </summary>
         /// <returns></returns>
         public EquipmentEnergyEfficiencyDS GetEquipmentEnergyEfficiency(int DeviceID,
-            int Benchmark,
             double PreviousYear,
             double YTD,
             double Q1,
@@ -38,7 +37,6 @@ namespace XPW.BC
                 EquipmentEnergyEfficiencyDS ds = new EquipmentEnergyEfficiencyDS();
                 SqlDBAccess.Instance.Fill(ds.EquipmentEnergyEfficiency, "GetEquipmentEnergyEfficiency", new object[]{
                     DeviceID,
-                    Benchmark,
                     PreviousYear,
                     YTD,
                     Q1,
