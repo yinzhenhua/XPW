@@ -50,9 +50,7 @@ namespace XPW
             {
                 if (dlSite.SelectedIndex == 0)
                 {
-                    dbAll.Visible = false;
-                    ecpChart.Visible = false;
-
+                    dvEnergy.Visible = false;
                     dvBody.Style.Clear();
                     dvBody.Style.Add("overflow", "auto");
                     dvBody.Style.Add("height", "490px");
@@ -64,9 +62,7 @@ namespace XPW
                 }
                 else
                 {
-                    dbAll.Visible = true;
-                    ecpChart.Visible = false;
-
+                    dvEnergy.Visible = true;
                     dvBody.Style.Clear();
                     dvBody.Style.Add("overflow", "auto");
                     dvBody.Style.Add("height", "125px");
@@ -99,7 +95,46 @@ namespace XPW
                             ds.ElectricityConsumption[0].Week6);
                         gvDept1.DataSource = energyDS.EquipmentEnergyEfficiency;
                         gvDept1.DataBind();
-                        ViewState["EquipmentEnergyEfficiencyDS"] = energyDS;
+                        //显示Chart图
+                        DataTable table = _energyBC.CreateEquipmentEnergyEfficiencyTable(energyDS);
+                        ecpChart.Titles["ecpTitle"].Text = lblTitle.Text;
+                        //Efficiency
+                        ecpChart.Series["Efficiency"].ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.Column;
+                        ecpChart.Series["Efficiency"]["PointWidth"] = "0.8";
+                        ecpChart.Series["Efficiency"]["BarLabelStyle"] = "Center";
+                        ecpChart.Series["Efficiency"]["DrawingStyle"] = "Cylinder";
+                        ecpChart.Series["Efficiency"].IsValueShownAsLabel = false;//显示坐标值
+                        ecpChart.Series["Efficiency"].ToolTip = "#VALX:#VALY";
+                        //BaseLine
+                        ecpChart.Series["Baseline"].ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.Line;
+                        ecpChart.Series["Baseline"]["PointWidth"] = "2";
+                        ecpChart.Series["Baseline"]["BarLabelStyle"] = "Center";
+                        ecpChart.Series["Baseline"]["DrawingStyle"] = "Cylinder";
+                        ecpChart.Series["Baseline"].IsValueShownAsLabel = false;//显示坐标值
+                        //
+                        ecpChart.ChartAreas["ecpChartArea"].AxisY.Maximum = 1.2;
+                        ecpChart.ChartAreas["ecpChartArea"].AxisY.Minimum = 0;
+                        ecpChart.ChartAreas["ecpChartArea"].AxisY.Interval = 0.2;
+                        ecpChart.ChartAreas["ecpChartArea"].AxisY.LabelStyle.ForeColor = Color.FromArgb(0, 176, 80);
+                        ecpChart.ChartAreas["ecpChartArea"].AxisY.LabelStyle.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Bold);
+                        ecpChart.ChartAreas["ecpChartArea"].AxisY.MajorTickMark.TickMarkStyle = System.Web.UI.DataVisualization.Charting.TickMarkStyle.None;
+                        ecpChart.ChartAreas["ecpChartArea"].AxisX.TextOrientation = System.Web.UI.DataVisualization.Charting.TextOrientation.Horizontal;
+                        ecpChart.ChartAreas["ecpChartArea"].AxisX.LabelStyle.ForeColor = Color.FromArgb(0, 176, 80);
+                        ecpChart.ChartAreas["ecpChartArea"].AxisX.LabelStyle.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Bold);
+                        ecpChart.ChartAreas["ecpChartArea"].AxisX.Interval = 1;
+                        ecpChart.ChartAreas["ecpChartArea"].AxisX.MajorGrid.Enabled = false;//不显示竖着的分割线
+                        ecpChart.ChartAreas["ecpChartArea"].AxisX.MajorTickMark.Enabled = false;
+                        for (int i = 0; i < table.Rows.Count; i++)
+                        {
+                            double value1 = Convert.ToDouble(table.Rows[i]["Total"]);
+                            double value2 = Convert.ToDouble(table.Rows[i]["BaseLine"]);
+                            ecpChart.Series["Efficiency"].Points.AddXY(table.Rows[i]["Name"] as string, value1);
+                            ecpChart.Series["Baseline"].Points.AddXY(table.Rows[i]["Name"] as string, value2);
+                            if (value1 >= 1)
+                            {
+                                ecpChart.Series["Efficiency"].Points[i].Color = Color.Red;
+                            }
+                        }
                     }
                 }
             }
@@ -253,125 +288,124 @@ namespace XPW
             }
         }
 
-        protected void btnGraph_Click(object sender, ImageClickEventArgs e)
-        {
-            ecpChart.Visible = true;
-            EquipmentEnergyEfficiencyDS energyDS = ViewState["EquipmentEnergyEfficiencyDS"] as EquipmentEnergyEfficiencyDS;
-            if (energyDS != null &&
-                energyDS.EquipmentEnergyEfficiency.Rows.Count > 0)
-            {
-                //显示Chart图
-                DataTable table = _energyBC.CreateEquipmentEnergyEfficiencyTable(energyDS);
-                ecpChart.Titles["ecpTitle"].Text = lblTitle.Text;
-                //Efficiency
-                ecpChart.Series["Efficiency"].ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.Column;
-                ecpChart.Series["Efficiency"]["PointWidth"] = "0.8";
-                ecpChart.Series["Efficiency"]["BarLabelStyle"] = "Center";
-                ecpChart.Series["Efficiency"]["DrawingStyle"] = "Cylinder";
-                ecpChart.Series["Efficiency"].IsValueShownAsLabel = false;//显示坐标值
-                ecpChart.Series["Efficiency"].ToolTip = "#VALX:#VALY";
-                //BaseLine
-                ecpChart.Series["Baseline"].ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.Line;
-                ecpChart.Series["Baseline"]["PointWidth"] = "2";
-                ecpChart.Series["Baseline"]["BarLabelStyle"] = "Center";
-                ecpChart.Series["Baseline"]["DrawingStyle"] = "Cylinder";
-                ecpChart.Series["Baseline"].IsValueShownAsLabel = false;//显示坐标值
-                //
-                ecpChart.ChartAreas["ecpChartArea"].AxisY.Maximum = 1.2;
-                ecpChart.ChartAreas["ecpChartArea"].AxisY.Minimum = 0;
-                ecpChart.ChartAreas["ecpChartArea"].AxisY.Interval = 0.2;
-                ecpChart.ChartAreas["ecpChartArea"].AxisY.LabelStyle.ForeColor = Color.FromArgb(0, 176, 80);
-                ecpChart.ChartAreas["ecpChartArea"].AxisY.LabelStyle.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Bold);
-                ecpChart.ChartAreas["ecpChartArea"].AxisY.MajorTickMark.TickMarkStyle = System.Web.UI.DataVisualization.Charting.TickMarkStyle.None;
-                ecpChart.ChartAreas["ecpChartArea"].AxisX.TextOrientation = System.Web.UI.DataVisualization.Charting.TextOrientation.Horizontal;
-                ecpChart.ChartAreas["ecpChartArea"].AxisX.LabelStyle.ForeColor = Color.FromArgb(0, 176, 80);
-                ecpChart.ChartAreas["ecpChartArea"].AxisX.LabelStyle.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Bold);
-                ecpChart.ChartAreas["ecpChartArea"].AxisX.Interval = 1;
-                ecpChart.ChartAreas["ecpChartArea"].AxisX.MajorGrid.Enabled = false;//不显示竖着的分割线
-                ecpChart.ChartAreas["ecpChartArea"].AxisX.MajorTickMark.Enabled = false;
-                for (int i = 0; i < table.Rows.Count; i++)
-                {
-                    double value1 = Convert.ToDouble(table.Rows[i]["Total"]);
-                    double value2 = Convert.ToDouble(table.Rows[i]["BaseLine"]);
-                    ecpChart.Series["Efficiency"].Points.AddXY(table.Rows[i]["Name"] as string, value1);
-                    ecpChart.Series["Baseline"].Points.AddXY(table.Rows[i]["Name"] as string, value2);
-                    if (value1 >= 1)
-                    {
-                        ecpChart.Series["Efficiency"].Points[i].Color = Color.Red;
-                    }
-                }
-            }
-            //ImageButton ibtn = (ImageButton)sender;
-            //GridViewRow row = (GridViewRow)ibtn.Parent.Parent;
-            //int deviceID = Convert.ToInt32(row.Cells[]["DeviceID"]);
-            //string name = Request.QueryString["Name"];
-            //lblTitle.Text = string.Format("{0} - Dept. Equipment Efficiency", name);
-            ////Chart图
-            //ElectricityConsumptionDS ds = _bc.GetEquipmentEnergy(deviceID);
-            //if (ds.ElectricityConsumption.Rows.Count > 0)
-            //{
-            //    //绑定数据
-            //    EquipmentEnergyEfficiencyDS energyDS = _energyBC.GetEquipmentEnergyEfficiency(deviceID,
-            //        108,//Todo
-            //        ds.ElectricityConsumption[0].PreviousYear,
-            //        ds.ElectricityConsumption[0].YTD,
-            //        ds.ElectricityConsumption[0].Q1,
-            //        ds.ElectricityConsumption[0].Q2,
-            //        ds.ElectricityConsumption[0].Q3,
-            //        ds.ElectricityConsumption[0].Q4,
-            //        ds.ElectricityConsumption[0].Month1,
-            //        ds.ElectricityConsumption[0].Month2,
-            //        ds.ElectricityConsumption[0].Month3,
-            //        ds.ElectricityConsumption[0].Week1,
-            //        ds.ElectricityConsumption[0].Week2,
-            //        ds.ElectricityConsumption[0].Week3,
-            //        ds.ElectricityConsumption[0].Week4,
-            //        ds.ElectricityConsumption[0].Week5,
-            //        ds.ElectricityConsumption[0].Week6);
-            //    gvDept.DataSource = energyDS.EquipmentEnergyEfficiency;
-            //    gvDept.DataBind();
-            //    //显示Chart图
-            //    DataTable table = _energyBC.CreateEquipmentEnergyEfficiencyTable(energyDS);
-            //    ecpChart.Titles["ecpTitle"].Text = lblTitle.Text;
-            //    //Efficiency
-            //    ecpChart.Series["Efficiency"].ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.Column;
-            //    ecpChart.Series["Efficiency"]["PointWidth"] = "0.8";
-            //    ecpChart.Series["Efficiency"]["BarLabelStyle"] = "Center";
-            //    ecpChart.Series["Efficiency"]["DrawingStyle"] = "Cylinder";
-            //    ecpChart.Series["Efficiency"].IsValueShownAsLabel = false;//显示坐标值
-            //    ecpChart.Series["Efficiency"].ToolTip = "#VALX:#VALY";
-            //    //BaseLine
-            //    ecpChart.Series["Baseline"].ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.Line;
-            //    ecpChart.Series["Baseline"]["PointWidth"] = "2";
-            //    ecpChart.Series["Baseline"]["BarLabelStyle"] = "Center";
-            //    ecpChart.Series["Baseline"]["DrawingStyle"] = "Cylinder";
-            //    ecpChart.Series["Baseline"].IsValueShownAsLabel = false;//显示坐标值
-            //    //
-            //    ecpChart.ChartAreas["ecpChartArea"].AxisY.Maximum = 1.2;
-            //    ecpChart.ChartAreas["ecpChartArea"].AxisY.Minimum = 0;
-            //    ecpChart.ChartAreas["ecpChartArea"].AxisY.Interval = 0.2;
-            //    ecpChart.ChartAreas["ecpChartArea"].AxisY.LabelStyle.ForeColor = Color.FromArgb(0, 176, 80);
-            //    ecpChart.ChartAreas["ecpChartArea"].AxisY.LabelStyle.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Bold);
-            //    ecpChart.ChartAreas["ecpChartArea"].AxisY.MajorTickMark.TickMarkStyle = System.Web.UI.DataVisualization.Charting.TickMarkStyle.None;
-            //    ecpChart.ChartAreas["ecpChartArea"].AxisX.TextOrientation = System.Web.UI.DataVisualization.Charting.TextOrientation.Horizontal;
-            //    ecpChart.ChartAreas["ecpChartArea"].AxisX.LabelStyle.ForeColor = Color.FromArgb(0, 176, 80);
-            //    ecpChart.ChartAreas["ecpChartArea"].AxisX.LabelStyle.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Bold);
-            //    ecpChart.ChartAreas["ecpChartArea"].AxisX.Interval = 1;
-            //    ecpChart.ChartAreas["ecpChartArea"].AxisX.MajorGrid.Enabled = false;//不显示竖着的分割线
-            //    ecpChart.ChartAreas["ecpChartArea"].AxisX.MajorTickMark.Enabled = false;
-            //    for (int i = 0; i < table.Rows.Count; i++)
-            //    {
-            //        double value1 = Convert.ToDouble(table.Rows[i]["Total"]);
-            //        double value2 = Convert.ToDouble(table.Rows[i]["BaseLine"]);
-            //        ecpChart.Series["Efficiency"].Points.AddXY(table.Rows[i]["Name"] as string, value1);
-            //        ecpChart.Series["Baseline"].Points.AddXY(table.Rows[i]["Name"] as string, value2);
-            //        if (value1 >= 1)
-            //        {
-            //            ecpChart.Series["Efficiency"].Points[i].Color = Color.Red;
-            //        }
-            //    }
-            //}
-        }
-
+        //protected void btnGraph_Click(object sender, ImageClickEventArgs e)
+        //{
+        //    ecpChart.Visible = true;
+        //    EquipmentEnergyEfficiencyDS energyDS = ViewState["EquipmentEnergyEfficiencyDS"] as EquipmentEnergyEfficiencyDS;
+        //    if (energyDS != null &&
+        //        energyDS.EquipmentEnergyEfficiency.Rows.Count > 0)
+        //    {
+        //        //显示Chart图
+        //        DataTable table = _energyBC.CreateEquipmentEnergyEfficiencyTable(energyDS);
+        //        ecpChart.Titles["ecpTitle"].Text = lblTitle.Text;
+        //        //Efficiency
+        //        ecpChart.Series["Efficiency"].ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.Column;
+        //        ecpChart.Series["Efficiency"]["PointWidth"] = "0.8";
+        //        ecpChart.Series["Efficiency"]["BarLabelStyle"] = "Center";
+        //        ecpChart.Series["Efficiency"]["DrawingStyle"] = "Cylinder";
+        //        ecpChart.Series["Efficiency"].IsValueShownAsLabel = false;//显示坐标值
+        //        ecpChart.Series["Efficiency"].ToolTip = "#VALX:#VALY";
+        //        //BaseLine
+        //        ecpChart.Series["Baseline"].ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.Line;
+        //        ecpChart.Series["Baseline"]["PointWidth"] = "2";
+        //        ecpChart.Series["Baseline"]["BarLabelStyle"] = "Center";
+        //        ecpChart.Series["Baseline"]["DrawingStyle"] = "Cylinder";
+        //        ecpChart.Series["Baseline"].IsValueShownAsLabel = false;//显示坐标值
+        //        //
+        //        ecpChart.ChartAreas["ecpChartArea"].AxisY.Maximum = 1.2;
+        //        ecpChart.ChartAreas["ecpChartArea"].AxisY.Minimum = 0;
+        //        ecpChart.ChartAreas["ecpChartArea"].AxisY.Interval = 0.2;
+        //        ecpChart.ChartAreas["ecpChartArea"].AxisY.LabelStyle.ForeColor = Color.FromArgb(0, 176, 80);
+        //        ecpChart.ChartAreas["ecpChartArea"].AxisY.LabelStyle.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Bold);
+        //        ecpChart.ChartAreas["ecpChartArea"].AxisY.MajorTickMark.TickMarkStyle = System.Web.UI.DataVisualization.Charting.TickMarkStyle.None;
+        //        ecpChart.ChartAreas["ecpChartArea"].AxisX.TextOrientation = System.Web.UI.DataVisualization.Charting.TextOrientation.Horizontal;
+        //        ecpChart.ChartAreas["ecpChartArea"].AxisX.LabelStyle.ForeColor = Color.FromArgb(0, 176, 80);
+        //        ecpChart.ChartAreas["ecpChartArea"].AxisX.LabelStyle.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Bold);
+        //        ecpChart.ChartAreas["ecpChartArea"].AxisX.Interval = 1;
+        //        ecpChart.ChartAreas["ecpChartArea"].AxisX.MajorGrid.Enabled = false;//不显示竖着的分割线
+        //        ecpChart.ChartAreas["ecpChartArea"].AxisX.MajorTickMark.Enabled = false;
+        //        for (int i = 0; i < table.Rows.Count; i++)
+        //        {
+        //            double value1 = Convert.ToDouble(table.Rows[i]["Total"]);
+        //            double value2 = Convert.ToDouble(table.Rows[i]["BaseLine"]);
+        //            ecpChart.Series["Efficiency"].Points.AddXY(table.Rows[i]["Name"] as string, value1);
+        //            ecpChart.Series["Baseline"].Points.AddXY(table.Rows[i]["Name"] as string, value2);
+        //            if (value1 >= 1)
+        //            {
+        //                ecpChart.Series["Efficiency"].Points[i].Color = Color.Red;
+        //            }
+        //        }
+        //    }
+        //    //ImageButton ibtn = (ImageButton)sender;
+        //    //GridViewRow row = (GridViewRow)ibtn.Parent.Parent;
+        //    //int deviceID = Convert.ToInt32(row.Cells[]["DeviceID"]);
+        //    //string name = Request.QueryString["Name"];
+        //    //lblTitle.Text = string.Format("{0} - Dept. Equipment Efficiency", name);
+        //    ////Chart图
+        //    //ElectricityConsumptionDS ds = _bc.GetEquipmentEnergy(deviceID);
+        //    //if (ds.ElectricityConsumption.Rows.Count > 0)
+        //    //{
+        //    //    //绑定数据
+        //    //    EquipmentEnergyEfficiencyDS energyDS = _energyBC.GetEquipmentEnergyEfficiency(deviceID,
+        //    //        108,//Todo
+        //    //        ds.ElectricityConsumption[0].PreviousYear,
+        //    //        ds.ElectricityConsumption[0].YTD,
+        //    //        ds.ElectricityConsumption[0].Q1,
+        //    //        ds.ElectricityConsumption[0].Q2,
+        //    //        ds.ElectricityConsumption[0].Q3,
+        //    //        ds.ElectricityConsumption[0].Q4,
+        //    //        ds.ElectricityConsumption[0].Month1,
+        //    //        ds.ElectricityConsumption[0].Month2,
+        //    //        ds.ElectricityConsumption[0].Month3,
+        //    //        ds.ElectricityConsumption[0].Week1,
+        //    //        ds.ElectricityConsumption[0].Week2,
+        //    //        ds.ElectricityConsumption[0].Week3,
+        //    //        ds.ElectricityConsumption[0].Week4,
+        //    //        ds.ElectricityConsumption[0].Week5,
+        //    //        ds.ElectricityConsumption[0].Week6);
+        //    //    gvDept.DataSource = energyDS.EquipmentEnergyEfficiency;
+        //    //    gvDept.DataBind();
+        //    //    //显示Chart图
+        //    //    DataTable table = _energyBC.CreateEquipmentEnergyEfficiencyTable(energyDS);
+        //    //    ecpChart.Titles["ecpTitle"].Text = lblTitle.Text;
+        //    //    //Efficiency
+        //    //    ecpChart.Series["Efficiency"].ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.Column;
+        //    //    ecpChart.Series["Efficiency"]["PointWidth"] = "0.8";
+        //    //    ecpChart.Series["Efficiency"]["BarLabelStyle"] = "Center";
+        //    //    ecpChart.Series["Efficiency"]["DrawingStyle"] = "Cylinder";
+        //    //    ecpChart.Series["Efficiency"].IsValueShownAsLabel = false;//显示坐标值
+        //    //    ecpChart.Series["Efficiency"].ToolTip = "#VALX:#VALY";
+        //    //    //BaseLine
+        //    //    ecpChart.Series["Baseline"].ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.Line;
+        //    //    ecpChart.Series["Baseline"]["PointWidth"] = "2";
+        //    //    ecpChart.Series["Baseline"]["BarLabelStyle"] = "Center";
+        //    //    ecpChart.Series["Baseline"]["DrawingStyle"] = "Cylinder";
+        //    //    ecpChart.Series["Baseline"].IsValueShownAsLabel = false;//显示坐标值
+        //    //    //
+        //    //    ecpChart.ChartAreas["ecpChartArea"].AxisY.Maximum = 1.2;
+        //    //    ecpChart.ChartAreas["ecpChartArea"].AxisY.Minimum = 0;
+        //    //    ecpChart.ChartAreas["ecpChartArea"].AxisY.Interval = 0.2;
+        //    //    ecpChart.ChartAreas["ecpChartArea"].AxisY.LabelStyle.ForeColor = Color.FromArgb(0, 176, 80);
+        //    //    ecpChart.ChartAreas["ecpChartArea"].AxisY.LabelStyle.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Bold);
+        //    //    ecpChart.ChartAreas["ecpChartArea"].AxisY.MajorTickMark.TickMarkStyle = System.Web.UI.DataVisualization.Charting.TickMarkStyle.None;
+        //    //    ecpChart.ChartAreas["ecpChartArea"].AxisX.TextOrientation = System.Web.UI.DataVisualization.Charting.TextOrientation.Horizontal;
+        //    //    ecpChart.ChartAreas["ecpChartArea"].AxisX.LabelStyle.ForeColor = Color.FromArgb(0, 176, 80);
+        //    //    ecpChart.ChartAreas["ecpChartArea"].AxisX.LabelStyle.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Bold);
+        //    //    ecpChart.ChartAreas["ecpChartArea"].AxisX.Interval = 1;
+        //    //    ecpChart.ChartAreas["ecpChartArea"].AxisX.MajorGrid.Enabled = false;//不显示竖着的分割线
+        //    //    ecpChart.ChartAreas["ecpChartArea"].AxisX.MajorTickMark.Enabled = false;
+        //    //    for (int i = 0; i < table.Rows.Count; i++)
+        //    //    {
+        //    //        double value1 = Convert.ToDouble(table.Rows[i]["Total"]);
+        //    //        double value2 = Convert.ToDouble(table.Rows[i]["BaseLine"]);
+        //    //        ecpChart.Series["Efficiency"].Points.AddXY(table.Rows[i]["Name"] as string, value1);
+        //    //        ecpChart.Series["Baseline"].Points.AddXY(table.Rows[i]["Name"] as string, value2);
+        //    //        if (value1 >= 1)
+        //    //        {
+        //    //            ecpChart.Series["Efficiency"].Points[i].Color = Color.Red;
+        //    //        }
+        //    //    }
+        //    //}
+        //}
     }
 }

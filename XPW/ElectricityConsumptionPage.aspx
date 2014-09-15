@@ -44,7 +44,7 @@
                                     <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="YTD" HeaderText="YTD">
+                                <asp:BoundField DataField="YTD" HeaderText="YTD" HtmlEncode="false">
                                     <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
@@ -106,9 +106,8 @@
                                 </asp:BoundField>
                                 <asp:TemplateField>
                                     <ItemTemplate>
-                                        <asp:ImageButton runat="Server" ID="btnGraph" ImageUrl="~/Images/graph.png" ImageAlign="Middle" OnClick="btnGraph_Click" />
-                                        <%--    <asp:ImageButton runat="Server" ID="btnGraph" ImageUrl="~/Images/graph.png" ImageAlign="Middle"
-                                            PostBackUrl='<%# "EquipmentEnergyEfficiencyPage.aspx?DeviceID="+Eval("DeviceID")+"&Name="+ Eval("Name")%>' />--%>
+                                        <asp:ImageButton runat="Server" ID="btnGraph" ImageUrl="~/Images/graph.png" ImageAlign="Middle"
+                                            PostBackUrl='<%# "EquipmentEnergyEfficiencyPage.aspx?DeviceID="+Eval("DeviceID")+"&Name="+ Eval("Name")%>' />
                                     </ItemTemplate>
                                     <HeaderStyle Width="1.5%" />
                                     <ItemStyle Width="1.5%" />
@@ -120,7 +119,7 @@
             </tr>
         </table>
     </div>
-    <div class="moduleDIV" runat="server" id="dbAll" visible="false">
+    <div class="moduleDIV" runat="server" id="dvEnergy" visible="false">
         <h2>
             <asp:Label runat="server" ID="lblTitle"></asp:Label>
         </h2>
@@ -205,7 +204,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <asp:Chart ID="ecpChart" runat="server" Width="1118px" Visible="false"
+                    <asp:Chart ID="ecpChart" runat="server" Width="1118px"
                         Palette="BrightPastel" BackColor="#F3DFC1" BorderDashStyle="Solid" BackGradientStyle="TopBottom" BorderWidth="1" BorderColor="181, 64, 1">
                         <Titles>
                             <asp:Title ShadowColor="32, 0, 0, 0" Font="Trebuchet MS, 14.25pt, style=Bold" Alignment="TopLeft" ShadowOffset="3" Name="ecpTitle" ForeColor="26, 59, 105"></asp:Title>
