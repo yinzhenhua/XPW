@@ -36,15 +36,15 @@
                                     <HeaderStyle Width="5%" />
                                     <ItemStyle Width="5%" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="PreviousYear" HeaderText="Previous Year">
+                                <asp:BoundField DataField="PreviousYear" HeaderText="Previous Year" DataFormatString="{0:N0}">
                                     <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="YearlyTarget" HeaderText="Yearly Target">
+                                <asp:BoundField DataField="YearlyTarget" HeaderText="Yearly Target" DataFormatString="{0:N0}">
                                     <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="YTD" HeaderText="YTD" HtmlEncode="false">
+                                <asp:BoundField DataField="YTD" HeaderText="YTD" DataFormatString="{0:N0}">
                                     <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
@@ -52,55 +52,55 @@
                                     <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="Q1" HeaderText="Q1">
+                                <asp:BoundField DataField="Q1" HeaderText="Q1" DataFormatString="{0:N0}">
                                     <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="Q2" HeaderText="Q2">
+                                <asp:BoundField DataField="Q2" HeaderText="Q2" DataFormatString="{0:N0}">
                                     <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="Q3" HeaderText="Q3">
+                                <asp:BoundField DataField="Q3" HeaderText="Q3" DataFormatString="{0:N0}">
                                     <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="Q4" HeaderText="Q4">
+                                <asp:BoundField DataField="Q4" HeaderText="Q4" DataFormatString="{0:N0}">
                                     <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="Month1" HeaderText="">
+                                <asp:BoundField DataField="Month1" HeaderText="" DataFormatString="{0:N0}">
                                     <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="Month2" HeaderText="">
+                                <asp:BoundField DataField="Month2" HeaderText="" DataFormatString="{0:N0}">
                                     <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="Month3" HeaderText="">
+                                <asp:BoundField DataField="Month3" HeaderText="" DataFormatString="{0:N0}">
                                     <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="Week1" HeaderText="Week-1">
+                                <asp:BoundField DataField="Week1" HeaderText="Week-1" DataFormatString="{0:N0}">
                                     <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="Week2" HeaderText="Week-2">
+                                <asp:BoundField DataField="Week2" HeaderText="Week-2" DataFormatString="{0:N0}">
                                     <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="Week3" HeaderText="Week-3">
+                                <asp:BoundField DataField="Week3" HeaderText="Week-3" DataFormatString="{0:N0}">
                                     <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="Week4" HeaderText="Week-4">
+                                <asp:BoundField DataField="Week4" HeaderText="Week-4" DataFormatString="{0:N0}">
                                     <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="Week5" HeaderText="Week-5">
+                                <asp:BoundField DataField="Week5" HeaderText="Week-5" DataFormatString="{0:N0}">
                                     <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="Week6" HeaderText="Week-6">
+                                <asp:BoundField DataField="Week6" HeaderText="Week-6" DataFormatString="{0:N0}">
                                     <HeaderStyle Width="5.5%" />
                                     <ItemStyle Width="5.5%" />
                                 </asp:BoundField>

@@ -320,269 +320,24 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-ALTER PROCEDURE [dbo].[GetEquipmentEnergy]
-	@DeviceID INT
-AS
-BEGIN
-	--名称
-	DECLARE @NAME NVARCHAR(510)
-	SELECT @NAME = Name FROM dbo.ListOfDevices WHERE DeviceID = @DeviceID
-	--去年第一天和最后一天
-	DECLARE @DAY_YEAR_F DATETIME
-	DECLARE @DAY_YEAR_L DATETIME
-	SET @DAY_YEAR_F = DATEADD(yy, DATEDIFF(yy,0,GETDATE())-1, 0)
-	SET @DAY_YEAR_L = DATEADD(ms,-3,DATEADD(yy, DATEDIFF(yy,0,GETDATE()), 0))  
-	--今年的第一天
-	DECLARE @DAY_YEAR DATETIME
-	SET @DAY_YEAR =DATEADD(yy, DATEDIFF(yy,0,GETDATE()), 0)
-	--获得四个季度的开始和截止时间
-	DECLARE @QUARTER_1_F DATETIME
-	DECLARE @QUARTER_1_L DATETIME
-	DECLARE @QUARTER_2_F DATETIME
-	DECLARE @QUARTER_2_L DATETIME
-	DECLARE @QUARTER_3_F DATETIME
-	DECLARE @QUARTER_3_L DATETIME
-	DECLARE @QUARTER_4_F DATETIME
-	DECLARE @QUARTER_4_L DATETIME
-	SET @QUARTER_1_F = @DAY_YEAR
-	SET @QUARTER_2_F = DATEADD(qq,1,@QUARTER_1_F)
-	SET @QUARTER_3_F = DATEADD(qq,1,@QUARTER_2_F)
-	SET @QUARTER_4_F = DATEADD(qq,1,@QUARTER_3_F)
-	SET @QUARTER_1_L = DATEADD(ms,-3,@QUARTER_2_F)
-	SET @QUARTER_2_L = DATEADD(ms,-3,@QUARTER_3_F)
-	SET @QUARTER_3_L = DATEADD(ms,-3,@QUARTER_4_F)
-	SET @QUARTER_4_L = DATEADD(ms,-3,DATEADD(yy,1,@DAY_YEAR))
-	--获得当前季度的3个月
-	DECLARE @MONTH_1_F DATETIME
-	DECLARE @MONTH_1_L DATETIME
-	DECLARE @MONTH_2_F DATETIME
-	DECLARE @MONTH_2_L DATETIME
-	DECLARE @MONTH_3_F DATETIME
-	DECLARE @MONTH_3_L DATETIME
-	SET @MONTH_1_F = DATEADD(mm,3*(DATEPART(qq,GETDATE())-1),@DAY_YEAR)
-	SET @MONTH_1_L = DATEADD(ms,-3,DATEADD(mm,1,@MONTH_1_F))
-	SET @MONTH_2_F = DATEADD(mm,1,@MONTH_1_F)
-	SET @MONTH_2_L = DATEADD(ms,-3,DATEADD(mm,1,@MONTH_2_F))
-	SET @MONTH_3_F = DATEADD(mm,2,@MONTH_1_F)
-	SET @MONTH_3_L = DATEADD(ms,-3,DATEADD(mm,1,@MONTH_3_F))
-	--获得当前月的各个星期
-	 --获得当前月的各个星期
-	 DECLARE @DAY_WEEK	   DATETIME--当前周的周一
-	 IF DATEPART(weekday,GETDATE()) = 1
-		SET @DAY_WEEK = DATEADD(wk,DATEDIFF(wk,7,getdate()),0)    
-	 ELSE
-		SET @DAY_WEEK = DATEADD(wk,DATEDIFF(wk,0,GETDATE()),0)  
-	 DECLARE @WEEK_1_F DATETIME  
-	 DECLARE @WEEK_1_L DATETIME  
-	 DECLARE @WEEK_2_F DATETIME  
-	 DECLARE @WEEK_2_L DATETIME  
-	 DECLARE @WEEK_3_F DATETIME  
-	 DECLARE @WEEK_3_L DATETIME  
-	 DECLARE @WEEK_4_F DATETIME  
-	 DECLARE @WEEK_4_L DATETIME  
-	 DECLARE @WEEK_5_F DATETIME  
-	 DECLARE @WEEK_5_L DATETIME  
-	 DECLARE @WEEK_6_F DATETIME  
-	 DECLARE @WEEK_6_L DATETIME  
-	 SET @WEEK_1_F = DATEADD(mm, DATEDIFF(m,0,GETDATE()), 0)--第一周第一天
-	 SET @WEEK_1_L = DATEADD(ms,-3,DATEADD(dd,9-DATEPART(weekday,@WEEK_1_F),@WEEK_1_F))--第一周最后一天  
-	 SET @WEEK_2_F = DATEADD(dd,1,DATEADD(dd,8-DATEPART(weekday,@WEEK_1_F),@WEEK_1_F))--第二周第一天 
-	 SET @WEEK_2_L = DATEADD(ms,-3,DATEADD(ww,1,@WEEK_2_F))  
-	 SET @WEEK_3_F = DATEADD(ww, 1, @WEEK_2_F)  
-	 SET @WEEK_3_L = DATEADD(ms,-3,DATEADD(ww,1,@WEEK_3_F))  
-	 SET @WEEK_4_F = DATEADD(ww, 1, @WEEK_3_F)  
-	 SET @WEEK_4_L = DATEADD(ms,-3,DATEADD(ww,1,@WEEK_4_F)) 
-	 SET @WEEK_5_F = DATEADD(ww, 1, @WEEK_4_F)
-	 SET @WEEK_5_L = DATEADD(ms,-3,DATEADD(ww,1,@WEEK_5_F)) 
-	 SET @WEEK_6_F = DATEADD(ww, 1, @WEEK_5_F)   
-	 SET @WEEK_6_L = DATEADD(ms,-3,DATEADD(ww,1,@WEEK_6_F))
-	--获得各个时间段的值
-	--今年的总数
-	DECLARE @TOTAL FLOAT 
-	SELECT @TOTAL = SUM(C.Value)
-	FROM ConsumptionData C
-	WHERE C.DeviceID IN (390,391,392,393,394,395,396,397,398,399,400)
-	AND (C.ReadingDate BETWEEN @DAY_YEAR AND GETDATE())
-	AND C.Tariffnum = 0 
-	AND C.UsageTypeID IN (1,8,9)
-			
-	--Previous Year
-	DECLARE @TOTAL1 FLOAT 
-	SELECT @TOTAL1 = SUM(C.Value)
-	FROM ConsumptionData C
-	WHERE C.DeviceID=@DeviceID AND C.ReadingDate BETWEEN @DAY_YEAR_F AND @DAY_YEAR_L
-	AND C.Tariffnum = 0 
-	AND C.UsageTypeID IN (1,8,9)
-	IF @TOTAL1 IS NULL
-		SET @TOTAL1 = 0
-	--Yearly Target
-	DECLARE @TOTAL2 FLOAT 
-	SET @TOTAL2 = 0.0 --定制目前空着
-	--YTD
-	DECLARE @TOTAL3 FLOAT 
-	SELECT @TOTAL3 = SUM(C.Value)
-	FROM ConsumptionData C
-	WHERE C.DeviceID=@DeviceID AND (C.ReadingDate BETWEEN @DAY_YEAR AND GETDATE())
-	AND C.Tariffnum = 0 
-	AND C.UsageTypeID IN (1,8,9)
-	IF @TOTAL3 IS NULL
-		SET @TOTAL3 = 0
-	--%
-	DECLARE @TOTAL4 FLOAT 
-	SET @TOTAL4 = @TOTAL3/@TOTAL
-	--Q1
-	DECLARE @TOTAL5 FLOAT 
-	SELECT @TOTAL5 = SUM(C.Value)
-	FROM ConsumptionData C
-	WHERE C.DeviceID=@DeviceID AND (C.ReadingDate BETWEEN @QUARTER_1_F AND @QUARTER_1_L)
-	AND C.Tariffnum = 0 
-	AND C.UsageTypeID IN (1,8,9)
-	IF @TOTAL5 IS NULL
-		SET @TOTAL5 = 0
-	--Q2
-	DECLARE @TOTAL6 FLOAT 
-	SELECT @TOTAL6 = SUM(C.Value)
-	FROM ConsumptionData C
-	WHERE C.DeviceID=@DeviceID AND (C.ReadingDate BETWEEN @QUARTER_2_F AND @QUARTER_2_L)
-	AND C.Tariffnum = 0 
-	AND C.UsageTypeID IN (1,8,9)
-	IF @TOTAL6 IS NULL
-		SET @TOTAL6 = 0
-	--Q3
-	DECLARE @TOTAL7 FLOAT 
-	SELECT @TOTAL7 = SUM(C.Value)
-	FROM ConsumptionData C
-	WHERE C.DeviceID=@DeviceID AND (C.ReadingDate BETWEEN @QUARTER_3_F AND @QUARTER_3_L)
-	AND C.Tariffnum = 0 
-	AND C.UsageTypeID IN (1,8,9)
-	IF @TOTAL7 IS NULL
-		SET @TOTAL7 = 0
-	--Q4
-	DECLARE @TOTAL8 FLOAT 
-	SELECT @TOTAL8 = SUM(C.Value)
-	FROM ConsumptionData C
-	WHERE C.DeviceID=@DeviceID AND (C.ReadingDate BETWEEN @QUARTER_4_F AND @QUARTER_4_L)
-	AND C.Tariffnum = 0 
-	AND C.UsageTypeID IN (1,8,9)
-	IF @TOTAL8 IS NULL
-		SET @TOTAL8 = 0
-	--Month1
-	DECLARE @TOTAL9 FLOAT 
-	SELECT @TOTAL9 = SUM(C.Value)
-	FROM ConsumptionData C
-	WHERE C.DeviceID=@DeviceID AND (C.ReadingDate BETWEEN @MONTH_1_F AND @MONTH_1_L)
-	AND C.Tariffnum = 0 
-	AND C.UsageTypeID IN (1,8,9)
-	IF @TOTAL9 IS NULL
-		SET @TOTAL9 = 0
-	--Month2
-	DECLARE @TOTAL10 FLOAT 
-	SELECT @TOTAL10 = SUM(C.Value)
-	FROM ConsumptionData C
-	WHERE C.DeviceID=@DeviceID AND (C.ReadingDate BETWEEN @MONTH_2_F AND @MONTH_2_L)
-	AND C.Tariffnum = 0 
-	AND C.UsageTypeID IN (1,8,9)
-	IF @TOTAL10 IS NULL
-		SET @TOTAL10 = 0
-	--Month3
-	DECLARE @TOTAL11 FLOAT 
-	SELECT @TOTAL11 = SUM(C.Value)
-	FROM ConsumptionData C
-	WHERE C.DeviceID=@DeviceID AND (C.ReadingDate BETWEEN @MONTH_3_F AND @MONTH_3_L)
-	AND C.Tariffnum = 0 
-	AND C.UsageTypeID IN (1,8,9)
-	IF @TOTAL11 IS NULL
-		SET @TOTAL11 = 0
-	--Week1
-	DECLARE @TOTAL12 FLOAT 
-	SELECT @TOTAL12 = SUM(C.Value)
-	FROM ConsumptionData C
-	WHERE C.DeviceID=@DeviceID AND (C.ReadingDate BETWEEN @WEEK_1_F AND @WEEK_1_L)
-	AND C.Tariffnum = 0 
-	AND C.UsageTypeID IN (1,8,9)
-	IF @TOTAL12 IS NULL
-		SET @TOTAL12 = 0
-	--Week2
-	DECLARE @TOTAL13 FLOAT 
-	SELECT @TOTAL13 = SUM(C.Value)
-	FROM ConsumptionData C
-	WHERE C.DeviceID=@DeviceID AND (C.ReadingDate BETWEEN @WEEK_2_F AND @WEEK_2_L)
-	AND C.Tariffnum = 0 
-	AND C.UsageTypeID IN (1,8,9)
-	IF @TOTAL13 IS NULL
-		SET @TOTAL13 = 0
-	--Week3
-	DECLARE @TOTAL14 FLOAT 
-	SELECT @TOTAL14 = SUM(C.Value)
-	FROM ConsumptionData C
-	WHERE C.DeviceID=@DeviceID AND (C.ReadingDate BETWEEN @WEEK_3_F AND @WEEK_3_L)
-	AND C.Tariffnum = 0 
-	AND C.UsageTypeID IN (1,8,9)
-	IF @TOTAL14 IS NULL
-		SET @TOTAL14 = 0
-	--Week4
-	DECLARE @TOTAL15 FLOAT 
-	SELECT @TOTAL15 = SUM(C.Value)
-	FROM ConsumptionData C
-	WHERE C.DeviceID=@DeviceID AND (C.ReadingDate BETWEEN @WEEK_4_F AND @WEEK_4_L)
-	AND C.Tariffnum = 0 
-	AND C.UsageTypeID IN (1,8,9)
-	IF @TOTAL15 IS NULL
-		SET @TOTAL15 = 0
-	--Week5
-	DECLARE @TOTAL16 FLOAT 
-	SELECT @TOTAL16 = SUM(C.Value)
-	FROM ConsumptionData C
-	WHERE C.DeviceID=@DeviceID AND (C.ReadingDate BETWEEN @WEEK_5_F AND @WEEK_5_L)
-	AND C.Tariffnum = 0 
-	AND C.UsageTypeID IN (1,8,9)
-	IF @TOTAL16 IS NULL
-		SET @TOTAL16 = 0
-	--Week6
-	DECLARE @TOTAL17 FLOAT 
-	SELECT @TOTAL17 = SUM(C.Value)
-	FROM ConsumptionData C
-	WHERE C.DeviceID=@DeviceID AND (C.ReadingDate BETWEEN @WEEK_6_F AND @WEEK_6_L)
-	AND C.Tariffnum = 0 
-	AND C.UsageTypeID IN (1,8,9)
-	IF @TOTAL17 IS NULL
-		SET @TOTAL17 = 0
-	--去除小数点	
-	SELECT
-	@DeviceID AS 'DeviceID', 
-	@NAME AS 'Name',
-	ROUND(@TOTAL1,0) AS 'PreviousYear',
-	ROUND(@TOTAL2,0) AS 'YearlyTarget',
-	ROUND(@TOTAL3,0) AS 'YTD',
-	ROUND(@TOTAL4,3) AS 'Percentage',
-	ROUND(@TOTAL5,0) AS 'Q1',
-	ROUND(@TOTAL6,0) AS 'Q2',
-	ROUND(@TOTAL7,0) AS 'Q3',
-	ROUND(@TOTAL8,0) AS 'Q4',
-	ROUND(@TOTAL9,0) AS 'Month1', 
-	ROUND(@TOTAL10,0) AS 'Month2',
-	ROUND(@TOTAL11,0) AS 'Month3',
-	ROUND(@TOTAL12,0) AS 'Week1',
-	ROUND(@TOTAL13,0) AS 'Week2',
-	ROUND(@TOTAL14,0) AS 'Week3',
-	ROUND(@TOTAL15,0) AS 'Week4',
-	ROUND(@TOTAL16,0) AS 'Week4',
-	ROUND(@TOTAL17,0) AS 'Week4',
-	ROUND(@TOTAL,0) AS 'TotalYTD'
-END
-GO
---获得去年的水电气  
-ALTER PROCEDURE [dbo].[GetAllEquipmentEnergy]  
-AS
-BEGIN
+ALTER PROCEDURE [dbo].[GetEquipmentEnergy]  
+ @DeviceID	INT,
+ @DeviceID1 INT  
+AS  
+BEGIN  
+ --名称  
+ DECLARE @NAME NVARCHAR(510)  
+ SELECT @NAME = Name FROM dbo.ListOfDevices WHERE DeviceID = @DeviceID  
  --去年第一天和最后一天  
  DECLARE @DAY_YEAR_F DATETIME  
  DECLARE @DAY_YEAR_L DATETIME  
  SET @DAY_YEAR_F = DATEADD(yy, DATEDIFF(yy,0,GETDATE())-1, 0)  
  SET @DAY_YEAR_L = DATEADD(ms,-3,DATEADD(yy, DATEDIFF(yy,0,GETDATE()), 0))    
- --今年的第一天  
- DECLARE @DAY_YEAR DATETIME  
- SET @DAY_YEAR =DATEADD(yy, DATEDIFF(yy,0,GETDATE()), 0)  
+ --今年的第一天    
+ DECLARE @DAY_YEAR DATETIME    
+ SET @DAY_YEAR =DATEADD(yy, DATEDIFF(yy,0,GETDATE()), 0)
+ DECLARE @DAY_YEAR_CURT_L DATETIME
+ SET @DAY_YEAR_CURT_L = DATEADD(ms,-3,DATEADD(yy,1,@DAY_YEAR))
  --获得四个季度的开始和截止时间  
  DECLARE @QUARTER_1_F DATETIME  
  DECLARE @QUARTER_1_L DATETIME  
@@ -613,359 +368,733 @@ BEGIN
  SET @MONTH_2_L = DATEADD(ms,-3,DATEADD(mm,1,@MONTH_2_F))  
  SET @MONTH_3_F = DATEADD(mm,2,@MONTH_1_F)  
  SET @MONTH_3_L = DATEADD(ms,-3,DATEADD(mm,1,@MONTH_3_F))  
- --获得当前月的各个星期
- DECLARE @DAY_WEEK	   DATETIME--当前周的周一
- IF DATEPART(weekday,GETDATE()) = 1
-	SET @DAY_WEEK = DATEADD(wk,DATEDIFF(wk,7,getdate()),0)    
- ELSE
-	SET @DAY_WEEK = DATEADD(wk,DATEDIFF(wk,0,GETDATE()),0)  
- DECLARE @WEEK_1_F DATETIME  
- DECLARE @WEEK_1_L DATETIME  
- DECLARE @WEEK_2_F DATETIME  
- DECLARE @WEEK_2_L DATETIME  
- DECLARE @WEEK_3_F DATETIME  
- DECLARE @WEEK_3_L DATETIME  
- DECLARE @WEEK_4_F DATETIME  
- DECLARE @WEEK_4_L DATETIME  
- DECLARE @WEEK_5_F DATETIME  
- DECLARE @WEEK_5_L DATETIME  
- DECLARE @WEEK_6_F DATETIME  
- DECLARE @WEEK_6_L DATETIME  
- SET @WEEK_1_F = DATEADD(mm, DATEDIFF(m,0,GETDATE()), 0)--第一周第一天
- SET @WEEK_1_L = DATEADD(ms,-3,DATEADD(dd,9-DATEPART(weekday,@WEEK_1_F),@WEEK_1_F))--第一周最后一天  
- SET @WEEK_2_F = DATEADD(dd,1,DATEADD(dd,8-DATEPART(weekday,@WEEK_1_F),@WEEK_1_F))--第二周第一天 
- SET @WEEK_2_L = DATEADD(ms,-3,DATEADD(ww,1,@WEEK_2_F))  
- SET @WEEK_3_F = DATEADD(ww, 1, @WEEK_2_F)  
- SET @WEEK_3_L = DATEADD(ms,-3,DATEADD(ww,1,@WEEK_3_F))  
- SET @WEEK_4_F = DATEADD(ww, 1, @WEEK_3_F)  
- SET @WEEK_4_L = DATEADD(ms,-3,DATEADD(ww,1,@WEEK_4_F)) 
- SET @WEEK_5_F = DATEADD(ww, 1, @WEEK_4_F)
- SET @WEEK_5_L = DATEADD(ms,-3,DATEADD(ww,1,@WEEK_5_F)) 
- SET @WEEK_6_F = DATEADD(ww, 1, @WEEK_5_F)   
- SET @WEEK_6_L = DATEADD(ms,-3,DATEADD(ww,1,@WEEK_6_F))
- --声明表变量  
- DECLARE @TEMP_ENERGY TABLE( 
-	DeviceID INT, 
-	Name VARCHAR(510),  
-	PreviousYear FLOAT,  
-	YearlyTarget FLOAT,  
-	YTD FLOAT,  
-	Percentage FLOAT,  
-	Q1 FLOAT,  
-	Q2 FLOAT,  
-	Q3 FLOAT,  
-	Q4 FLOAT,  
-	Month1 FLOAT,  
-	Month2 FLOAT,  
-	Month3 FLOAT,  
-	Week1 FLOAT,  
-	Week2 FLOAT,  
-	Week3 FLOAT,  
-	Week4 FLOAT, 
-	Week5 FLOAT,
-	Week6 FLOAT,
-	TotalYTD FLOAT   
- )  
+ --获得当前月的各个星期    
+  DECLARE @DAY_WEEK    DATETIME--当前周的周一  
+  IF DATEPART(weekday,GETDATE()) = 1  
+  SET @DAY_WEEK = DATEADD(wk,DATEDIFF(wk,7,getdate()),0)      
+  ELSE  
+  SET @DAY_WEEK = DATEADD(wk,DATEDIFF(wk,0,GETDATE()),0)    
+  DECLARE @WEEK_1_F DATETIME    
+  DECLARE @WEEK_1_L DATETIME    
+  DECLARE @WEEK_2_F DATETIME    
+  DECLARE @WEEK_2_L DATETIME    
+  DECLARE @WEEK_3_F DATETIME    
+  DECLARE @WEEK_3_L DATETIME    
+  DECLARE @WEEK_4_F DATETIME    
+  DECLARE @WEEK_4_L DATETIME    
+  DECLARE @WEEK_5_F DATETIME    
+  DECLARE @WEEK_5_L DATETIME    
+  DECLARE @WEEK_6_F DATETIME    
+  DECLARE @WEEK_6_L DATETIME    
+  SET @WEEK_1_F = DATEADD(mm, DATEDIFF(m,0,GETDATE()), 0)--第一周第一天  
+  SET @WEEK_1_L = DATEADD(ms,-3,DATEADD(dd,9-DATEPART(weekday,@WEEK_1_F),@WEEK_1_F))--第一周最后一天    
+  SET @WEEK_2_F = DATEADD(dd,1,DATEADD(dd,8-DATEPART(weekday,@WEEK_1_F),@WEEK_1_F))--第二周第一天   
+  SET @WEEK_2_L = DATEADD(ms,-3,DATEADD(ww,1,@WEEK_2_F))    
+  SET @WEEK_3_F = DATEADD(ww, 1, @WEEK_2_F)    
+  SET @WEEK_3_L = DATEADD(ms,-3,DATEADD(ww,1,@WEEK_3_F))    
+  SET @WEEK_4_F = DATEADD(ww, 1, @WEEK_3_F)    
+  SET @WEEK_4_L = DATEADD(ms,-3,DATEADD(ww,1,@WEEK_4_F))   
+  SET @WEEK_5_F = DATEADD(ww, 1, @WEEK_4_F)  
+  SET @WEEK_5_L = DATEADD(ms,-3,DATEADD(ww,1,@WEEK_5_F))   
+  SET @WEEK_6_F = DATEADD(ww, 1, @WEEK_5_F)     
+  SET @WEEK_6_L = DATEADD(ms,-3,DATEADD(ww,1,@WEEK_6_F))    
  --获得各个时间段的值  
- DECLARE @TABLE TABLE(T INT)  
- INSERT INTO @TABLE(T) VALUES(390)  
- INSERT INTO @TABLE(T) VALUES(391)  
- INSERT INTO @TABLE(T) VALUES(392)  
- INSERT INTO @TABLE(T) VALUES(393)  
- INSERT INTO @TABLE(T) VALUES(394)  
- INSERT INTO @TABLE(T) VALUES(395)  
- INSERT INTO @TABLE(T) VALUES(396)  
- INSERT INTO @TABLE(T) VALUES(397)  
- INSERT INTO @TABLE(T) VALUES(398)  
- INSERT INTO @TABLE(T) VALUES(399)  
- INSERT INTO @TABLE(T) VALUES(400)  
-	
  --今年的总数  
  DECLARE @TOTAL FLOAT   
  SELECT @TOTAL = SUM(C.Value)  
  FROM ConsumptionData C  
  WHERE C.DeviceID IN (390,391,392,393,394,395,396,397,398,399,400)  
  AND (C.ReadingDate BETWEEN @DAY_YEAR AND GETDATE())  
- AND C.Tariffnum = 0 
-	AND C.UsageTypeID IN (1,8,9)
- --声明变量  
- DECLARE @SUM_TOTAL_1 FLOAT  
- DECLARE @SUM_TOTAL_2 FLOAT  
- DECLARE @SUM_TOTAL_3 FLOAT  
- DECLARE @SUM_TOTAL_5 FLOAT  
- DECLARE @SUM_TOTAL_6 FLOAT  
- DECLARE @SUM_TOTAL_7 FLOAT  
- DECLARE @SUM_TOTAL_8 FLOAT  
- DECLARE @SUM_TOTAL_9 FLOAT  
- DECLARE @SUM_TOTAL_10 FLOAT  
- DECLARE @SUM_TOTAL_11 FLOAT  
- DECLARE @SUM_TOTAL_12 FLOAT  
- DECLARE @SUM_TOTAL_13 FLOAT  
- DECLARE @SUM_TOTAL_14 FLOAT  
- DECLARE @SUM_TOTAL_15 FLOAT  
- DECLARE @SUM_TOTAL_16 FLOAT  
- DECLARE @SUM_TOTAL_17 FLOAT  
- SET @SUM_TOTAL_1 = 0  
- SET @SUM_TOTAL_2 = 0  
- SET @SUM_TOTAL_3 = 0  
- SET @SUM_TOTAL_5 = 0  
- SET @SUM_TOTAL_6 = 0  
- SET @SUM_TOTAL_7 = 0  
- SET @SUM_TOTAL_8 = 0  
- SET @SUM_TOTAL_9 = 0  
- SET @SUM_TOTAL_10 = 0  
- SET @SUM_TOTAL_11 = 0  
- SET @SUM_TOTAL_12 = 0  
- SET @SUM_TOTAL_13 = 0  
- SET @SUM_TOTAL_14 = 0  
- SET @SUM_TOTAL_15 = 0
- SET @SUM_TOTAL_16 = 0  
- SET @SUM_TOTAL_17 = 0  
- --循环ID表  
- DECLARE @ID INT  
- DECLARE CURSOR1 CURSOR FOR SELECT * FROM @TABLE  
- OPEN CURSOR1  
- FETCH NEXT FROM CURSOR1 INTO @ID  
- WHILE (@@fetch_status=0)  
- BEGIN  
-  --NAME  
-  DECLARE @NAME NVARCHAR(510)  
-  SELECT @NAME = Name FROM dbo.ListOfDevices WHERE DeviceID = @ID  
-  --Previous Year  
-  DECLARE @TOTAL1 FLOAT   
-  SELECT @TOTAL1 = SUM(C.Value)  
-  FROM ConsumptionData C  
-  WHERE C.DeviceID = @ID  
-  AND (C.ReadingDate BETWEEN @DAY_YEAR_F AND @DAY_YEAR_L)  
-  AND C.Tariffnum = 0 
-  AND C.UsageTypeID IN (1,8,9)
-  IF @TOTAL1 IS NULL   
-   SET @TOTAL1 = 0  
-  SET @SUM_TOTAL_1 = @SUM_TOTAL_1+@TOTAL1  
-  --Yearly Target  
-  DECLARE @TOTAL2 FLOAT   
-  SET @TOTAL2 = 0.0 --定制目前空着  
-  SET @SUM_TOTAL_2 = 0.0  
-  --YTD  
-  DECLARE @TOTAL3 FLOAT   
-  SELECT @TOTAL3 = SUM(C.Value)  
-  FROM ConsumptionData C  
-  WHERE C.DeviceID = @ID  
-  AND (C.ReadingDate BETWEEN @DAY_YEAR AND GETDATE())
-  AND C.Tariffnum = 0 
-  AND C.UsageTypeID IN (1,8,9)
-  IF @TOTAL3 IS NULL   
-   SET @TOTAL3 = 0  
-  SET @SUM_TOTAL_3 = @SUM_TOTAL_3+@TOTAL3
-  --%  
-  DECLARE @TOTAL4 FLOAT   
-  IF @TOTAL IS NULL  
-   SET @TOTAL4 = 0  
-  ELSE  
-   SET @TOTAL4 = @TOTAL3/@TOTAL  
-  --Q1  
-  DECLARE @TOTAL5 FLOAT   
-  SELECT @TOTAL5 = SUM(C.Value)  
-  FROM ConsumptionData C  
-  WHERE C.DeviceID = @ID  
-  AND (C.ReadingDate BETWEEN @QUARTER_1_F AND @QUARTER_1_L)  
-  AND C.Tariffnum = 0 
-  AND C.UsageTypeID IN (1,8,9)
-  IF @TOTAL5 IS NULL   
-   SET @TOTAL5 = 0  
-  SET @SUM_TOTAL_5 = @SUM_TOTAL_5+@TOTAL5
-  --Q2  
-  DECLARE @TOTAL6 FLOAT   
-  SELECT @TOTAL6 = SUM(C.Value)  
-  FROM ConsumptionData C  
-  WHERE C.DeviceID = @ID  
-  AND (C.ReadingDate BETWEEN @QUARTER_2_F AND @QUARTER_2_L)  
-  AND C.Tariffnum = 0 
-  AND C.UsageTypeID IN (1,8,9)
-  IF @TOTAL6 IS NULL   
-   SET @TOTAL6 = 0  
-  SET @SUM_TOTAL_6 = @SUM_TOTAL_6+@TOTAL6
-  --Q3  
-  DECLARE @TOTAL7 FLOAT   
-  SELECT @TOTAL7 = SUM(C.Value)  
-  FROM ConsumptionData C  
-  WHERE C.DeviceID = @ID  
-  AND (C.ReadingDate BETWEEN @QUARTER_3_F AND @QUARTER_3_L)  
-  AND C.Tariffnum = 0 
-  AND C.UsageTypeID IN (1,8,9)
-  IF @TOTAL7 IS NULL   
-   SET @TOTAL7 = 0  
-  SET @SUM_TOTAL_7 = @SUM_TOTAL_7+@TOTAL7  
-  --Q4  
-  DECLARE @TOTAL8 FLOAT   
-  SELECT @TOTAL8 = SUM(C.Value)  
-  FROM ConsumptionData C  
-  WHERE C.DeviceID = @ID  
-  AND (C.ReadingDate BETWEEN @QUARTER_4_F AND @QUARTER_4_L)  
-  AND C.Tariffnum = 0 
-  AND C.UsageTypeID IN (1,8,9)
-  IF @TOTAL8 IS NULL   
-   SET @TOTAL8 = 0  
-  SET @SUM_TOTAL_8 = @SUM_TOTAL_8+@TOTAL8  
-  --Month1  
-  DECLARE @TOTAL9 FLOAT   
-  SELECT @TOTAL9 = SUM(C.Value)  
-  FROM ConsumptionData C  
-  WHERE C.DeviceID = @ID  
-  AND (C.ReadingDate BETWEEN @MONTH_1_F AND @MONTH_1_L) 
-  AND C.Tariffnum = 0 
-  AND C.UsageTypeID IN (1,8,9)
-  IF @TOTAL9 IS NULL   
-   SET @TOTAL9 = 0  
-  SET @SUM_TOTAL_9 = @SUM_TOTAL_9+@TOTAL9  
-  --Month2  
-  DECLARE @TOTAL10 FLOAT   
-  SELECT @TOTAL10 = SUM(C.Value)  
-  FROM ConsumptionData C  
-  WHERE C.DeviceID = @ID  
-  AND (C.ReadingDate BETWEEN @MONTH_2_F AND @MONTH_2_L)  
-  AND C.Tariffnum = 0 
-  AND C.UsageTypeID IN (1,8,9)
-  IF @TOTAL10 IS NULL   
-   SET @TOTAL10 = 0  
-  SET @SUM_TOTAL_10 = @SUM_TOTAL_10+@TOTAL10  
-  --Month3  
-  DECLARE @TOTAL11 FLOAT   
-  SELECT @TOTAL11 = SUM(C.Value)  
-  FROM ConsumptionData C  
-  WHERE C.DeviceID = @ID  
-  AND (C.ReadingDate BETWEEN @MONTH_3_F AND @MONTH_3_L)  
-  AND C.Tariffnum = 0 
-  AND C.UsageTypeID IN (1,8,9)
-  IF @TOTAL11 IS NULL   
-   SET @TOTAL11 = 0  
-  SET @SUM_TOTAL_11 = @SUM_TOTAL_11+@TOTAL11  
-  --Week1  
-  DECLARE @TOTAL12 FLOAT   
-  SELECT @TOTAL12 = SUM(C.Value)  
-	FROM ConsumptionData C
-  WHERE C.DeviceID = @ID  
-  AND (C.ReadingDate BETWEEN @WEEK_1_F AND @WEEK_1_L)  
-  AND C.Tariffnum = 0 
-  AND C.UsageTypeID IN (1,8,9)
-  IF @TOTAL12 IS NULL   
-   SET @TOTAL12 = 0  
-  SET @SUM_TOTAL_12 = @SUM_TOTAL_12+@TOTAL12  
-  --Week2  
-  DECLARE @TOTAL13 FLOAT   
-  SELECT @TOTAL13 = SUM(C.Value)  
-	FROM ConsumptionData C
-  WHERE C.DeviceID = @ID  
-  AND (C.ReadingDate BETWEEN @WEEK_2_F AND @WEEK_2_L)  
-  AND C.Tariffnum = 0 
-  AND C.UsageTypeID IN (1,8,9)
-  IF @TOTAL13 IS NULL   
-   SET @TOTAL13 = 0  
-  SET @SUM_TOTAL_13 = @SUM_TOTAL_13+@TOTAL13  
-  --Week3  
-  DECLARE @TOTAL14 FLOAT   
-  SELECT @TOTAL14 = SUM(C.Value)  
-	FROM ConsumptionData C
-  WHERE C.DeviceID = @ID  
-  AND (C.ReadingDate BETWEEN @WEEK_3_F AND @WEEK_3_L)  
-  AND C.Tariffnum = 0 
-  AND C.UsageTypeID IN (1,8,9) 
-  IF @TOTAL14 IS NULL   
-   SET @TOTAL14 = 0  
-  SET @SUM_TOTAL_14 = @SUM_TOTAL_14+@TOTAL14  
-  --Week4  
-  DECLARE @TOTAL15 FLOAT   
-  SELECT @TOTAL15 = SUM(C.Value)  
-	FROM ConsumptionData C
-  WHERE C.DeviceID = @ID  
-  AND (C.ReadingDate BETWEEN @WEEK_4_F AND @WEEK_4_L)  
-  AND C.Tariffnum = 0 
-  AND C.UsageTypeID IN (1,8,9)
-  IF @TOTAL15 IS NULL   
-   SET @TOTAL15 = 0  
-  SET @SUM_TOTAL_15 = @SUM_TOTAL_15+@TOTAL15  
-  
-  --Week5  
-  DECLARE @TOTAL16 FLOAT   
-  SELECT @TOTAL16 = SUM(C.Value)  
-	FROM ConsumptionData C
-  WHERE C.DeviceID = @ID  
-  AND (C.ReadingDate BETWEEN @WEEK_5_F AND @WEEK_5_L)  
-  AND C.Tariffnum = 0 
-  AND C.UsageTypeID IN (1,8,9)
-  IF @TOTAL16 IS NULL   
-   SET @TOTAL16 = 0  
-  SET @SUM_TOTAL_16 = @SUM_TOTAL_16+@TOTAL16  
-  
-  --Week6  
-  DECLARE @TOTAL17 FLOAT   
-  SELECT @TOTAL17 = SUM(C.Value)  
-	FROM ConsumptionData C
-  WHERE C.DeviceID = @ID  
-  AND (C.ReadingDate BETWEEN @WEEK_6_F AND @WEEK_6_L)  
-  AND C.Tariffnum = 0 
-  AND C.UsageTypeID IN (1,8,9)
-  IF @TOTAL17 IS NULL   
-   SET @TOTAL17 = 0  
-  SET @SUM_TOTAL_17 = @SUM_TOTAL_17+@TOTAL17  			
-			
-  INSERT INTO @TEMP_ENERGY VALUES(
-  @ID,
-  @NAME,  
-  ROUND(@TOTAL1,0),  
-  ROUND(@TOTAL2,0),  
-  ROUND(@TOTAL3,0),  
-  ROUND(@TOTAL4,3),  
-  ROUND(@TOTAL5,0),  
-  ROUND(@TOTAL6,0),  
-  ROUND(@TOTAL7,0),  
-  ROUND(@TOTAL8,0),  
-  ROUND(@TOTAL9,0),  
-  ROUND(@TOTAL10,0), 
-  ROUND(@TOTAL11,0),  
-  ROUND(@TOTAL12,0),  
-  ROUND(@TOTAL13,0),  
-  ROUND(@TOTAL14,0),  
-  ROUND(@TOTAL15,0),
-  ROUND(@TOTAL16,0),
-  ROUND(@TOTAL17,0),  
-  0)  
-			
- FETCH NEXT FROM CURSOR1 INTO @ID  
- END  
- CLOSE CURSOR1  
- DEALLOCATE CURSOR1  
- DELETE @TABLE  
-	
- INSERT INTO @TEMP_ENERGY VALUES(
- -1,
- 'Total',  
- ROUND(@SUM_TOTAL_1,0),  
- ROUND(@SUM_TOTAL_2,0),  
- ROUND(@SUM_TOTAL_3,0),  
- 1,  
- ROUND(@SUM_TOTAL_5,0),  
- ROUND(@SUM_TOTAL_6,0),  
- ROUND(@SUM_TOTAL_7,0),  
- ROUND(@SUM_TOTAL_8,0),  
- ROUND(@SUM_TOTAL_9,0),  
- ROUND(@SUM_TOTAL_10,0),  
- ROUND(@SUM_TOTAL_11,0),  
- ROUND(@SUM_TOTAL_12,0),  
- ROUND(@SUM_TOTAL_13,0),  
- ROUND(@SUM_TOTAL_14,0),  
- ROUND(@SUM_TOTAL_15,0), 
- ROUND(@SUM_TOTAL_16,0),
- ROUND(@SUM_TOTAL_17,0), 
- 0)  
-			
- SELECT * FROM @TEMP_ENERGY  
-END
+ AND C.Tariffnum = 0   
+ AND C.UsageTypeID IN (1,8,9)  
+ --Previous Year  
+ DECLARE @TOTAL1 FLOAT   
+ SELECT @TOTAL1 = SUM(C.Value)  
+ FROM ConsumptionData C  
+ WHERE C.DeviceID=@DeviceID AND C.ReadingDate BETWEEN @DAY_YEAR_F AND @DAY_YEAR_L  
+ AND C.Tariffnum = 0   
+ AND C.UsageTypeID IN (1,8,9)  
+ IF @TOTAL1 IS NULL  
+  SET @TOTAL1 = 0  
+ --Yearly Target  
+ DECLARE @TOTAL2 FLOAT   
+ SELECT @TOTAL2 = SUM(C.Value)  
+ FROM ConsumptionData C  
+ WHERE C.DeviceID=@DeviceID1 
+ AND (C.ReadingDate BETWEEN @DAY_YEAR AND @DAY_YEAR_CURT_L)  
+ AND C.Tariffnum = 0   
+ IF @TOTAL2 IS NULL  
+  SET @TOTAL2 = 0    
+ --YTD  
+ DECLARE @TOTAL3 FLOAT   
+ SELECT @TOTAL3 = SUM(C.Value)  
+ FROM ConsumptionData C  
+ WHERE C.DeviceID=@DeviceID AND (C.ReadingDate BETWEEN @DAY_YEAR AND GETDATE())  
+ AND C.Tariffnum = 0   
+ AND C.UsageTypeID IN (1,8,9)  
+ IF @TOTAL3 IS NULL  
+  SET @TOTAL3 = 0  
+ --%  
+ DECLARE @TOTAL4 FLOAT   
+ SET @TOTAL4 = @TOTAL3/@TOTAL  
+ --Q1  
+ DECLARE @TOTAL5 FLOAT   
+ SELECT @TOTAL5 = SUM(C.Value)  
+ FROM ConsumptionData C  
+ WHERE C.DeviceID=@DeviceID AND (C.ReadingDate BETWEEN @QUARTER_1_F AND @QUARTER_1_L)  
+ AND C.Tariffnum = 0   
+ AND C.UsageTypeID IN (1,8,9)  
+ IF @TOTAL5 IS NULL  
+  SET @TOTAL5 = 0  
+ --Q2  
+ DECLARE @TOTAL6 FLOAT   
+ SELECT @TOTAL6 = SUM(C.Value)  
+ FROM ConsumptionData C  
+ WHERE C.DeviceID=@DeviceID AND (C.ReadingDate BETWEEN @QUARTER_2_F AND @QUARTER_2_L)  
+ AND C.Tariffnum = 0   
+ AND C.UsageTypeID IN (1,8,9)  
+ IF @TOTAL6 IS NULL  
+  SET @TOTAL6 = 0  
+ --Q3  
+ DECLARE @TOTAL7 FLOAT   
+ SELECT @TOTAL7 = SUM(C.Value)  
+ FROM ConsumptionData C  
+ WHERE C.DeviceID=@DeviceID AND (C.ReadingDate BETWEEN @QUARTER_3_F AND @QUARTER_3_L)  
+ AND C.Tariffnum = 0   
+ AND C.UsageTypeID IN (1,8,9)  
+ IF @TOTAL7 IS NULL  
+  SET @TOTAL7 = 0  
+ --Q4  
+ DECLARE @TOTAL8 FLOAT   
+ SELECT @TOTAL8 = SUM(C.Value)  
+ FROM ConsumptionData C  
+ WHERE C.DeviceID=@DeviceID AND (C.ReadingDate BETWEEN @QUARTER_4_F AND @QUARTER_4_L)  
+ AND C.Tariffnum = 0   
+ AND C.UsageTypeID IN (1,8,9)  
+ IF @TOTAL8 IS NULL  
+  SET @TOTAL8 = 0  
+ --Month1  
+ DECLARE @TOTAL9 FLOAT   
+ SELECT @TOTAL9 = SUM(C.Value)  
+ FROM ConsumptionData C  
+ WHERE C.DeviceID=@DeviceID AND (C.ReadingDate BETWEEN @MONTH_1_F AND @MONTH_1_L)  
+ AND C.Tariffnum = 0   
+ AND C.UsageTypeID IN (1,8,9)  
+ IF @TOTAL9 IS NULL  
+  SET @TOTAL9 = 0  
+ --Month2  
+ DECLARE @TOTAL10 FLOAT   
+ SELECT @TOTAL10 = SUM(C.Value)  
+ FROM ConsumptionData C  
+ WHERE C.DeviceID=@DeviceID AND (C.ReadingDate BETWEEN @MONTH_2_F AND @MONTH_2_L)  
+ AND C.Tariffnum = 0   
+ AND C.UsageTypeID IN (1,8,9)  
+ IF @TOTAL10 IS NULL  
+  SET @TOTAL10 = 0  
+ --Month3  
+ DECLARE @TOTAL11 FLOAT   
+ SELECT @TOTAL11 = SUM(C.Value)  
+ FROM ConsumptionData C  
+ WHERE C.DeviceID=@DeviceID AND (C.ReadingDate BETWEEN @MONTH_3_F AND @MONTH_3_L)  
+ AND C.Tariffnum = 0   
+ AND C.UsageTypeID IN (1,8,9)  
+ IF @TOTAL11 IS NULL  
+  SET @TOTAL11 = 0  
+ --Week1  
+ DECLARE @TOTAL12 FLOAT   
+ SELECT @TOTAL12 = SUM(C.Value)  
+ FROM ConsumptionData C  
+ WHERE C.DeviceID=@DeviceID AND (C.ReadingDate BETWEEN @WEEK_1_F AND @WEEK_1_L)  
+ AND C.Tariffnum = 0   
+ AND C.UsageTypeID IN (1,8,9)  
+ IF @TOTAL12 IS NULL  
+  SET @TOTAL12 = 0  
+ --Week2  
+ DECLARE @TOTAL13 FLOAT   
+ SELECT @TOTAL13 = SUM(C.Value)  
+ FROM ConsumptionData C  
+ WHERE C.DeviceID=@DeviceID AND (C.ReadingDate BETWEEN @WEEK_2_F AND @WEEK_2_L)  
+ AND C.Tariffnum = 0   
+ AND C.UsageTypeID IN (1,8,9)  
+ IF @TOTAL13 IS NULL  
+  SET @TOTAL13 = 0  
+ --Week3  
+ DECLARE @TOTAL14 FLOAT   
+ SELECT @TOTAL14 = SUM(C.Value)  
+ FROM ConsumptionData C  
+ WHERE C.DeviceID=@DeviceID AND (C.ReadingDate BETWEEN @WEEK_3_F AND @WEEK_3_L)  
+ AND C.Tariffnum = 0   
+ AND C.UsageTypeID IN (1,8,9)  
+ IF @TOTAL14 IS NULL  
+  SET @TOTAL14 = 0  
+ --Week4  
+ DECLARE @TOTAL15 FLOAT   
+ SELECT @TOTAL15 = SUM(C.Value)  
+ FROM ConsumptionData C  
+ WHERE C.DeviceID=@DeviceID AND (C.ReadingDate BETWEEN @WEEK_4_F AND @WEEK_4_L)  
+ AND C.Tariffnum = 0   
+ AND C.UsageTypeID IN (1,8,9)  
+ IF @TOTAL15 IS NULL  
+  SET @TOTAL15 = 0  
+ --Week5  
+ DECLARE @TOTAL16 FLOAT   
+ SELECT @TOTAL16 = SUM(C.Value)  
+ FROM ConsumptionData C  
+ WHERE C.DeviceID=@DeviceID AND (C.ReadingDate BETWEEN @WEEK_5_F AND @WEEK_5_L)  
+ AND C.Tariffnum = 0   
+ AND C.UsageTypeID IN (1,8,9)  
+ IF @TOTAL16 IS NULL  
+  SET @TOTAL16 = 0  
+ --Week6  
+ DECLARE @TOTAL17 FLOAT   
+ SELECT @TOTAL17 = SUM(C.Value)  
+ FROM ConsumptionData C  
+ WHERE C.DeviceID=@DeviceID AND (C.ReadingDate BETWEEN @WEEK_6_F AND @WEEK_6_L)  
+ AND C.Tariffnum = 0   
+ AND C.UsageTypeID IN (1,8,9)  
+ IF @TOTAL17 IS NULL  
+  SET @TOTAL17 = 0  
+ --去除小数点   
+ SELECT  
+ @DeviceID AS 'DeviceID',   
+ @NAME AS 'Name',  
+ ROUND(@TOTAL1,0) AS 'PreviousYear',  
+ ROUND(@TOTAL2,0) AS 'YearlyTarget',  
+ ROUND(@TOTAL3,0) AS 'YTD',  
+ ROUND(@TOTAL4,3) AS 'Percentage',  
+ ROUND(@TOTAL5,0) AS 'Q1',  
+ ROUND(@TOTAL6,0) AS 'Q2',  
+ ROUND(@TOTAL7,0) AS 'Q3',  
+ ROUND(@TOTAL8,0) AS 'Q4',  
+ ROUND(@TOTAL9,0) AS 'Month1',   
+ ROUND(@TOTAL10,0) AS 'Month2',  
+ ROUND(@TOTAL11,0) AS 'Month3',  
+ ROUND(@TOTAL12,0) AS 'Week1',  
+ ROUND(@TOTAL13,0) AS 'Week2',  
+ ROUND(@TOTAL14,0) AS 'Week3',  
+ ROUND(@TOTAL15,0) AS 'Week4',  
+ ROUND(@TOTAL16,0) AS 'Week4',  
+ ROUND(@TOTAL17,0) AS 'Week4',  
+ ROUND(@TOTAL,0) AS 'TotalYTD'  
+END  
+GO
+--获得去年的水电气    
+ALTER PROCEDURE [dbo].[GetAllEquipmentEnergy]    
+AS  
+BEGIN  
+ --去年第一天和最后一天    
+ DECLARE @DAY_YEAR_F DATETIME    
+ DECLARE @DAY_YEAR_L DATETIME    
+ SET @DAY_YEAR_F = DATEADD(yy, DATEDIFF(yy,0,GETDATE())-1, 0)    
+ SET @DAY_YEAR_L = DATEADD(ms,-3,DATEADD(yy, DATEDIFF(yy,0,GETDATE()), 0))      
+ --今年的第一天    
+ DECLARE @DAY_YEAR DATETIME    
+ SET @DAY_YEAR =DATEADD(yy, DATEDIFF(yy,0,GETDATE()), 0)
+ DECLARE @DAY_YEAR_CURT_L DATETIME
+ SET @DAY_YEAR_CURT_L = DATEADD(ms,-3,DATEADD(yy,1,@DAY_YEAR))
+ --获得四个季度的开始和截止时间    
+ DECLARE @QUARTER_1_F DATETIME    
+ DECLARE @QUARTER_1_L DATETIME    
+ DECLARE @QUARTER_2_F DATETIME    
+ DECLARE @QUARTER_2_L DATETIME    
+ DECLARE @QUARTER_3_F DATETIME    
+ DECLARE @QUARTER_3_L DATETIME    
+ DECLARE @QUARTER_4_F DATETIME    
+ DECLARE @QUARTER_4_L DATETIME    
+ SET @QUARTER_1_F = @DAY_YEAR    
+ SET @QUARTER_2_F = DATEADD(qq,1,@QUARTER_1_F)    
+ SET @QUARTER_3_F = DATEADD(qq,1,@QUARTER_2_F)    
+ SET @QUARTER_4_F = DATEADD(qq,1,@QUARTER_3_F)    
+ SET @QUARTER_1_L = DATEADD(ms,-3,@QUARTER_2_F)    
+ SET @QUARTER_2_L = DATEADD(ms,-3,@QUARTER_3_F)    
+ SET @QUARTER_3_L = DATEADD(ms,-3,@QUARTER_4_F)    
+ SET @QUARTER_4_L = DATEADD(ms,-3,DATEADD(yy,1,@DAY_YEAR))    
+ --获得当前季度的3个月    
+ DECLARE @MONTH_1_F DATETIME    
+ DECLARE @MONTH_1_L DATETIME    
+ DECLARE @MONTH_2_F DATETIME    
+ DECLARE @MONTH_2_L DATETIME    
+ DECLARE @MONTH_3_F DATETIME    
+ DECLARE @MONTH_3_L DATETIME    
+ SET @MONTH_1_F = DATEADD(mm,3*(DATEPART(qq,GETDATE())-1),@DAY_YEAR)    
+ SET @MONTH_1_L = DATEADD(ms,-3,DATEADD(mm,1,@MONTH_1_F))    
+ SET @MONTH_2_F = DATEADD(mm,1,@MONTH_1_F)    
+ SET @MONTH_2_L = DATEADD(ms,-3,DATEADD(mm,1,@MONTH_2_F))    
+ SET @MONTH_3_F = DATEADD(mm,2,@MONTH_1_F)    
+ SET @MONTH_3_L = DATEADD(ms,-3,DATEADD(mm,1,@MONTH_3_F))    
+ --获得当前月的各个星期  
+ DECLARE @DAY_WEEK    DATETIME--当前周的周一  
+ IF DATEPART(weekday,GETDATE()) = 1  
+ SET @DAY_WEEK = DATEADD(wk,DATEDIFF(wk,7,getdate()),0)      
+ ELSE  
+ SET @DAY_WEEK = DATEADD(wk,DATEDIFF(wk,0,GETDATE()),0)    
+ DECLARE @WEEK_1_F DATETIME    
+ DECLARE @WEEK_1_L DATETIME    
+ DECLARE @WEEK_2_F DATETIME    
+ DECLARE @WEEK_2_L DATETIME    
+ DECLARE @WEEK_3_F DATETIME    
+ DECLARE @WEEK_3_L DATETIME    
+ DECLARE @WEEK_4_F DATETIME    
+ DECLARE @WEEK_4_L DATETIME    
+ DECLARE @WEEK_5_F DATETIME    
+ DECLARE @WEEK_5_L DATETIME    
+ DECLARE @WEEK_6_F DATETIME    
+ DECLARE @WEEK_6_L DATETIME    
+ SET @WEEK_1_F = DATEADD(mm, DATEDIFF(m,0,GETDATE()), 0)--第一周第一天  
+ SET @WEEK_1_L = DATEADD(ms,-3,DATEADD(dd,9-DATEPART(weekday,@WEEK_1_F),@WEEK_1_F))--第一周最后一天    
+ SET @WEEK_2_F = DATEADD(dd,1,DATEADD(dd,8-DATEPART(weekday,@WEEK_1_F),@WEEK_1_F))--第二周第一天   
+ SET @WEEK_2_L = DATEADD(ms,-3,DATEADD(ww,1,@WEEK_2_F))    
+ SET @WEEK_3_F = DATEADD(ww, 1, @WEEK_2_F)    
+ SET @WEEK_3_L = DATEADD(ms,-3,DATEADD(ww,1,@WEEK_3_F))    
+ SET @WEEK_4_F = DATEADD(ww, 1, @WEEK_3_F)    
+ SET @WEEK_4_L = DATEADD(ms,-3,DATEADD(ww,1,@WEEK_4_F))   
+ SET @WEEK_5_F = DATEADD(ww, 1, @WEEK_4_F)  
+ SET @WEEK_5_L = DATEADD(ms,-3,DATEADD(ww,1,@WEEK_5_F))   
+ SET @WEEK_6_F = DATEADD(ww, 1, @WEEK_5_F)     
+ SET @WEEK_6_L = DATEADD(ms,-3,DATEADD(ww,1,@WEEK_6_F))  
+ --声明表变量    
+ DECLARE @TEMP_ENERGY TABLE(   
+ DeviceID INT,   
+ Name VARCHAR(510),    
+ PreviousYear FLOAT,    
+ YearlyTarget FLOAT,    
+ YTD FLOAT,    
+ Percentage FLOAT,    
+ Q1 FLOAT,    
+ Q2 FLOAT,    
+ Q3 FLOAT,    
+ Q4 FLOAT,    
+ Month1 FLOAT,    
+ Month2 FLOAT,    
+ Month3 FLOAT,    
+ Week1 FLOAT,    
+ Week2 FLOAT,    
+ Week3 FLOAT,    
+ Week4 FLOAT,   
+ Week5 FLOAT,  
+ Week6 FLOAT,  
+ TotalYTD FLOAT     
+ )    
+ --获得各个时间段的值    
+ DECLARE @TABLE TABLE(T INT,T1 INT)    
+ INSERT INTO @TABLE(T,T1) VALUES(390,412)    
+ INSERT INTO @TABLE(T,T1) VALUES(391,420)    
+ INSERT INTO @TABLE(T,T1) VALUES(392,417)    
+ INSERT INTO @TABLE(T,T1) VALUES(393,415)    
+ INSERT INTO @TABLE(T,T1) VALUES(394,423)    
+ INSERT INTO @TABLE(T,T1) VALUES(395,414)    
+ INSERT INTO @TABLE(T,T1) VALUES(396,418)    
+ INSERT INTO @TABLE(T,T1) VALUES(397,421)    
+ INSERT INTO @TABLE(T,T1) VALUES(398,422)    
+ INSERT INTO @TABLE(T,T1) VALUES(399,419)    
+ INSERT INTO @TABLE(T,T1) VALUES(400,416)    
+   
+ --今年的总数    
+ DECLARE @TOTAL FLOAT     
+ SELECT @TOTAL = SUM(C.Value)    
+ FROM ConsumptionData C    
+ WHERE C.DeviceID = 388  
+ AND (C.ReadingDate BETWEEN @DAY_YEAR AND GETDATE())    
+ AND C.Tariffnum = 0   
+ AND C.UsageTypeID IN (1,8,9)   
+ --循环ID表    
+ DECLARE @ID INT   
+ DECLARE @ID1 INT   
+ DECLARE CURSOR1 CURSOR FOR SELECT T,T1 FROM @TABLE    
+ OPEN CURSOR1    
+ FETCH NEXT FROM CURSOR1 INTO @ID,@ID1    
+ WHILE (@@fetch_status=0)    
+ BEGIN    
+  --NAME    
+  DECLARE @NAME NVARCHAR(510)    
+  SELECT @NAME = Name FROM dbo.ListOfDevices WHERE DeviceID = @ID    
+  --Previous Year    
+  DECLARE @TOTAL1 FLOAT     
+  SELECT @TOTAL1 = SUM(C.Value)    
+  FROM ConsumptionData C    
+  WHERE C.DeviceID = @ID    
+  AND (C.ReadingDate BETWEEN @DAY_YEAR_F AND @DAY_YEAR_L)    
+  AND C.Tariffnum = 0   
+  AND C.UsageTypeID IN (1,8,9)  
+  IF @TOTAL1 IS NULL     
+   SET @TOTAL1 = 0    
+  --Yearly Target    
+  DECLARE @TOTAL2 FLOAT         
+  SELECT @TOTAL2 = SUM(C.Value)    
+  FROM ConsumptionData C    
+  WHERE C.DeviceID = @ID1
+  AND (C.ReadingDate BETWEEN @DAY_YEAR AND @DAY_YEAR_CURT_L)  
+  AND C.Tariffnum = 0   
+  IF @TOTAL2 IS NULL     
+   SET @TOTAL2 = 0         
+  --YTD    
+  DECLARE @TOTAL3 FLOAT     
+  SELECT @TOTAL3 = SUM(C.Value)    
+  FROM ConsumptionData C    
+  WHERE C.DeviceID = @ID    
+  AND (C.ReadingDate BETWEEN @DAY_YEAR AND GETDATE())  
+  AND C.Tariffnum = 0   
+  AND C.UsageTypeID IN (1,8,9)  
+  IF @TOTAL3 IS NULL     
+   SET @TOTAL3 = 0    
+  --%    
+  DECLARE @TOTAL4 FLOAT     
+  IF @TOTAL IS NULL    
+   SET @TOTAL4 = 0    
+  ELSE    
+   SET @TOTAL4 = @TOTAL3/@TOTAL    
+  --Q1    
+  DECLARE @TOTAL5 FLOAT     
+  SELECT @TOTAL5 = SUM(C.Value)    
+  FROM ConsumptionData C    
+  WHERE C.DeviceID = @ID    
+  AND (C.ReadingDate BETWEEN @QUARTER_1_F AND @QUARTER_1_L)    
+  AND C.Tariffnum = 0   
+  AND C.UsageTypeID IN (1,8,9)  
+  IF @TOTAL5 IS NULL     
+   SET @TOTAL5 = 0    
+  --Q2    
+  DECLARE @TOTAL6 FLOAT     
+  SELECT @TOTAL6 = SUM(C.Value)    
+  FROM ConsumptionData C    
+  WHERE C.DeviceID = @ID    
+  AND (C.ReadingDate BETWEEN @QUARTER_2_F AND @QUARTER_2_L)    
+  AND C.Tariffnum = 0   
+  AND C.UsageTypeID IN (1,8,9)  
+  IF @TOTAL6 IS NULL     
+   SET @TOTAL6 = 0    
+  --Q3    
+  DECLARE @TOTAL7 FLOAT     
+  SELECT @TOTAL7 = SUM(C.Value)    
+  FROM ConsumptionData C    
+  WHERE C.DeviceID = @ID    
+  AND (C.ReadingDate BETWEEN @QUARTER_3_F AND @QUARTER_3_L)    
+  AND C.Tariffnum = 0   
+  AND C.UsageTypeID IN (1,8,9)  
+  IF @TOTAL7 IS NULL     
+   SET @TOTAL7 = 0     
+  --Q4    
+  DECLARE @TOTAL8 FLOAT     
+  SELECT @TOTAL8 = SUM(C.Value)    
+  FROM ConsumptionData C    
+  WHERE C.DeviceID = @ID    
+  AND (C.ReadingDate BETWEEN @QUARTER_4_F AND @QUARTER_4_L)    
+  AND C.Tariffnum = 0   
+  AND C.UsageTypeID IN (1,8,9)  
+  IF @TOTAL8 IS NULL     
+   SET @TOTAL8 = 0    
+  --Month1    
+  DECLARE @TOTAL9 FLOAT     
+  SELECT @TOTAL9 = SUM(C.Value)    
+  FROM ConsumptionData C    
+  WHERE C.DeviceID = @ID    
+  AND (C.ReadingDate BETWEEN @MONTH_1_F AND @MONTH_1_L)   
+  AND C.Tariffnum = 0   
+  AND C.UsageTypeID IN (1,8,9)  
+  IF @TOTAL9 IS NULL     
+   SET @TOTAL9 = 0     
+  --Month2    
+  DECLARE @TOTAL10 FLOAT     
+  SELECT @TOTAL10 = SUM(C.Value)    
+  FROM ConsumptionData C    
+  WHERE C.DeviceID = @ID    
+  AND (C.ReadingDate BETWEEN @MONTH_2_F AND @MONTH_2_L)    
+  AND C.Tariffnum = 0   
+  AND C.UsageTypeID IN (1,8,9)  
+  IF @TOTAL10 IS NULL     
+   SET @TOTAL10 = 0    
+  --Month3    
+  DECLARE @TOTAL11 FLOAT     
+  SELECT @TOTAL11 = SUM(C.Value)    
+  FROM ConsumptionData C    
+  WHERE C.DeviceID = @ID    
+  AND (C.ReadingDate BETWEEN @MONTH_3_F AND @MONTH_3_L)    
+  AND C.Tariffnum = 0   
+  AND C.UsageTypeID IN (1,8,9)  
+  IF @TOTAL11 IS NULL     
+   SET @TOTAL11 = 0     
+  --Week1    
+  DECLARE @TOTAL12 FLOAT     
+  SELECT @TOTAL12 = SUM(C.Value)    
+ FROM ConsumptionData C  
+  WHERE C.DeviceID = @ID    
+  AND (C.ReadingDate BETWEEN @WEEK_1_F AND @WEEK_1_L)    
+  AND C.Tariffnum = 0   
+  AND C.UsageTypeID IN (1,8,9)  
+  IF @TOTAL12 IS NULL     
+   SET @TOTAL12 = 0     
+  --Week2    
+  DECLARE @TOTAL13 FLOAT     
+  SELECT @TOTAL13 = SUM(C.Value)    
+ FROM ConsumptionData C  
+  WHERE C.DeviceID = @ID    
+  AND (C.ReadingDate BETWEEN @WEEK_2_F AND @WEEK_2_L)    
+  AND C.Tariffnum = 0   
+  AND C.UsageTypeID IN (1,8,9)  
+  IF @TOTAL13 IS NULL     
+   SET @TOTAL13 = 0     
+  --Week3    
+  DECLARE @TOTAL14 FLOAT     
+  SELECT @TOTAL14 = SUM(C.Value)    
+ FROM ConsumptionData C  
+  WHERE C.DeviceID = @ID    
+  AND (C.ReadingDate BETWEEN @WEEK_3_F AND @WEEK_3_L)    
+  AND C.Tariffnum = 0   
+  AND C.UsageTypeID IN (1,8,9)   
+  IF @TOTAL14 IS NULL     
+   SET @TOTAL14 = 0     
+  --Week4    
+  DECLARE @TOTAL15 FLOAT     
+  SELECT @TOTAL15 = SUM(C.Value)    
+ FROM ConsumptionData C  
+  WHERE C.DeviceID = @ID    
+  AND (C.ReadingDate BETWEEN @WEEK_4_F AND @WEEK_4_L)    
+  AND C.Tariffnum = 0   
+  AND C.UsageTypeID IN (1,8,9)  
+  IF @TOTAL15 IS NULL     
+   SET @TOTAL15 = 0    
+    
+  --Week5    
+  DECLARE @TOTAL16 FLOAT     
+  SELECT @TOTAL16 = SUM(C.Value)    
+ FROM ConsumptionData C  
+  WHERE C.DeviceID = @ID    
+  AND (C.ReadingDate BETWEEN @WEEK_5_F AND @WEEK_5_L)    
+  AND C.Tariffnum = 0   
+  AND C.UsageTypeID IN (1,8,9)  
+  IF @TOTAL16 IS NULL     
+   SET @TOTAL16 = 0     
+    
+  --Week6    
+  DECLARE @TOTAL17 FLOAT     
+  SELECT @TOTAL17 = SUM(C.Value)    
+ FROM ConsumptionData C  
+  WHERE C.DeviceID = @ID    
+  AND (C.ReadingDate BETWEEN @WEEK_6_F AND @WEEK_6_L)    
+  AND C.Tariffnum = 0   
+  AND C.UsageTypeID IN (1,8,9)  
+  IF @TOTAL17 IS NULL     
+   SET @TOTAL17 = 0        
+     
+  INSERT INTO @TEMP_ENERGY VALUES(  
+  @ID,  
+  @NAME,    
+  ROUND(@TOTAL1,0),    
+  ROUND(@TOTAL2,0),    
+  ROUND(@TOTAL3,0),    
+  ROUND(@TOTAL4,3),    
+  ROUND(@TOTAL5,0),    
+  ROUND(@TOTAL6,0),    
+  ROUND(@TOTAL7,0),    
+  ROUND(@TOTAL8,0),    
+  ROUND(@TOTAL9,0),    
+  ROUND(@TOTAL10,0),   
+  ROUND(@TOTAL11,0),    
+  ROUND(@TOTAL12,0),    
+  ROUND(@TOTAL13,0),    
+  ROUND(@TOTAL14,0),    
+  ROUND(@TOTAL15,0),  
+  ROUND(@TOTAL16,0),  
+  ROUND(@TOTAL17,0),    
+  0)    
+     
+ FETCH NEXT FROM CURSOR1 INTO @ID,@ID1    
+ END    
+ CLOSE CURSOR1    
+ DEALLOCATE CURSOR1    
+ DELETE @TABLE    
+   
+ --声明变量    
+ --Previous Year    
+ DECLARE @SUM_TOTAL_1 FLOAT     
+  SELECT @SUM_TOTAL_1 = SUM(C.Value)    
+  FROM ConsumptionData C    
+  WHERE C.DeviceID = 388    
+  AND (C.ReadingDate BETWEEN @DAY_YEAR_F AND @DAY_YEAR_L)    
+  AND C.Tariffnum = 0   
+  AND C.UsageTypeID IN (1,8,9)  
+  IF @SUM_TOTAL_1 IS NULL     
+   SET @SUM_TOTAL_1 = 0  
+ --Yearly Target 
+ DECLARE @SUM_TOTAL_2 FLOAT 
+ SELECT @SUM_TOTAL_2 = SUM(C.Value)    
+ FROM ConsumptionData C  
+  WHERE C.DeviceID = 413    
+  AND (C.ReadingDate BETWEEN @DAY_YEAR AND @DAY_YEAR_CURT_L)  
+  AND C.Tariffnum = 0   
+  IF @SUM_TOTAL_2 IS NULL     
+   SET @SUM_TOTAL_2 = 0         
+ --YTD    
+ DECLARE @SUM_TOTAL_3 FLOAT     
+ SELECT @SUM_TOTAL_3 = SUM(C.Value)    
+  FROM ConsumptionData C    
+  WHERE C.DeviceID = 388    
+  AND (C.ReadingDate BETWEEN @DAY_YEAR AND GETDATE())  
+  AND C.Tariffnum = 0   
+  AND C.UsageTypeID IN (1,8,9)  
+  IF @SUM_TOTAL_3 IS NULL     
+   SET @SUM_TOTAL_3 = 0      
+ --Q1    
+  DECLARE @SUM_TOTAL_5 FLOAT     
+  SELECT @SUM_TOTAL_5 = SUM(C.Value)    
+  FROM ConsumptionData C    
+  WHERE C.DeviceID = 388    
+  AND (C.ReadingDate BETWEEN @QUARTER_1_F AND @QUARTER_1_L)    
+  AND C.Tariffnum = 0   
+  AND C.UsageTypeID IN (1,8,9)  
+  IF @SUM_TOTAL_5 IS NULL     
+   SET @SUM_TOTAL_5 = 0    
+  --Q2    
+  DECLARE @SUM_TOTAL_6 FLOAT     
+  SELECT @SUM_TOTAL_6 = SUM(C.Value)    
+  FROM ConsumptionData C    
+  WHERE C.DeviceID = 388    
+  AND (C.ReadingDate BETWEEN @QUARTER_2_F AND @QUARTER_2_L)    
+  AND C.Tariffnum = 0   
+  AND C.UsageTypeID IN (1,8,9)  
+  IF @SUM_TOTAL_6 IS NULL     
+   SET @SUM_TOTAL_6 = 0    
+  --Q3    
+  DECLARE @SUM_TOTAL_7 FLOAT     
+  SELECT @SUM_TOTAL_7 = SUM(C.Value)    
+  FROM ConsumptionData C    
+  WHERE C.DeviceID = 388    
+  AND (C.ReadingDate BETWEEN @QUARTER_3_F AND @QUARTER_3_L)    
+  AND C.Tariffnum = 0   
+  AND C.UsageTypeID IN (1,8,9)  
+  IF @SUM_TOTAL_7 IS NULL     
+   SET @SUM_TOTAL_7 = 0     
+  --Q4    
+  DECLARE @SUM_TOTAL_8 FLOAT     
+  SELECT @SUM_TOTAL_8 = SUM(C.Value)    
+  FROM ConsumptionData C    
+  WHERE C.DeviceID = 388    
+  AND (C.ReadingDate BETWEEN @QUARTER_4_F AND @QUARTER_4_L)    
+  AND C.Tariffnum = 0   
+  AND C.UsageTypeID IN (1,8,9)  
+  IF @SUM_TOTAL_8 IS NULL     
+   SET @SUM_TOTAL_8 = 0    
+  --Month1    
+  DECLARE @SUM_TOTAL_9 FLOAT     
+  SELECT @SUM_TOTAL_9 = SUM(C.Value)    
+  FROM ConsumptionData C    
+  WHERE C.DeviceID = 388    
+  AND (C.ReadingDate BETWEEN @MONTH_1_F AND @MONTH_1_L)   
+  AND C.Tariffnum = 0   
+  AND C.UsageTypeID IN (1,8,9)  
+  IF @SUM_TOTAL_9 IS NULL     
+   SET @SUM_TOTAL_9 = 0     
+  --Month2    
+  DECLARE @SUM_TOTAL_10 FLOAT     
+  SELECT @SUM_TOTAL_10 = SUM(C.Value)    
+  FROM ConsumptionData C    
+  WHERE C.DeviceID = 388    
+  AND (C.ReadingDate BETWEEN @MONTH_2_F AND @MONTH_2_L)    
+  AND C.Tariffnum = 0   
+  AND C.UsageTypeID IN (1,8,9)  
+  IF @SUM_TOTAL_10 IS NULL     
+   SET @SUM_TOTAL_10 = 0    
+  --Month3    
+  DECLARE @SUM_TOTAL_11 FLOAT     
+  SELECT @SUM_TOTAL_11 = SUM(C.Value)    
+  FROM ConsumptionData C    
+  WHERE C.DeviceID = 388    
+  AND (C.ReadingDate BETWEEN @MONTH_3_F AND @MONTH_3_L)    
+  AND C.Tariffnum = 0   
+  AND C.UsageTypeID IN (1,8,9)  
+  IF @SUM_TOTAL_11 IS NULL     
+   SET @SUM_TOTAL_11 = 0     
+  --Week1    
+  DECLARE @SUM_TOTAL_12 FLOAT     
+  SELECT @SUM_TOTAL_12 = SUM(C.Value)    
+ FROM ConsumptionData C  
+  WHERE C.DeviceID = 388    
+  AND (C.ReadingDate BETWEEN @WEEK_1_F AND @WEEK_1_L)    
+  AND C.Tariffnum = 0   
+  AND C.UsageTypeID IN (1,8,9)  
+  IF @SUM_TOTAL_12 IS NULL     
+   SET @SUM_TOTAL_12 = 0     
+  --Week2    
+  DECLARE @SUM_TOTAL_13 FLOAT     
+  SELECT @SUM_TOTAL_13 = SUM(C.Value)    
+ FROM ConsumptionData C  
+  WHERE C.DeviceID = 388    
+  AND (C.ReadingDate BETWEEN @WEEK_2_F AND @WEEK_2_L)    
+  AND C.Tariffnum = 0   
+  AND C.UsageTypeID IN (1,8,9)  
+  IF @SUM_TOTAL_13 IS NULL     
+   SET @SUM_TOTAL_13 = 0     
+  --Week3    
+  DECLARE @SUM_TOTAL_14 FLOAT     
+  SELECT @SUM_TOTAL_14 = SUM(C.Value)    
+ FROM ConsumptionData C  
+  WHERE C.DeviceID = 388    
+  AND (C.ReadingDate BETWEEN @WEEK_3_F AND @WEEK_3_L)    
+  AND C.Tariffnum = 0   
+  AND C.UsageTypeID IN (1,8,9)   
+  IF @SUM_TOTAL_14 IS NULL     
+   SET @SUM_TOTAL_14 = 0     
+  --Week4    
+  DECLARE @SUM_TOTAL_15 FLOAT     
+  SELECT @SUM_TOTAL_15 = SUM(C.Value)    
+ FROM ConsumptionData C  
+  WHERE C.DeviceID = 388    
+  AND (C.ReadingDate BETWEEN @WEEK_4_F AND @WEEK_4_L)    
+  AND C.Tariffnum = 0   
+  AND C.UsageTypeID IN (1,8,9)  
+  IF @SUM_TOTAL_15 IS NULL     
+   SET @SUM_TOTAL_15 = 0    
+    
+  --Week5    
+  DECLARE @SUM_TOTAL_16 FLOAT     
+  SELECT @SUM_TOTAL_16 = SUM(C.Value)    
+ FROM ConsumptionData C  
+  WHERE C.DeviceID = 388    
+  AND (C.ReadingDate BETWEEN @WEEK_5_F AND @WEEK_5_L)    
+  AND C.Tariffnum = 0   
+  AND C.UsageTypeID IN (1,8,9)  
+  IF @SUM_TOTAL_16 IS NULL     
+   SET @SUM_TOTAL_16 = 0     
+    
+  --Week6    
+  DECLARE @SUM_TOTAL_17 FLOAT     
+  SELECT @SUM_TOTAL_17 = SUM(C.Value)    
+ FROM ConsumptionData C  
+  WHERE C.DeviceID = 388    
+  AND (C.ReadingDate BETWEEN @WEEK_6_F AND @WEEK_6_L)    
+  AND C.Tariffnum = 0   
+  AND C.UsageTypeID IN (1,8,9)  
+  IF @SUM_TOTAL_17 IS NULL     
+   SET @SUM_TOTAL_17 = 0        
+
+ INSERT INTO @TEMP_ENERGY VALUES(  
+ -1,  
+ 'Total',    
+ ROUND(@SUM_TOTAL_1,0),    
+ ROUND(@SUM_TOTAL_2,0),    
+ ROUND(@SUM_TOTAL_3,0),    
+ 1,    
+ ROUND(@SUM_TOTAL_5,0),    
+ ROUND(@SUM_TOTAL_6,0),    
+ ROUND(@SUM_TOTAL_7,0),    
+ ROUND(@SUM_TOTAL_8,0),    
+ ROUND(@SUM_TOTAL_9,0),    
+ ROUND(@SUM_TOTAL_10,0),    
+ ROUND(@SUM_TOTAL_11,0),    
+ ROUND(@SUM_TOTAL_12,0),    
+ ROUND(@SUM_TOTAL_13,0),    
+ ROUND(@SUM_TOTAL_14,0),    
+ ROUND(@SUM_TOTAL_15,0),   
+ ROUND(@SUM_TOTAL_16,0),  
+ ROUND(@SUM_TOTAL_17,0),   
+ 0)    
+ SELECT * FROM @TEMP_ENERGY    
+END  
+GO
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-
 --Dept. Equipment Energy Efficiency模块  
 ALTER PROCEDURE [dbo].[GetEquipmentEnergyEfficiency]  
  @DeviceID INT,  

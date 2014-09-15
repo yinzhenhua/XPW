@@ -265,7 +265,20 @@ namespace XPW
                                 }
                             }
                             break;
-                        case 4://第5行
+                        case 2:
+                        case 3:
+                            {
+                                for (int i = 1; i < e.Row.Cells.Count; i++)
+                                {
+                                    double value = Convert.ToDouble(e.Row.Cells[i].Text);
+                                    if (value >= 1000)
+                                    {
+                                        e.Row.Cells[i].Text = string.Format("{0:N0}", value);
+                                    }
+                                }
+                            }
+                            break;
+                        case 4://第4行
                             {
                                 for (int i = 1; i < e.Row.Cells.Count; i++)
                                 {

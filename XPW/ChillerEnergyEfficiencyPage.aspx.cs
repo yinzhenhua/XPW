@@ -97,6 +97,24 @@ namespace XPW
                     + "height: 25px;";
                     e.Row.Cells[0].Attributes.Remove("style");
                     e.Row.Cells[0].Attributes.Add("style", style);
+
+                    switch (e.Row.RowIndex)
+                    {
+                        case 1://第一行
+                        case 4:
+                        case 5:
+                            {
+                                for (int i = 1; i < e.Row.Cells.Count; i++)
+                                {
+                                    double value = Convert.ToDouble(e.Row.Cells[i].Text);
+                                    if (value >= 1000)
+                                    {
+                                        e.Row.Cells[i].Text = string.Format("{0:N0}", value);
+                                    }
+                                }
+                            }
+                            break;
+                    }
                 }
             }
             catch (Exception ex)

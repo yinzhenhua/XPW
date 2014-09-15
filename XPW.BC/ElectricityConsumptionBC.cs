@@ -40,8 +40,9 @@ namespace XPW.BC
         {
             try
             {
+                int deviceID1 = Common.GetYearlyTargetID(deviceID);
                 ElectricityConsumptionDS ds = new ElectricityConsumptionDS();
-                SqlDBAccess.Instance.Fill(ds.ElectricityConsumption, "GetEquipmentEnergy", new object[] { deviceID });
+                SqlDBAccess.Instance.Fill(ds.ElectricityConsumption, "GetEquipmentEnergy", new object[] { deviceID, deviceID1 });
                 return ds;
             }
             catch (Exception ex)
