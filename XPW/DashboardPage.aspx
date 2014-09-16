@@ -66,12 +66,12 @@
                     <asp:Legend Name="Default" Docking="Bottom">
                     </asp:Legend>
                 </Legends>--%>
-                    <%--<BorderSkin SkinStyle="Emboss" />--%>
+                    <BorderSkin SkinStyle="None" />
                     <ChartAreas>
                         <asp:ChartArea Name="ChartArea1" BorderColor="64, 64, 64, 64" BorderDashStyle="Solid"
                             BackSecondaryColor="White" BackColor="64, 165, 191, 228" ShadowColor="Transparent"
                             BackGradientStyle="TopBottom">
-                            <Area3DStyle Rotation="10" Perspective="10" Inclination="15" IsRightAngleAxes="False" WallWidth="0" IsClustered="False"></Area3DStyle>
+                            <%--<Area3DStyle Rotation="10" Perspective="10" Inclination="15" IsRightAngleAxes="False" WallWidth="0" IsClustered="False"></Area3DStyle>--%>
                             <AxisY LineColor="64, 64, 64, 64" IsLabelAutoFit="False">
                                 <LabelStyle Font="微软雅黑, 6.5pt, style=Bold" />
                                 <MajorGrid LineColor="64, 64, 64, 64" />

@@ -92,9 +92,13 @@ namespace XPW
 
             for (var i = 0; i < xvalues.Length; i++)
             {
-                series.Points[i].Color = ColorSupplyer.GenColor();
+                //series.Points[i].Color = ColorSupplyer.GenColor();
                 series.Points[i].PostBackValue = string.Format("{0}_{1}", deviceId.ToString(CultureInfo.InvariantCulture), (int)ChartDataType.Year);
+                series["PixelPointWidth"] = "80";
             }
+            series.Points[0].Color = Color.BlueViolet;
+            series.Points[1].Color = Color.YellowGreen;
+            series.Points[2].Color = Color.Orange;
             chartEnerge.Series.Add(series);
         }
 
@@ -123,6 +127,7 @@ namespace XPW
                 series.Points[i].Color = ColorSupplyer.GenColor();
                 series.Points[i].PostBackValue = string.Format("{0}_{1}_{2}",
                     deviceId.ToString(CultureInfo.InvariantCulture), (int)dtype, xvalues[i]);
+                series["PixelPointWidth"] = "30";
             }
 
             chartEnerge.Series.Add(series);
