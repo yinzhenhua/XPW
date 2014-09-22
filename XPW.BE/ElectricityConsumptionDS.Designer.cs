@@ -319,6 +319,8 @@ namespace XPW.BE {
             
             private global::System.Data.DataColumn columnTotalYTD;
             
+            private global::System.Data.DataColumn columnDeviceIDS;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ElectricityConsumptionDataTable() {
@@ -514,6 +516,14 @@ namespace XPW.BE {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn DeviceIDSColumn {
+                get {
+                    return this.columnDeviceIDS;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -569,7 +579,8 @@ namespace XPW.BE {
                         double Week4, 
                         double Week5, 
                         double Week6, 
-                        double TotalYTD) {
+                        double TotalYTD, 
+                        string DeviceIDS) {
                 ElectricityConsumptionRow rowElectricityConsumptionRow = ((ElectricityConsumptionRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         DeviceID,
@@ -591,17 +602,11 @@ namespace XPW.BE {
                         Week4,
                         Week5,
                         Week6,
-                        TotalYTD};
+                        TotalYTD,
+                        DeviceIDS};
                 rowElectricityConsumptionRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowElectricityConsumptionRow);
                 return rowElectricityConsumptionRow;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ElectricityConsumptionRow FindByDeviceID(int DeviceID) {
-                return ((ElectricityConsumptionRow)(this.Rows.Find(new object[] {
-                            DeviceID})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -641,6 +646,7 @@ namespace XPW.BE {
                 this.columnWeek5 = base.Columns["Week5"];
                 this.columnWeek6 = base.Columns["Week6"];
                 this.columnTotalYTD = base.Columns["TotalYTD"];
+                this.columnDeviceIDS = base.Columns["DeviceIDS"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -686,10 +692,9 @@ namespace XPW.BE {
                 base.Columns.Add(this.columnWeek6);
                 this.columnTotalYTD = new global::System.Data.DataColumn("TotalYTD", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTotalYTD);
-                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this.columnDeviceID}, true));
+                this.columnDeviceIDS = new global::System.Data.DataColumn("DeviceIDS", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDeviceIDS);
                 this.columnDeviceID.AllowDBNull = false;
-                this.columnDeviceID.Unique = true;
                 this.columnName.MaxLength = 510;
                 this.columnPreviousYear.DefaultValue = ((double)(0D));
                 this.columnYearlyTarget.DefaultValue = ((double)(0D));
@@ -1182,6 +1187,22 @@ namespace XPW.BE {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string DeviceIDS {
+                get {
+                    if (this.IsDeviceIDSNull()) {
+                        return string.Empty;
+                    }
+                    else {
+                        return ((string)(this[this.tableElectricityConsumption.DeviceIDSColumn]));
+                    }
+                }
+                set {
+                    this[this.tableElectricityConsumption.DeviceIDSColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsNameNull() {
                 return this.IsNull(this.tableElectricityConsumption.NameColumn);
             }
@@ -1406,6 +1427,18 @@ namespace XPW.BE {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetTotalYTDNull() {
                 this[this.tableElectricityConsumption.TotalYTDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsDeviceIDSNull() {
+                return this.IsNull(this.tableElectricityConsumption.DeviceIDSColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetDeviceIDSNull() {
+                this[this.tableElectricityConsumption.DeviceIDSColumn] = global::System.Convert.DBNull;
             }
         }
         

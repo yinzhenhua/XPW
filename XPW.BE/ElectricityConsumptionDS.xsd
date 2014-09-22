@@ -15,7 +15,7 @@
         <xs:element name="ElectricityConsumption" msprop:Generator_TableClassName="ElectricityConsumptionDataTable" msprop:Generator_TableVarName="tableElectricityConsumption" msprop:Generator_TablePropName="ElectricityConsumption" msprop:Generator_RowDeletingName="ElectricityConsumptionRowDeleting" msprop:Generator_RowChangingName="ElectricityConsumptionRowChanging" msprop:Generator_RowEvHandlerName="ElectricityConsumptionRowChangeEventHandler" msprop:Generator_RowDeletedName="ElectricityConsumptionRowDeleted" msprop:Generator_UserTableName="ElectricityConsumption" msprop:Generator_RowChangedName="ElectricityConsumptionRowChanged" msprop:Generator_RowEvArgName="ElectricityConsumptionRowChangeEvent" msprop:Generator_RowClassName="ElectricityConsumptionRow">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="DeviceID" msprop:Generator_ColumnVarNameInTable="columnDeviceID" msprop:Generator_ColumnPropNameInRow="DeviceID" msprop:Generator_ColumnPropNameInTable="DeviceIDColumn" msprop:Generator_UserColumnName="DeviceID" type="xs:int" />
+              <xs:element name="DeviceID" msprop:nullValue="_throw" msprop:Generator_ColumnPropNameInRow="DeviceID" msprop:Generator_ColumnVarNameInTable="columnDeviceID" msprop:Generator_ColumnPropNameInTable="DeviceIDColumn" msprop:Generator_UserColumnName="DeviceID" type="xs:int" />
               <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -41,14 +41,11 @@
               <xs:element name="Week5" msdata:Caption="YearlyTarget" msprop:nullValue="0" msprop:Generator_ColumnPropNameInRow="Week5" msprop:Generator_ColumnVarNameInTable="columnWeek5" msprop:Generator_ColumnPropNameInTable="Week5Column" msprop:Generator_UserColumnName="Week5" type="xs:double" default="0" minOccurs="0" />
               <xs:element name="Week6" msdata:Caption="YearlyTarget" msprop:nullValue="0" msprop:Generator_ColumnPropNameInRow="Week6" msprop:Generator_ColumnVarNameInTable="columnWeek6" msprop:Generator_ColumnPropNameInTable="Week6Column" msprop:Generator_UserColumnName="Week6" type="xs:double" default="0" minOccurs="0" />
               <xs:element name="TotalYTD" msdata:Caption="YearlyTarget" msprop:nullValue="0" msprop:Generator_ColumnPropNameInRow="TotalYTD" msprop:Generator_ColumnVarNameInTable="columnTotalYTD" msprop:Generator_ColumnPropNameInTable="TotalYTDColumn" msprop:Generator_UserColumnName="TotalYTD" type="xs:double" default="0" minOccurs="0" />
+              <xs:element name="DeviceIDS" msprop:Generator_ColumnVarNameInTable="columnDeviceIDS" msprop:Generator_ColumnPropNameInRow="DeviceIDS" msprop:nullValue="_empty" msprop:Generator_ColumnPropNameInTable="DeviceIDSColumn" msprop:Generator_UserColumnName="DeviceIDS" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
       </xs:choice>
     </xs:complexType>
-    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:ElectricityConsumption" />
-      <xs:field xpath="mstns:DeviceID" />
-    </xs:unique>
   </xs:element>
 </xs:schema>

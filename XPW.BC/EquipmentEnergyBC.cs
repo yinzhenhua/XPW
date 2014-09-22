@@ -61,6 +61,55 @@ namespace XPW.BC
             }
         }
         /// <summary>
+        /// 获得EquipmentEnergyEfficiency,参数从ElectricityConsumptionPage每一行传过来
+        /// </summary>
+        /// <returns></returns>
+        public EquipmentEnergyEfficiencyDS GetEquipmentEnergyEfficiencyEx(
+            double PreviousYear,
+            double YTD,
+            double Q1,
+            double Q2,
+            double Q3,
+            double Q4,
+            double Month1,
+            double Month2,
+            double Month3,
+            double Week1,
+            double Week2,
+            double Week3,
+            double Week4,
+            double Week5,
+            double Week6
+            )
+        {
+            try
+            {
+                EquipmentEnergyEfficiencyDS ds = new EquipmentEnergyEfficiencyDS();
+                SqlDBAccess.Instance.Fill(ds.EquipmentEnergyEfficiency, "GetEquipmentEnergyEfficiencyEx", new object[]{
+                    PreviousYear,
+                    YTD,
+                    Q1,
+                    Q2,
+                    Q3,
+                    Q4,
+                    Month1,
+                    Month2,
+                    Month3,
+                    Week1,
+                    Week2,
+                    Week3,
+                    Week4,
+                    Week5,
+                    Week6
+                });
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        /// <summary>
         /// 获得ChillerEnergyEfficiency
         /// </summary>
         /// <returns></returns>
@@ -87,37 +136,7 @@ namespace XPW.BC
                 table.Columns.Add("Total", typeof(double));
                 table.Columns.Add("Name", typeof(string));
                 table.Columns.Add("BaseLine", typeof(double));
-                ////Chiller 1#
-                //DataRow newRow1 = table.NewRow();
-                //newRow1[0] = 0.3;
-                //newRow1[1] = "Chiller 1#";
-                //newRow1[2] = 1;
-                //table.Rows.Add(newRow1);
-                ////Chiller 2#
-                //DataRow newRow2 = table.NewRow();
-                //newRow2[0] = 1.1;
-                //newRow2[1] = "Chiller 2#";
-                //newRow2[2] = 1;
-                //table.Rows.Add(newRow2);
-                ////Chiller 3#
-                //DataRow newRow3 = table.NewRow();
-                //newRow3[0] = 1.0;
-                //newRow3[1] = "Chiller 3#";
-                //newRow3[2] = 1;
-                //table.Rows.Add(newRow3);
-                ////Chiller 4#
-                //DataRow newRow4 = table.NewRow();
-                //newRow4[0] = 0.6;
-                //newRow4[1] = "Chiller 4#";
-                //newRow4[2] = 1;
-                //table.Rows.Add(newRow4);
-                ////Chiller 5#
-                //DataRow newRow5 = table.NewRow();
-                //newRow5[0] = 0.87;
-                //newRow5[1] = "Chiller 5#";
-                //newRow5[2] = 1;
-                //table.Rows.Add(newRow5);
-                //Chiller 1#
+
                 DataRow newRow1 = table.NewRow();
                 newRow1[0] = row.Chiller1;
                 newRow1[1] = "Chiller 1#";
@@ -221,27 +240,33 @@ namespace XPW.BC
             //Week1
             DataRow newRow10 = table.NewRow();
             newRow10[0] = efficiencyRow.Week1;
-            newRow10[1] = "Week-1";
+            newRow10[1] = "Week35";
             newRow10[2] = 1.0;
             table.Rows.Add(newRow10);
             //Week2
             DataRow newRow11 = table.NewRow();
             newRow11[0] = efficiencyRow.Week2;
-            newRow11[1] = "Week-2";
+            newRow11[1] = "Week36";
             newRow11[2] = 1.0;
             table.Rows.Add(newRow11);
             //Week3
             DataRow newRow12 = table.NewRow();
             newRow12[0] = efficiencyRow.Week3;
-            newRow12[1] = "Week-3";
+            newRow12[1] = "Week37";
             newRow12[2] = 1.0;
             table.Rows.Add(newRow12);
             //Week4
             DataRow newRow13 = table.NewRow();
-            newRow13[0] = efficiencyRow.Week3;
-            newRow13[1] = "Week-4";
+            newRow13[0] = efficiencyRow.Week4;
+            newRow13[1] = "Week38";
             newRow13[2] = 1.0;
             table.Rows.Add(newRow13);
+            //Week5
+            DataRow newRow14 = table.NewRow();
+            newRow14[0] = efficiencyRow.Week5;
+            newRow14[1] = "Week39";
+            newRow14[2] = 1.0;
+            table.Rows.Add(newRow14);
 
             return table;
         }

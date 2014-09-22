@@ -189,6 +189,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="DashboardPage.aspx" />
     <Content Include="ElectricityConsumptionPage.aspx" />
+    <Content Include="EnergyConsumptionStatistics.aspx" />
     <Content Include="EquipmentEnergyEfficiencyPage.aspx" />
     <Content Include="Images\accent.png" />
     <Content Include="Images\bg-cv-tit.gif" />
@@ -320,6 +321,13 @@
     </Compile>
     <Compile Include="ElectricityConsumptionPage.aspx.designer.cs">
       <DependentUpon>ElectricityConsumptionPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EnergyConsumptionStatistics.aspx.cs">
+      <DependentUpon>EnergyConsumptionStatistics.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EnergyConsumptionStatistics.aspx.designer.cs">
+      <DependentUpon>EnergyConsumptionStatistics.aspx</DependentUpon>
     </Compile>
     <Compile Include="EquipmentEnergyEfficiencyPage.aspx.cs">
       <DependentUpon>EquipmentEnergyEfficiencyPage.aspx</DependentUpon>
