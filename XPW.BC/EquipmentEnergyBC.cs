@@ -237,34 +237,35 @@ namespace XPW.BC
             newRow9[1] = strs[2];
             newRow9[2] = 1.0;
             table.Rows.Add(newRow9);
+            int week = Common.GetWeekOfYear();
             //Week1
             DataRow newRow10 = table.NewRow();
             newRow10[0] = efficiencyRow.Week1;
-            newRow10[1] = "Week35";
+            newRow10[1] = "Week" + week.ToString();
             newRow10[2] = 1.0;
             table.Rows.Add(newRow10);
             //Week2
             DataRow newRow11 = table.NewRow();
             newRow11[0] = efficiencyRow.Week2;
-            newRow11[1] = "Week36";
+            newRow11[1] = "Week" + (week + 1).ToString();
             newRow11[2] = 1.0;
             table.Rows.Add(newRow11);
             //Week3
             DataRow newRow12 = table.NewRow();
             newRow12[0] = efficiencyRow.Week3;
-            newRow12[1] = "Week37";
+            newRow12[1] = "Week" + (week + 2).ToString();
             newRow12[2] = 1.0;
             table.Rows.Add(newRow12);
             //Week4
             DataRow newRow13 = table.NewRow();
             newRow13[0] = efficiencyRow.Week4;
-            newRow13[1] = "Week38";
+            newRow13[1] = "Week" + (week + 3).ToString();
             newRow13[2] = 1.0;
             table.Rows.Add(newRow13);
             //Week5
             DataRow newRow14 = table.NewRow();
             newRow14[0] = efficiencyRow.Week5;
-            newRow14[1] = "Week39";
+            newRow14[1] = "Week" + (week + 4).ToString();
             newRow14[2] = 1.0;
             table.Rows.Add(newRow14);
 

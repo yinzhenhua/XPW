@@ -50,7 +50,7 @@ namespace XPW
                     }
                     else if (rblEnergy.SelectedValue == "1")
                     {
-                        dvBody.Style.Add("height", "225px");
+                        dvBody.Style.Add("height", "520px");
                         ElectricityConsumptionDS ds = _bc.GetAllEquipmentWater();
                         gvDept.DataSource = ds.ElectricityConsumption;
                         gvDept.DataBind();
@@ -211,6 +211,13 @@ namespace XPW
                     e.Row.Cells[10].Text = strs[0];
                     e.Row.Cells[11].Text = strs[1];
                     e.Row.Cells[12].Text = strs[2];
+                    //Week35
+                    int week = Common.GetWeekOfYear();
+                    e.Row.Cells[13].Text = "Week" + week.ToString();
+                    e.Row.Cells[14].Text = "Week" + (week + 1).ToString();
+                    e.Row.Cells[15].Text = "Week" + (week + 2).ToString();
+                    e.Row.Cells[16].Text = "Week" + (week + 3).ToString();
+                    e.Row.Cells[17].Text = "Week" + (week + 4).ToString();
                 }
             }
             catch (Exception ex)
@@ -295,10 +302,19 @@ namespace XPW
             dvEnergy.Visible = false;
             dlSite.Items.Clear();
             dlSite.Items.AddRange(new ListItem[] {
-                    new ListItem("ALL","-1"),
-                    new ListItem("Admin","310,311,312,370,374,377,380,381"),
-                    new ListItem("FAC","356,375,380,381,384"),
-                    new ListItem("MFG","354,362,376,378,379,386,387")
+                    new ListItem("ALL","-1")
+                    //new ListItem("FAC","354,362,376,378,379,386,387"),
+                    //new ListItem("TEST","354,362,376,378,379,386,387"),
+                    //new ListItem("DP","354,362,376,378,379,386,387"),
+                    //new ListItem("KGD","354,362,376,378,379,386,387"),
+                    //new ListItem("BOP","354,362,376,378,379,386,387"),
+                    //new ListItem("MOLD","354,362,376,378,379,386,387"),
+                    //new ListItem("COP","354,362,376,378,379,386,387"),
+                    //new ListItem("SMT","354,362,376,378,379,386,387"),
+                    //new ListItem("LAB","354,362,376,378,379,386,387"),
+                    //new ListItem("EMI","354,362,376,378,379,386,387"),
+                    //new ListItem("RFF","354,362,376,378,379,386,387"),
+                    //new ListItem("MFG","354,362,376,378,379,386,387"),
                 });
             ElectricityConsumptionDS ds = _bc.GetAllEquipmentWater();
             gvDept.DataSource = ds.ElectricityConsumption;
@@ -309,10 +325,10 @@ namespace XPW
             dvEnergy.Visible = false;
             dlSite.Items.Clear();
             dlSite.Items.AddRange(new ListItem[] {
-                    new ListItem("ALL","-1"),
-                    new ListItem("BOP","366"),
-                    new ListItem("FOP","367"),
-                    new ListItem("KGD","368")
+                    new ListItem("ALL","-1")
+                    //new ListItem("BOP","366"),
+                    //new ListItem("FOP","367"),
+                    //new ListItem("KGD","368")
                 });
             ElectricityConsumptionDS ds = _bc.GetAllEquipmentN2();
             gvDept.DataSource = ds.ElectricityConsumption;
@@ -332,7 +348,7 @@ namespace XPW
                 }
                 else if (rblEnergy.SelectedValue == "1")
                 {
-                    dvBody.Style.Add("height", "225px");
+                    dvBody.Style.Add("height", "520px");
                     InitializeWater();
                 }
                 else if (rblEnergy.SelectedValue == "2")
@@ -356,6 +372,13 @@ namespace XPW
                 e.Row.Cells[7].Text = strs[0];
                 e.Row.Cells[8].Text = strs[1];
                 e.Row.Cells[9].Text = strs[2];
+                //Week35
+                int week = Common.GetWeekOfYear();
+                e.Row.Cells[10].Text = "Week" + week.ToString();
+                e.Row.Cells[11].Text = "Week" + (week + 1).ToString();
+                e.Row.Cells[12].Text = "Week" + (week + 2).ToString();
+                e.Row.Cells[13].Text = "Week" + (week + 3).ToString();
+                e.Row.Cells[14].Text = "Week" + (week + 4).ToString();
             }
             catch (Exception ex)
             {

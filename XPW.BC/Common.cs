@@ -19,7 +19,17 @@ namespace XPW.BC
             strs[2] = Months[monthF + 1];
             return strs;
         }
-
+        /// <summary>
+        /// 获得当前月的第一天所在一年中的第几周
+        /// </summary>
+        /// <returns></returns>
+        public static int GetWeekOfYear()
+        {
+            DateTime time = DateTime.Parse(DateTime.Now.Year.ToString() + "-01-01");
+            DateTime time1 = time.AddMonths(DateTime.Now.Month);
+            int weeks = (time1.DayOfYear - time.DayOfYear - (7 - (int)time.DayOfWeek) - (int)time1.DayOfWeek) / 7 + 2;
+            return weeks;
+        }
         public static int GetYearlyTargetID(int deviceID)
         {
             switch (deviceID)

@@ -315,30 +315,32 @@ namespace XPW.BC
             newRow10[0] = ds.ElectricityConsumption[0].Month3;
             newRow10[1] = strs[2];
             table2.Rows.Add(newRow10);
+            //Week35
+            int week = Common.GetWeekOfYear();
             //Week1
             DataRow newRow11 = table2.NewRow();
             newRow11[0] = ds.ElectricityConsumption[0].Week1;
-            newRow11[1] = "Week35";
+            newRow11[1] = "Week" + week.ToString();
             table2.Rows.Add(newRow11);
             //Week2
             DataRow newRow12 = table2.NewRow();
             newRow12[0] = ds.ElectricityConsumption[0].Week2;
-            newRow12[1] = "Week36";
+            newRow12[1] = "Week" + (week + 1).ToString();
             table2.Rows.Add(newRow12);
             //Week3
             DataRow newRow13 = table2.NewRow();
             newRow13[0] = ds.ElectricityConsumption[0].Week3;
-            newRow13[1] = "Week37";
+            newRow13[1] = "Week" + (week + 2).ToString();
             table2.Rows.Add(newRow13);
             //Week4
             DataRow newRow14 = table2.NewRow();
             newRow14[0] = ds.ElectricityConsumption[0].Week4;
-            newRow14[1] = "Week38";
+            newRow14[1] = "Week" + (week + 3).ToString();
             table2.Rows.Add(newRow14);
             //Week5
             DataRow newRow15 = table2.NewRow();
             newRow15[0] = ds.ElectricityConsumption[0].Week5;
-            newRow15[1] = "Week39";
+            newRow15[1] = "Week" + (week + 4).ToString();
             table2.Rows.Add(newRow15);
 
             return tables;
